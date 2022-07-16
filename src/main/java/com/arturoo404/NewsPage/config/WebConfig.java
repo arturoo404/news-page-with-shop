@@ -31,9 +31,10 @@ public class WebConfig {
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+                .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/admin").authenticated()
+                .antMatchers("/api/user/registration").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
