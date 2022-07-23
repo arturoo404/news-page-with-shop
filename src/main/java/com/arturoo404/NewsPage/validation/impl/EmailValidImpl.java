@@ -24,7 +24,7 @@ public class EmailValidImpl implements EmailValid{
     @Override
     public void emailValid(String email) throws ValidException {
         Matcher matcher = pattern.matcher(email);
-        if (matcher.matches()){
+        if (!matcher.matches()){
             throw new ValidException("Bad email");
         }
         if (!userRepository.findByEmail(email).isEmpty()){

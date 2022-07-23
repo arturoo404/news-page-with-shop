@@ -21,7 +21,7 @@ public class UserApiController {
         this.userService = userService;
     }
 
-    @PostMapping(path = "/registration")
+    @PostMapping(path = "/registration", headers = "Accept=application/json")
     public ResponseEntity<Object> userRegistration(@RequestBody UserRegistrationDto userRegistrationDto){
         User user;
         try {
