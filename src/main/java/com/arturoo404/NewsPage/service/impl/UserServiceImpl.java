@@ -7,6 +7,7 @@ import com.arturoo404.NewsPage.exception.ValidException;
 import com.arturoo404.NewsPage.repository.UserRepository;
 import com.arturoo404.NewsPage.service.UserService;
 import com.arturoo404.NewsPage.validation.RegistrationValid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,6 +20,7 @@ public class UserServiceImpl implements UserService {
 
     private final RegistrationValid registrationValid;
 
+    @Autowired
     public UserServiceImpl(UserRepository userRepository, RegistrationValid registrationValid) {
         this.userRepository = userRepository;
         this.registrationValid = registrationValid;
