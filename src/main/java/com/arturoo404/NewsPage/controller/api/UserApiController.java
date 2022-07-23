@@ -4,6 +4,7 @@ import com.arturoo404.NewsPage.entity.user.User;
 import com.arturoo404.NewsPage.entity.user.dto.UserRegistrationDto;
 import com.arturoo404.NewsPage.exception.ValidException;
 import com.arturoo404.NewsPage.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,7 @@ public class UserApiController {
 
     private final UserService userService;
 
+    @Autowired
     public UserApiController(UserService userService) {
         this.userService = userService;
     }

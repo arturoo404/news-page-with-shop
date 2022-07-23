@@ -16,11 +16,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements UserService {
 
+    @Autowired
     private final UserRepository userRepository;
 
+    @Autowired
     private final RegistrationValid registrationValid;
 
-    @Autowired
     public UserServiceImpl(UserRepository userRepository, RegistrationValid registrationValid) {
         this.userRepository = userRepository;
         this.registrationValid = registrationValid;
