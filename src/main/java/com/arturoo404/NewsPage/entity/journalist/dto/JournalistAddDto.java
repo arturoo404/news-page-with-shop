@@ -6,5 +6,4 @@ import lombok.Getter;
 public class JournalistAddDto {
     private String name;
     private String info;
-    private byte[] photo;
 }

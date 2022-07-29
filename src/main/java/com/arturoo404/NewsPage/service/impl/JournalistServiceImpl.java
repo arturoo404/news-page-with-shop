@@ -9,6 +9,7 @@ import com.sun.jdi.request.DuplicateRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.Optional;
 
 @Service
@@ -31,7 +32,6 @@ public class JournalistServiceImpl implements JournalistService {
                 Journalist.builder()
                         .name(journalistAddDto.getName())
                         .info(journalistAddDto.getInfo())
-                        .photo(journalistAddDto.getPhoto())
                         .build()
         );
     }
