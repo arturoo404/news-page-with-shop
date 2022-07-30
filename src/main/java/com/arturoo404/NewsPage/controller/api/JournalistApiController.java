@@ -6,9 +6,10 @@ import com.arturoo404.NewsPage.service.JournalistService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Controller
 @RequestMapping(path = "/api/journalist")
@@ -33,5 +34,13 @@ public class JournalistApiController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(e.getMessage());
         }
+    }
+
+    @PostMapping(path = "/photo/add/{id}")
+    public ResponseEntity<Object> addJournalistPhoto(@RequestParam("file") MultipartFile photo,
+                                                     @PathVariable("id") Short id) throws IOException {
+        journalistService.addJournalistPhoto(photo, id);
+        return ResponseEntity
+                .ok("Photo uploaded successfully.");
     }
 }

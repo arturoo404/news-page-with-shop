@@ -23,8 +23,17 @@ function add_journalist() {
                 console.log(xhr);
             },
             success:function(data) {
-                console.log(data);
+                uploadFile(data.id);
             }
+        });
+    }
+
+    async function uploadFile(id) {
+        let formData = new FormData();
+        formData.append("file", photo.files[0]);
+        let response = await fetch('/api/journalist/photo/add/' + id, {
+            method: "POST",
+            body: formData
         });
     }
 
