@@ -21,15 +21,31 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false, length = 80)
+
+    @Column(
+            nullable = false,
+            length = 80
+    )
     private String password;
-    @Column(unique = true, nullable = false, length = 80)
+
+    @Column(
+            unique = true,
+            nullable = false,
+            length = 80
+    )
     private String email;
-    @Column(nullable = false, length = 30)
+
+    @Column(
+            nullable = false,
+            length = 30
+    )
     private String nick;
+
     @Enumerated(value = EnumType.STRING)
     private UserRole userRole;
+
     private boolean enabled = true;
+
     private boolean locked = false;
 
     @Override

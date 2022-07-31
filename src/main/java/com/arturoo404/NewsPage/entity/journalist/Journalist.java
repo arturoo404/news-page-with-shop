@@ -1,5 +1,6 @@
 package com.arturoo404.NewsPage.entity.journalist;
 
+import com.arturoo404.NewsPage.entity.article.Article;
 import lombok.*;
 
 import javax.persistence.*;
@@ -16,10 +17,26 @@ public class Journalist {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Short id;
-    @Column(name = "name", length = 80, unique = true)
+
+    @Column(
+            name = "name",
+            length = 80,
+            unique = true
+    )
     private String name;
-    @Column(name = "info", length = 2500)
+
+    @Column(
+            name = "info",
+            length = 2500
+    )
     private String info;
-    @Column(name = "photo", length = 729496729)
+
+    @Column(
+            name = "photo",
+            length = 729496729
+    )
     private byte[] photo;
+
+    @OneToOne(mappedBy = "journalist")
+    private Article article;
 }
