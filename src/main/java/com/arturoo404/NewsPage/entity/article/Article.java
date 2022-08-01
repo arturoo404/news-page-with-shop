@@ -56,4 +56,7 @@ public class Article {
             length = 729496729
     )
     private byte[] articlePhoto;
+
+    @Column(name = "article_status")
+    private boolean articleStatus;
 }
