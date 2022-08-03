@@ -3,6 +3,7 @@ package com.arturoo404.NewsPage.entity.article;
 import com.arturoo404.NewsPage.entity.content.Content;
 import com.arturoo404.NewsPage.entity.journalist.Journalist;
 import com.arturoo404.NewsPage.entity.tag.Tags;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -42,6 +43,7 @@ public class Article {
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
+    @JsonIgnore
     private List<Content> content;
 
     @OneToMany(
@@ -49,13 +51,14 @@ public class Article {
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
+    @JsonIgnore
     private List<Tags> tags;
 
     @Column(
-            name = "article_photo",
+            name = "article_main_photo",
             length = 729496729
     )
-    private byte[] articlePhoto;
+    private byte[] articleMainPhoto;
 
     @Column(name = "article_status")
     private boolean articleStatus;

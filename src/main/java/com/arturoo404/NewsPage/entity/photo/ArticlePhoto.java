@@ -1,5 +1,6 @@
 package com.arturoo404.NewsPage.entity.photo;
 
+import com.arturoo404.NewsPage.entity.article.Article;
 import com.arturoo404.NewsPage.entity.content.Content;
 import lombok.*;
 
@@ -24,10 +25,13 @@ public class ArticlePhoto {
     )
     private byte[] contentPhoto;
 
-    @ManyToOne()
-    @JoinColumn(
-            name = "content",
-            nullable = false
-    )
+    @OneToOne(mappedBy = "articlePhoto")
     private Content content;
+
+    @Column(name = "photo_position")
+    private Integer photoPosition;
+
+    public ArticlePhoto(Integer photoPosition) {
+        this.photoPosition = photoPosition;
+    }
 }

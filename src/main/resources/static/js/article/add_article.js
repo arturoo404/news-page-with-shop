@@ -10,7 +10,8 @@ function add_article() {
     function request() {
         const userRegistrationDto = {
             "title": title,
-            "content": content
+            "content": content,
+            "tags": tags()
         };
 
         $.ajax({
@@ -23,9 +24,25 @@ function add_article() {
                 console.log(xhr);
             },
             success: function (data) {
-                uploadFile(data.id);
+                console.log(data.id);
             }
         });
     }
+
+    function tags(){
+        const checkboxTag = document.getElementsByName('tag');
+
+        var tagList = [];
+
+        for (let i = 0; i < checkboxTag.length; i++) {
+            const checkbox1 = checkboxTag[i];
+            if (checkbox1.checked){
+                tagList.push(checkbox1.value);
+                console.log(checkbox1.value);
+            }
+        }
+        return tagList;
+    }
+    tags();
     add();
 }

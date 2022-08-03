@@ -32,17 +32,31 @@ public class Content {
     )
     private String text;
 
-    @OneToMany(
-            mappedBy = "content",
-            cascade = CascadeType.ALL,
+    @OneToOne(
+            cascade = CascadeType.PERSIST,
             fetch = FetchType.LAZY
     )
-    private List<ArticlePhoto> articlePhotos;
+    @JoinColumn(
+            name = "article_photo",
+            referencedColumnName = "id"
+    )
+    private ArticlePhoto articlePhoto;
 
     @ManyToOne()
     @JoinColumn(
-            name = "article",
-            nullable = false
+            name = "article"
     )
     private Article article;
+
+    public Content(ContentType contentType, String text, Article article) {
+        this.contentType = contentType;
+        this.text = text;
+        this.article = article;
+    }
+
+    public Content(ContentType contentType, ArticlePhoto articlePhoto, Article article) {
+        this.contentType = contentType;
+        this.articlePhoto = articlePhoto;
+        this.article = article;
+    }
 }

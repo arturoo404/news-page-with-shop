@@ -29,4 +29,9 @@ public class Tags {
             nullable = false
     )
     private Article articleTag;
+
+    public Tags(Tag tag, Article articleTag) {
+        this.tag = tag;
+        this.articleTag = articleTag;
+    }
 }

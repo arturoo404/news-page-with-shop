@@ -6,6 +6,6 @@ public enum Tag {
     TECH,
     POLITICS,
     NEWS,
-    SCIENCES,
+    SCIENCE,
     COUNTRY
 }
