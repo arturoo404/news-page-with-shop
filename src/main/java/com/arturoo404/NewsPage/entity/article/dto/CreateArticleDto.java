@@ -10,4 +10,5 @@ public class CreateArticleDto {
     private String title;
     private String content;
     private List<String> tags;
+    private Short journalist;
 }

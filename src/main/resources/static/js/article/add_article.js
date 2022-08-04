@@ -2,6 +2,8 @@ function add_article() {
 
     const title = document.getElementById('title').value;
     const content = document.getElementById('content').value;
+    const select = document.getElementById('journalistList');
+    const value = select.options[select.selectedIndex].value;
 
     function add() {
         request();
@@ -11,7 +13,8 @@ function add_article() {
         const userRegistrationDto = {
             "title": title,
             "content": content,
-            "tags": tags()
+            "tags": tags(),
+            "journalist": value
         };
 
         $.ajax({
@@ -43,6 +46,5 @@ function add_article() {
         }
         return tagList;
     }
-    tags();
     add();
 }

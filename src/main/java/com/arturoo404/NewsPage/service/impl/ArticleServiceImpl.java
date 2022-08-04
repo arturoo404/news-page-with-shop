@@ -8,6 +8,7 @@ import com.arturoo404.NewsPage.entity.photo.ArticlePhoto;
 import com.arturoo404.NewsPage.entity.tag.Tags;
 import com.arturoo404.NewsPage.enums.ContentType;
 import com.arturoo404.NewsPage.repository.ArticleRepository;
+import com.arturoo404.NewsPage.repository.JournalistRepository;
 import com.arturoo404.NewsPage.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,11 +22,14 @@ public class ArticleServiceImpl implements ArticleService {
 
     private final ArticleRepository articleRepository;
 
+    private final JournalistRepository journalistRepository;
+
     private final TagConverter tagConverter;
 
     @Autowired
-    public ArticleServiceImpl(ArticleRepository articleRepository, TagConverter tagConverter) {
+    public ArticleServiceImpl(ArticleRepository articleRepository, JournalistRepository journalistRepository, TagConverter tagConverter) {
         this.articleRepository = articleRepository;
+        this.journalistRepository = journalistRepository;
         this.tagConverter = tagConverter;
     }
 
@@ -34,6 +38,7 @@ public class ArticleServiceImpl implements ArticleService {
         Article article = Article.builder()
                 .title(createArticleDto.getTitle())
                 .articleStatus(false)
+                .journalist(journalistRepository.findJournalistById(createArticleDto.getJournalist()))
                 .build();
 
         article.setTags(

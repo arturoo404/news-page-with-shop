@@ -1,6 +1,7 @@
 package com.arturoo404.NewsPage.controller.api;
 
 import com.arturoo404.NewsPage.entity.journalist.dto.JournalistAddDto;
+import com.arturoo404.NewsPage.entity.journalist.dto.JournalistGetDto;
 import com.arturoo404.NewsPage.exception.ExistInDatabaseException;
 import com.arturoo404.NewsPage.service.JournalistService;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/journalist")
@@ -42,5 +44,11 @@ public class JournalistApiController {
         journalistService.addJournalistPhoto(photo, id);
         return ResponseEntity
                 .ok("Photo uploaded successfully.");
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<List<JournalistGetDto>> getJournalistList(){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(journalistService.getJournalistList());
     }
 }

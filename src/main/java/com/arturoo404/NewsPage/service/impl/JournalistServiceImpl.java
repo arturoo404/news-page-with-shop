@@ -2,6 +2,7 @@ package com.arturoo404.NewsPage.service.impl;
 
 import com.arturoo404.NewsPage.entity.journalist.Journalist;
 import com.arturoo404.NewsPage.entity.journalist.dto.JournalistAddDto;
+import com.arturoo404.NewsPage.entity.journalist.dto.JournalistGetDto;
 import com.arturoo404.NewsPage.exception.ExistInDatabaseException;
 import com.arturoo404.NewsPage.repository.JournalistRepository;
 import com.arturoo404.NewsPage.service.JournalistService;
@@ -10,7 +11,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class JournalistServiceImpl implements JournalistService {
@@ -41,5 +44,12 @@ public class JournalistServiceImpl implements JournalistService {
         Journalist journalist = journalistRepository.findJournalistById(id);
         journalist.setPhoto(photo.getBytes());
         journalistRepository.save(journalist);
+    }
+
+    @Override
+    public List<JournalistGetDto> getJournalistList() {
+        return journalistRepository.findAll().stream()
+                .map(m -> new JournalistGetDto(m.getId(), m.getName()))
+                .collect(Collectors.toList());
     }
 }
