@@ -61,17 +61,26 @@ public class ArticleServiceImpl implements ArticleService {
         for (String cont : contentTextSplit){
             String[] contentTitleSplit = cont.split("@title");
             String[] contentPhotoSplit = cont.split("@photo");
-            if (contentTitleSplit.length == 1 && contentPhotoSplit.length == 1){
+            String[] contentArticleSplit = cont.split("@article");
+
+            if (contentTitleSplit.length == 1 && contentPhotoSplit.length == 1 && contentArticleSplit.length == 1){
                 contents.add(new Content(ContentType.TEXT, cont, article));
             }
+
             if (contentTitleSplit.length == 2){
                 contents.add(new Content(ContentType.TEXT, contentTitleSplit[0], article));
                 contents.add(new Content(ContentType.SUBTITLE, contentTitleSplit[1], article));
             }
+
             if (contentPhotoSplit.length == 2){
                 contents.add(new Content(ContentType.PHOTO, new ArticlePhoto(photoPos), article));
                 photoPos++;
             }
+
+            if (contentArticleSplit.length == 2){
+                contents.add(new Content(ContentType.ARTICLE, contentArticleSplit[1], article));
+            }
+
         }
         return  contents;
     }

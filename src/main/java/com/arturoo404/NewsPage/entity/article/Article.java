@@ -22,13 +22,9 @@ public class Article {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(
-            cascade = CascadeType.PERSIST,
-            fetch = FetchType.LAZY
-    )
+    @ManyToOne()
     @JoinColumn(
-            name = "journalist",
-            referencedColumnName = "id"
+            name = "journnalist"
     )
     private Journalist journalist;
 

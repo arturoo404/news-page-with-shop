@@ -1,9 +1,11 @@
 package com.arturoo404.NewsPage.entity.journalist;
 
 import com.arturoo404.NewsPage.entity.article.Article;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Builder
 @Setter
@@ -37,6 +39,11 @@ public class Journalist {
     )
     private byte[] photo;
 
-    @OneToOne(mappedBy = "journalist")
-    private Article article;
+    @OneToMany(
+            mappedBy = "journalist",
+            cascade = CascadeType.PERSIST,
+            fetch = FetchType.LAZY
+    )
+    @JsonIgnore
+    private List<Article> article;
 }
