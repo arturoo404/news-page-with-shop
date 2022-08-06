@@ -66,7 +66,7 @@ function add_article() {
         a.appendChild(link);
         a.className = 'btn btn-primary btn-lg';
 
-        a.href = "http://localhost:8080/article/photo/" + id;
+        a.href = "http://localhost:8080/article/photo?articleId=" + id;
 
         element.prepend(a);
     }

@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping(path = "/article")
@@ -15,9 +16,8 @@ public class ArticleController {
         return "add/article";
     }
 
-    @GetMapping(path = "/photo/{id}")
-    public String addPhotoForArticle(@PathVariable Long id, Model model){
-        model.addAttribute("id", id);
+    @GetMapping(path = "/photo")
+    public String addPhotoForArticle(@RequestParam(name = "articleId") Long id){
         return "article/photo_add";
     }
 }

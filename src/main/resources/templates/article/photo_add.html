@@ -11,5 +11,60 @@
 </head>
 <body>
 <div th:replace="~{part/navbar :: navbar}" style="margin-bottom: 50px"></div>
+<div class="container py-5 h-50">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-12 col-lg-9 col-xl-7">
+            <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+                <div class="card-body p-4 p-md-5">
+                    <h3 class="text-center mt-2 mb-2">Add photo for article</h3>
+                    <div class="mb-4 pb-2 mt-2">
+                        <div class="form-outline">
+                            <label class="form-label"></label>
+                            <input type="file" class="form-control" id="article_photo" name="article_photo">
+                        </div>
+                    </div>
+                    <div class="row">
+                     <div class="col-md-6 mb-4 pb-2 mt-2">
+                        <div class="form-outline">
+                            <div class="form-outline">
+                                <label for="photo_width">Photo width:</label>
+                                <input type="number" class="form-control" id="photo_width" name="photo_width" min="100" max="1920" value="800">
+                            </div>
+                        </div>
+                     </div>
+                        <div class="col-md-6 mb-4 pb-2 mt-2">
+                        <div class="form-outline">
+                            <label for="photo_height">Photo height:</label>
+                            <input type="number" class="form-control" id="photo_height" name="photo_height" min="100" max="1080" value="600">
+                        </div>
+                    </div>
+                    </div>
+                    <div class="text-center">
+                        <h3>Photo position:</h3>
+                        <div>
+                            <input type="radio" id="left" name="pos" value="left">
+                            <label for="left">Left</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="center" name="pos" value="center" checked>
+                            <label for="center">Center</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="right" name="pos" value="right">
+                            <label for="right">Right</label>
+                        </div>
+                    </div>
+                    <div class="mt-4 mt-4 text-center" id="totalPhotoNumber">
+                        <h3>Photo number:</h3>
+                    </div>
+                    <div class="mt-4 pt-2 text-center">
+                        <button class="btn btn-primary btn-lg" onclick="add_article()">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/js/article/photo_number.js"></script>
 </body>
 </html>
