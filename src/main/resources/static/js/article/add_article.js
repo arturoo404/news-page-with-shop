@@ -27,7 +27,7 @@ function add_article() {
                 console.log(xhr);
             },
             success: function (data) {
-                console.log(data.id);
+                uploadFile(data.id);
             }
         });
     }
@@ -45,6 +45,15 @@ function add_article() {
             }
         }
         return tagList;
+    }
+
+    async function uploadFile(id) {
+        let formData = new FormData();
+        formData.append("file", article_photo.files[0]);
+        let response = await fetch('/api/article/photo/add/' + id, {
+            method: "POST",
+            body: formData
+        });
     }
     add();
 }

@@ -4,6 +4,7 @@ import com.arturoo404.NewsPage.converter.TagConverter;
 import com.arturoo404.NewsPage.entity.article.Article;
 import com.arturoo404.NewsPage.entity.article.dto.CreateArticleDto;
 import com.arturoo404.NewsPage.entity.content.Content;
+import com.arturoo404.NewsPage.entity.journalist.Journalist;
 import com.arturoo404.NewsPage.entity.photo.ArticlePhoto;
 import com.arturoo404.NewsPage.entity.tag.Tags;
 import com.arturoo404.NewsPage.enums.ContentType;
@@ -12,7 +13,9 @@ import com.arturoo404.NewsPage.repository.JournalistRepository;
 import com.arturoo404.NewsPage.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -49,6 +52,13 @@ public class ArticleServiceImpl implements ArticleService {
         article.setContent(contentList(createArticleDto.getContent(), article));
 
         return articleRepository.save(article);
+    }
+
+    @Override
+    public void addArticlePhoto(MultipartFile photo, Long id) throws IOException {
+        Article article = articleRepository.findArticleById(id);
+        article.setArticleMainPhoto(photo.getBytes());
+        articleRepository.save(article);
     }
 
     private List<Content> contentList(String content, Article article){
