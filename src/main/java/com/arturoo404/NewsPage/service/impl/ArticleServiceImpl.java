@@ -61,6 +61,14 @@ public class ArticleServiceImpl implements ArticleService {
         articleRepository.save(article);
     }
 
+    @Override
+    public Integer getNumberOfPhotos(Long articleId) {
+        Article article = articleRepository.findArticleById(articleId);
+        return Math.toIntExact(article.getContent().stream()
+                .filter(a -> a.getContentType().equals(ContentType.PHOTO))
+                .count());
+    }
+
     private List<Content> contentList(String content, Article article){
 
         String[] contentTextSplit = content.split("@text");

@@ -10,4 +10,6 @@ public interface ArticleService {
     Article addArticle(CreateArticleDto createArticleDto);
 
     void addArticlePhoto(MultipartFile photo, Long id) throws IOException;
+
+    Integer getNumberOfPhotos(Long articleId);
 }

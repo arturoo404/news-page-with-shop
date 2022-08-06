@@ -28,6 +28,8 @@ function add_article() {
             },
             success: function (data) {
                 uploadFile(data.id);
+                createArticleEditLink(data.id);
+                createSuccessText();
             }
         });
     }
@@ -54,6 +56,27 @@ function add_article() {
             method: "POST",
             body: formData
         });
+    }
+
+    function createArticleEditLink(id) {
+        const element = document.getElementById("editArticle");
+        const a = document.createElement('a');
+        const link = document.createTextNode("Add photo for article");
+
+        a.appendChild(link);
+        a.className = 'btn btn-primary btn-lg';
+
+        a.href = "http://localhost:8080/article/photo/" + id;
+
+        element.prepend(a);
+    }
+    function createSuccessText() {
+        const element = document.getElementById("editArticle");
+        const h = document.createElement('h3');
+
+        h.innerHTML = "Successfully create article!";
+
+        element.prepend(h);
     }
     add();
 }
