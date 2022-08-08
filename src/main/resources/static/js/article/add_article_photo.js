@@ -28,6 +28,7 @@ function add_article_photo() {
                 console.log(xhr);
             },
             success:function(data) {
+                uploadPhoto(id, photoPosition)
             }
         });
     }
@@ -38,6 +39,15 @@ function add_article_photo() {
                 return radioPos[i].value;
         }
         return "right";
+    }
+
+    async function uploadPhoto(articleId, pos) {
+        let formData = new FormData();
+        formData.append("file", article_photo.files[0]);
+        let response = await fetch('/api/article/photo/inside?articleId=' + articleId + "&position=" + pos, {
+            method: "POST",
+            body: formData
+        });
     }
 
     request();
