@@ -83,6 +83,14 @@ public class ArticleServiceImpl implements ArticleService {
         return articlePhotoRepository.save(articlePhoto);
     }
 
+    @Override
+    public void savePhotoInsideArticle(MultipartFile photo, Long id, Integer contentId) throws IOException {
+        ArticlePhoto articlePhoto = articlePhotoRepository
+                .findByArticleIdAndPosition(id, contentId);
+        articlePhoto.setContentPhoto(photo.getBytes());
+        articlePhotoRepository.save(articlePhoto);
+    }
+
     private List<Content> contentList(String content, Article article){
 
         String[] contentTextSplit = content.split("@text");

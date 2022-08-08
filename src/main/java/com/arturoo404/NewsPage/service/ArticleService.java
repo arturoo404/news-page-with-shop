@@ -16,4 +16,6 @@ public interface ArticleService {
     Integer getNumberOfPhotos(Long articleId);
 
     ArticlePhoto saveArticleStatistic(ArticlePhotoAddDto addDto);
+
+    void savePhotoInsideArticle(MultipartFile photo, Long id, Integer position) throws IOException;
 }

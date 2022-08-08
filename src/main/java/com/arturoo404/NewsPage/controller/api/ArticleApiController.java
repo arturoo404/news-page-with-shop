@@ -30,7 +30,7 @@ public class ArticleApiController {
 
     @PostMapping(path = "/photo/add/{id}")
     public ResponseEntity<Object> addArticlePhoto(@RequestParam("file") MultipartFile photo,
-                                                     @PathVariable("id") Long id) throws IOException {
+                                                  @PathVariable("id") Long id) throws IOException {
         articleService.addArticlePhoto(photo, id);
         return ResponseEntity
                 .ok("Photo uploaded successfully.");
@@ -46,5 +46,14 @@ public class ArticleApiController {
     public ResponseEntity<Object> savePhotoStatistic(@RequestBody ArticlePhotoAddDto addDto){
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(articleService.saveArticleStatistic(addDto));
+    }
+
+    @PostMapping(path = "/photo/inside")
+    public ResponseEntity<Object> addPhotoInsideArticle(@RequestParam("file") MultipartFile photo,
+                                                        @RequestParam("articleId") Long id,
+                                                        @RequestParam("position") Integer position) throws IOException {
+        articleService.savePhotoInsideArticle(photo, id, position);
+        return ResponseEntity
+                .ok("Photo uploaded successfully.");
     }
 }
