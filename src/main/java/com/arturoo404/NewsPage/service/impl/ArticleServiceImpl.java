@@ -4,10 +4,11 @@ import com.arturoo404.NewsPage.converter.TagConverter;
 import com.arturoo404.NewsPage.entity.article.Article;
 import com.arturoo404.NewsPage.entity.article.dto.CreateArticleDto;
 import com.arturoo404.NewsPage.entity.content.Content;
-import com.arturoo404.NewsPage.entity.journalist.Journalist;
 import com.arturoo404.NewsPage.entity.photo.ArticlePhoto;
+import com.arturoo404.NewsPage.entity.photo.dto.ArticlePhotoAddDto;
 import com.arturoo404.NewsPage.entity.tag.Tags;
 import com.arturoo404.NewsPage.enums.ContentType;
+import com.arturoo404.NewsPage.repository.ArticlePhotoRepository;
 import com.arturoo404.NewsPage.repository.ArticleRepository;
 import com.arturoo404.NewsPage.repository.JournalistRepository;
 import com.arturoo404.NewsPage.service.ArticleService;
@@ -25,13 +26,16 @@ public class ArticleServiceImpl implements ArticleService {
 
     private final ArticleRepository articleRepository;
 
+    private final ArticlePhotoRepository articlePhotoRepository;
+
     private final JournalistRepository journalistRepository;
 
     private final TagConverter tagConverter;
 
     @Autowired
-    public ArticleServiceImpl(ArticleRepository articleRepository, JournalistRepository journalistRepository, TagConverter tagConverter) {
+    public ArticleServiceImpl(ArticleRepository articleRepository, ArticlePhotoRepository articlePhotoRepository, JournalistRepository journalistRepository, TagConverter tagConverter) {
         this.articleRepository = articleRepository;
+        this.articlePhotoRepository = articlePhotoRepository;
         this.journalistRepository = journalistRepository;
         this.tagConverter = tagConverter;
     }
@@ -67,6 +71,16 @@ public class ArticleServiceImpl implements ArticleService {
         return Math.toIntExact(article.getContent().stream()
                 .filter(a -> a.getContentType().equals(ContentType.PHOTO))
                 .count());
+    }
+
+    @Override
+    public ArticlePhoto saveArticleStatistic(ArticlePhotoAddDto addDto) {
+        ArticlePhoto articlePhoto = articlePhotoRepository
+                .findByArticleIdAndPosition(addDto.getArticleId(), addDto.getPhotoPosition());
+        articlePhoto.setPhotoHeight(articlePhoto.getPhotoHeight());
+        articlePhoto.setPhotoWidth(addDto.getPhotoWidth());
+        articlePhoto.setPhotoPlace(articlePhoto.getPhotoPlace());
+        return articlePhotoRepository.save(articlePhoto);
     }
 
     private List<Content> contentList(String content, Article article){

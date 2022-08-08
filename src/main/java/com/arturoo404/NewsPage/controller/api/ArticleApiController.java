@@ -2,6 +2,7 @@ package com.arturoo404.NewsPage.controller.api;
 
 import com.arturoo404.NewsPage.entity.article.dto.CreateArticleDto;
 import com.arturoo404.NewsPage.entity.journalist.dto.JournalistGetDto;
+import com.arturoo404.NewsPage.entity.photo.dto.ArticlePhotoAddDto;
 import com.arturoo404.NewsPage.service.ArticleService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,7 @@ public class ArticleApiController {
     }
 
     @PostMapping(path = "/photo/add/{id}")
-    public ResponseEntity<Object> addJournalistPhoto(@RequestParam("file") MultipartFile photo,
+    public ResponseEntity<Object> addArticlePhoto(@RequestParam("file") MultipartFile photo,
                                                      @PathVariable("id") Long id) throws IOException {
         articleService.addArticlePhoto(photo, id);
         return ResponseEntity
@@ -39,5 +40,11 @@ public class ArticleApiController {
     public ResponseEntity<Integer> contentForAddPhoto(@PathVariable(name = "id") Long articleId){
         return ResponseEntity.status(HttpStatus.OK)
                 .body(articleService.getNumberOfPhotos(articleId));
+    }
+
+    @PostMapping
+    public ResponseEntity<Object> savePhotoStatistic(@RequestBody ArticlePhotoAddDto addDto){
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(articleService.saveArticleStatistic(addDto));
     }
 }

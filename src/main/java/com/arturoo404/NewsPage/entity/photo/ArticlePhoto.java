@@ -31,6 +31,17 @@ public class ArticlePhoto {
     @Column(name = "photo_position")
     private Integer photoPosition;
 
+    @Column(name = "photo_width")
+    private Integer photoWidth;
+
+    @Column(name = "photo_height")
+    private Integer photoHeight;
+
+    @Column(
+            name = "photo_place",
+            length = 10
+    )
+    private String photoPlace;
     public ArticlePhoto(Integer photoPosition) {
         this.photoPosition = photoPosition;
     }
