@@ -10,7 +10,7 @@ function add_article() {
     }
 
     function request() {
-        const userRegistrationDto = {
+        const addArticle = {
             "title": title,
             "content": content,
             "tags": tags(),
@@ -22,7 +22,7 @@ function add_article() {
             contentType: 'application/json',
             dataType: 'json',
             url: '/api/article/add',
-            data: JSON.stringify(userRegistrationDto),
+            data: JSON.stringify(addArticle),
             error: function (xhr, status, error) {
                 console.log(xhr);
             },

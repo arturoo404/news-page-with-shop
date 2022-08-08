@@ -5,7 +5,7 @@ window.onload = function() {
 function getJournalist() {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-    const id = urlParams.get('articleId')
+    const id = urlParams.get('articleId');
 
     function getData() {
         $.ajax({

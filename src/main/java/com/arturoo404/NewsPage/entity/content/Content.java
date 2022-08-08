@@ -4,6 +4,7 @@ import com.arturoo404.NewsPage.entity.article.Article;
 import com.arturoo404.NewsPage.entity.photo.ArticlePhoto;
 import com.arturoo404.NewsPage.entity.tag.Tags;
 import com.arturoo404.NewsPage.enums.ContentType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -40,6 +41,7 @@ public class Content {
             name = "article_photo",
             referencedColumnName = "id"
     )
+    @JsonIgnore
     private ArticlePhoto articlePhoto;
 
     @ManyToOne()

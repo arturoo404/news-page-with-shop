@@ -36,13 +36,13 @@ public class ArticleApiController {
                 .ok("Photo uploaded successfully.");
     }
 
-    @GetMapping("/photo/content/{id}")
+    @GetMapping(path = "/photo/content/{id}")
     public ResponseEntity<Integer> contentForAddPhoto(@PathVariable(name = "id") Long articleId){
         return ResponseEntity.status(HttpStatus.OK)
                 .body(articleService.getNumberOfPhotos(articleId));
     }
 
-    @PostMapping
+    @PostMapping(path = "/photo/parameter")
     public ResponseEntity<Object> savePhotoStatistic(@RequestBody ArticlePhotoAddDto addDto){
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(articleService.saveArticleStatistic(addDto));

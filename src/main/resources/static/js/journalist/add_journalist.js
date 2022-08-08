@@ -8,7 +8,7 @@ function add_journalist() {
     }
 
     function request() {
-        const userRegistrationDto = {
+        const jouranlist = {
             "name": name,
             "info": info
         };
@@ -18,7 +18,7 @@ function add_journalist() {
             contentType: 'application/json',
             dataType: 'json',
             url: '/api/journalist/add',
-            data: JSON.stringify(userRegistrationDto),
+            data: JSON.stringify(jouranlist),
             error: function(xhr, status, error) {
                 console.log(xhr);
             },

@@ -77,9 +77,9 @@ public class ArticleServiceImpl implements ArticleService {
     public ArticlePhoto saveArticleStatistic(ArticlePhotoAddDto addDto) {
         ArticlePhoto articlePhoto = articlePhotoRepository
                 .findByArticleIdAndPosition(addDto.getArticleId(), addDto.getPhotoPosition());
-        articlePhoto.setPhotoHeight(articlePhoto.getPhotoHeight());
+        articlePhoto.setPhotoHeight(addDto.getPhotoHeight());
         articlePhoto.setPhotoWidth(addDto.getPhotoWidth());
-        articlePhoto.setPhotoPlace(articlePhoto.getPhotoPlace());
+        articlePhoto.setPhotoPlace(addDto.getPhotoPlace());
         return articlePhotoRepository.save(articlePhoto);
     }
 
