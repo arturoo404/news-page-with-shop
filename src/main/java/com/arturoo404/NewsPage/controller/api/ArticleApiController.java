@@ -1,16 +1,17 @@
 package com.arturoo404.NewsPage.controller.api;
 
 import com.arturoo404.NewsPage.entity.article.dto.CreateArticleDto;
-import com.arturoo404.NewsPage.entity.journalist.dto.JournalistGetDto;
+import com.arturoo404.NewsPage.entity.article.dto.TileArticleDto;
 import com.arturoo404.NewsPage.entity.photo.dto.ArticlePhotoAddDto;
 import com.arturoo404.NewsPage.service.ArticleService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/article")
@@ -18,6 +19,7 @@ public class ArticleApiController {
 
     private final ArticleService articleService;
 
+    @Autowired
     public ArticleApiController(ArticleService articleService) {
         this.articleService = articleService;
     }
@@ -55,5 +57,12 @@ public class ArticleApiController {
         articleService.savePhotoInsideArticle(photo, id, position);
         return ResponseEntity
                 .ok("Photo uploaded successfully.");
+    }
+
+    @GetMapping(path = "/tile/page/{page}")
+    public ResponseEntity<Page<TileArticleDto>> tilePage(@PathVariable(name = "page") Integer page,
+                                                         @RequestParam("tag") String tag){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(articleService.getArticleTile(page, tag));
     }
 }

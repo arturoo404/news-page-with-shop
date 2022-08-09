@@ -3,16 +3,20 @@ package com.arturoo404.NewsPage.service.impl;
 import com.arturoo404.NewsPage.converter.TagConverter;
 import com.arturoo404.NewsPage.entity.article.Article;
 import com.arturoo404.NewsPage.entity.article.dto.CreateArticleDto;
+import com.arturoo404.NewsPage.entity.article.dto.TileArticleDto;
 import com.arturoo404.NewsPage.entity.content.Content;
 import com.arturoo404.NewsPage.entity.photo.ArticlePhoto;
 import com.arturoo404.NewsPage.entity.photo.dto.ArticlePhotoAddDto;
 import com.arturoo404.NewsPage.entity.tag.Tags;
 import com.arturoo404.NewsPage.enums.ContentType;
+import com.arturoo404.NewsPage.enums.Tag;
 import com.arturoo404.NewsPage.repository.ArticlePhotoRepository;
 import com.arturoo404.NewsPage.repository.ArticleRepository;
 import com.arturoo404.NewsPage.repository.JournalistRepository;
+import com.arturoo404.NewsPage.repository.TagRepository;
 import com.arturoo404.NewsPage.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -30,13 +34,16 @@ public class ArticleServiceImpl implements ArticleService {
 
     private final JournalistRepository journalistRepository;
 
+    private final TagRepository tagRepository;
+
     private final TagConverter tagConverter;
 
     @Autowired
-    public ArticleServiceImpl(ArticleRepository articleRepository, ArticlePhotoRepository articlePhotoRepository, JournalistRepository journalistRepository, TagConverter tagConverter) {
+    public ArticleServiceImpl(ArticleRepository articleRepository, ArticlePhotoRepository articlePhotoRepository, JournalistRepository journalistRepository, TagRepository tagRepository, TagConverter tagConverter) {
         this.articleRepository = articleRepository;
         this.articlePhotoRepository = articlePhotoRepository;
         this.journalistRepository = journalistRepository;
+        this.tagRepository = tagRepository;
         this.tagConverter = tagConverter;
     }
 
@@ -89,6 +96,14 @@ public class ArticleServiceImpl implements ArticleService {
                 .findByArticleIdAndPosition(id, contentId);
         articlePhoto.setContentPhoto(photo.getBytes());
         articlePhotoRepository.save(articlePhoto);
+    }
+
+    @Override
+    public Page<TileArticleDto> getArticleTile(Integer page, String tag) {
+        Pageable pageable = PageRequest.of(page, 5, Sort.by("id").descending());
+        Tag tagConv = tagConverter.getSingleTag(tag);
+        return tagRepository.findAllByTag(tagConv, pageable)
+                .map(t -> new TileArticleDto(t.getArticleTag().getId(), t.getArticleTag().getTitle()));
     }
 
     private List<Content> contentList(String content, Article article){

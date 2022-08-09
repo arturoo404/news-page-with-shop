@@ -2,8 +2,10 @@ package com.arturoo404.NewsPage.service;
 
 import com.arturoo404.NewsPage.entity.article.Article;
 import com.arturoo404.NewsPage.entity.article.dto.CreateArticleDto;
+import com.arturoo404.NewsPage.entity.article.dto.TileArticleDto;
 import com.arturoo404.NewsPage.entity.photo.ArticlePhoto;
 import com.arturoo404.NewsPage.entity.photo.dto.ArticlePhotoAddDto;
+import org.springframework.data.domain.Page;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -18,4 +20,6 @@ public interface ArticleService {
     ArticlePhoto saveArticleStatistic(ArticlePhotoAddDto addDto);
 
     void savePhotoInsideArticle(MultipartFile photo, Long id, Integer position) throws IOException;
+
+    Page<TileArticleDto> getArticleTile(Integer page, String tag);
 }

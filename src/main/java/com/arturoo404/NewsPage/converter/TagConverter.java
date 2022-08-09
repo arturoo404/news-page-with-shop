@@ -7,4 +7,6 @@ import java.util.List;
 public interface TagConverter {
     
     List<Tag> getTagList(List<String> tag);
+
+    Tag getSingleTag(String tag);
 }

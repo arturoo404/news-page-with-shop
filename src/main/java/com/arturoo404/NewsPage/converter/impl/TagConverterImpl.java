@@ -17,6 +17,11 @@ public class TagConverterImpl implements TagConverter {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public Tag getSingleTag(String tag) {
+        return tag(tag);
+    }
+
     private Tag tag(String name){
 
         switch (name){
