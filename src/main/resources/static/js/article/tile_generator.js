@@ -16,7 +16,6 @@ function tile_generator(){
             dataType: 'json',
             success: function (data) {
                 tile(data);
-                console.log(data.content);
             }
         });
     }
@@ -30,18 +29,19 @@ function tile_generator(){
 
             myDiv.appendChild(div);
             imgTile(i, data.content[i].id);
-            titleTile(i, data.content[i].title);
+            titleTile(i, data.content[i]);
         }
     }
 
-    function titleTile(id, title){
+    function titleTile(id, data){
         var myDiv = document.getElementById("tile" + id);
         var div = document.createElement('div');
         div.id = 'titleTile' + id;
         div.className = 'titleTile';
 
         myDiv.appendChild(div);
-        generateTitle(div, title);
+        generateTitle(div, data.title);
+        articleLink(div, data.id);
     }
 
     function generateTitle(divId, title){
@@ -51,6 +51,17 @@ function tile_generator(){
         h3.className = "h3Prop";
 
         myDiv.appendChild(h3);
+    }
+
+    function articleLink(divId, articleId){
+        var myDiv = document.getElementById(divId.id);
+        var anchorElement = document.createElement('a');
+        const link = document.createTextNode("Read more");
+        anchorElement.className = 'btn btn-primary btn-lg mt-4';
+        anchorElement.href = 'http://localhost:8080/article/detail?articleId=' + articleId;
+        anchorElement.appendChild(link);
+
+        myDiv.appendChild(anchorElement);
     }
 
     function imgTile(id, articleId){

@@ -22,4 +22,9 @@ public class ArticleController {
     public String addPhotoForArticle(@RequestParam(name = "articleId") Long id){
         return "article/photo_add";
     }
+
+    @GetMapping(path = "/detail")
+    public String articleDetail(@RequestParam(name = "articleId") Long id){
+        return "article/detail";
+    }
 }

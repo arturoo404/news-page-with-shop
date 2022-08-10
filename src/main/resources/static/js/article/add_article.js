@@ -9,6 +9,8 @@ function add_article() {
         request();
     }
 
+    //TODO add article description
+    
     function request() {
         const addArticle = {
             "title": title,
