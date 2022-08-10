@@ -7,6 +7,7 @@ import com.arturoo404.NewsPage.entity.article.dto.TileArticleDto;
 import com.arturoo404.NewsPage.entity.content.Content;
 import com.arturoo404.NewsPage.entity.photo.ArticlePhoto;
 import com.arturoo404.NewsPage.entity.photo.dto.ArticlePhotoAddDto;
+import com.arturoo404.NewsPage.entity.photo.dto.PhotoDto;
 import com.arturoo404.NewsPage.entity.tag.Tags;
 import com.arturoo404.NewsPage.enums.ContentType;
 import com.arturoo404.NewsPage.enums.Tag;
@@ -20,9 +21,11 @@ import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -104,6 +107,15 @@ public class ArticleServiceImpl implements ArticleService {
         Tag tagConv = tagConverter.getSingleTag(tag);
         return tagRepository.findAllByTag(tagConv, pageable)
                 .map(t -> new TileArticleDto(t.getArticleTag().getId(), t.getArticleTag().getTitle()));
+    }
+
+    @Override
+    public PhotoDto getMainArticlePhoto(Long id) throws FileNotFoundException {
+        Optional<Article> article = articleRepository.findById(id);
+        if (article.isEmpty()){
+            throw new FileNotFoundException("Photo not found.");
+        }
+        return new PhotoDto(article.get().getArticleMainPhoto());
     }
 
     private List<Content> contentList(String content, Article article){

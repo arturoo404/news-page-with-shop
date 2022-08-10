@@ -5,9 +5,11 @@ import com.arturoo404.NewsPage.entity.article.dto.CreateArticleDto;
 import com.arturoo404.NewsPage.entity.article.dto.TileArticleDto;
 import com.arturoo404.NewsPage.entity.photo.ArticlePhoto;
 import com.arturoo404.NewsPage.entity.photo.dto.ArticlePhotoAddDto;
+import com.arturoo404.NewsPage.entity.photo.dto.PhotoDto;
 import org.springframework.data.domain.Page;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public interface ArticleService {
@@ -22,4 +24,6 @@ public interface ArticleService {
     void savePhotoInsideArticle(MultipartFile photo, Long id, Integer position) throws IOException;
 
     Page<TileArticleDto> getArticleTile(Integer page, String tag);
+
+    PhotoDto getMainArticlePhoto(Long id) throws FileNotFoundException;
 }
