@@ -64,8 +64,8 @@ public class ArticleApiController {
                 .ok("Photo uploaded successfully.");
     }
 
-    @GetMapping(path = "/tile/page/{page}")
-    public ResponseEntity<Page<TileArticleDto>> tilePage(@PathVariable(name = "page") Integer page,
+    @GetMapping(path = "/tile")
+    public ResponseEntity<Page<TileArticleDto>> tilePage(@RequestParam("page") Integer page,
                                                          @RequestParam("tag") String tag){
         return ResponseEntity.status(HttpStatus.OK)
                 .body(articleService.getArticleTile(page, tag));
