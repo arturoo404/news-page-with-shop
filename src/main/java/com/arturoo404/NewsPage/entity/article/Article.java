@@ -30,7 +30,7 @@ public class Article {
 
     @Column(
             name = "title",
-            length = 200
+            length = 100
     )
     private String title;
 

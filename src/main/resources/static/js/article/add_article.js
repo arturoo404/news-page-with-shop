@@ -10,7 +10,7 @@ function add_article() {
     }
 
     //TODO add article description
-    
+
     function request() {
         const addArticle = {
             "title": title,

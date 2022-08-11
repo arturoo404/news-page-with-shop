@@ -1,6 +1,7 @@
 package com.arturoo404.NewsPage.service;
 
 import com.arturoo404.NewsPage.entity.article.Article;
+import com.arturoo404.NewsPage.entity.article.dto.ArticlePageContentDto;
 import com.arturoo404.NewsPage.entity.article.dto.CreateArticleDto;
 import com.arturoo404.NewsPage.entity.article.dto.TileArticleDto;
 import com.arturoo404.NewsPage.entity.photo.ArticlePhoto;
@@ -11,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 
 public interface ArticleService {
     Article addArticle(CreateArticleDto createArticleDto);
@@ -26,4 +28,6 @@ public interface ArticleService {
     Page<TileArticleDto> getArticleTile(Integer page, String tag);
 
     PhotoDto getMainArticlePhoto(Long id) throws FileNotFoundException;
+
+    List<ArticlePageContentDto> getContent(Long id);
 }

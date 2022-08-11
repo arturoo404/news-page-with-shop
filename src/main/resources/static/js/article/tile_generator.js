@@ -46,7 +46,7 @@ function tile_generator(){
 
     function generateTitle(divId, title){
         var myDiv = document.getElementById(divId.id);
-        var h3 = document.createElement('h3');
+        var h3 = document.createElement('h6');
         h3.textContent = title;
         h3.className = "h3Prop";
 
@@ -57,7 +57,7 @@ function tile_generator(){
         var myDiv = document.getElementById(divId.id);
         var anchorElement = document.createElement('a');
         const link = document.createTextNode("Read more");
-        anchorElement.className = 'btn btn-primary btn-lg mt-4';
+        anchorElement.className = 'btn btn-outline-primary btn-lg mt-4';
         anchorElement.href = 'http://localhost:8080/article/detail?articleId=' + articleId;
         anchorElement.appendChild(link);
 
