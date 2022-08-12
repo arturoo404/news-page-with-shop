@@ -2,13 +2,16 @@ package com.arturoo404.NewsPage.service.impl;
 
 import com.arturoo404.NewsPage.converter.TagConverter;
 import com.arturoo404.NewsPage.entity.article.Article;
-import com.arturoo404.NewsPage.entity.article.dto.ArticlePageContentDto;
+import com.arturoo404.NewsPage.entity.article.dto.ArticlePageDataDto;
+import com.arturoo404.NewsPage.entity.content.dto.ArticleContentDto;
 import com.arturoo404.NewsPage.entity.article.dto.CreateArticleDto;
 import com.arturoo404.NewsPage.entity.article.dto.TileArticleDto;
 import com.arturoo404.NewsPage.entity.content.Content;
+import com.arturoo404.NewsPage.entity.journalist.dto.JournalistGetDto;
 import com.arturoo404.NewsPage.entity.photo.ArticlePhoto;
 import com.arturoo404.NewsPage.entity.photo.dto.ArticlePhotoAddDto;
 import com.arturoo404.NewsPage.entity.photo.dto.PhotoDto;
+import com.arturoo404.NewsPage.entity.photo.dto.PhotoPropertiesDto;
 import com.arturoo404.NewsPage.entity.tag.Tags;
 import com.arturoo404.NewsPage.enums.ContentType;
 import com.arturoo404.NewsPage.enums.Tag;
@@ -120,11 +123,35 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<ArticlePageContentDto> getContent(Long id) {
-        return articleRepository.findArticleById(id)
-                .getContent().stream()
-                .map(a -> new ArticlePageContentDto(a.getId(), a.getContentType(), a.getText()))
-                .collect(Collectors.toList());
+    public ArticlePageDataDto getContent(Long id) {
+        Article article = articleRepository.findArticleById(id);
+        return ArticlePageDataDto.builder()
+                .title(article.getTitle())
+                .journalistGetDto(new JournalistGetDto(
+                        article.getJournalist().getId(),
+                        article.getJournalist().getName()
+                ))
+                .tags(article.getTags().stream()
+                        .map(Tags::getTag)
+                        .collect(Collectors.toList()))
+                .contentDto(article.getContent().stream()
+                .map(a -> new ArticleContentDto(
+                        a.getId(),
+                        a.getContentType(),
+                        a.getText())
+                )
+                .collect(Collectors.toList()))
+                .articlePhotoPropertiesDto(article.getContent().stream()
+                        .filter(a -> a.getContentType().equals(ContentType.PHOTO))
+                        .map(a -> PhotoPropertiesDto.builder()
+                                .photoId(a.getArticlePhoto().getId())
+                                .photoPosition(a.getArticlePhoto().getPhotoPosition())
+                                .photoWidth(a.getArticlePhoto().getPhotoWidth())
+                                .photoHeight(a.getArticlePhoto().getPhotoHeight())
+                                .photoPlace(a.getArticlePhoto().getPhotoPlace())
+                                .build())
+                        .collect(Collectors.toList()))
+                .build();
     }
 
     private List<Content> contentList(String content, Article article){

@@ -1,6 +1,7 @@
 package com.arturoo404.NewsPage.controller.api;
 
-import com.arturoo404.NewsPage.entity.article.dto.ArticlePageContentDto;
+import com.arturoo404.NewsPage.entity.article.dto.ArticlePageDataDto;
+import com.arturoo404.NewsPage.entity.content.dto.ArticleContentDto;
 import com.arturoo404.NewsPage.entity.article.dto.CreateArticleDto;
 import com.arturoo404.NewsPage.entity.article.dto.TileArticleDto;
 import com.arturoo404.NewsPage.entity.photo.dto.ArticlePhotoAddDto;
@@ -18,7 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/article")
@@ -83,7 +83,7 @@ public class ArticleApiController {
     }
 
     @GetMapping(path = "/content")
-    public ResponseEntity<List<ArticlePageContentDto>> content(@RequestParam("articleId") Long id){
+    public ResponseEntity<ArticlePageDataDto> content(@RequestParam("articleId") Long id){
         return ResponseEntity.status(HttpStatus.OK)
                 .body(articleService.getContent(id));
     }

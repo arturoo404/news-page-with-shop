@@ -1,7 +1,8 @@
 package com.arturoo404.NewsPage.service;
 
 import com.arturoo404.NewsPage.entity.article.Article;
-import com.arturoo404.NewsPage.entity.article.dto.ArticlePageContentDto;
+import com.arturoo404.NewsPage.entity.article.dto.ArticlePageDataDto;
+import com.arturoo404.NewsPage.entity.content.dto.ArticleContentDto;
 import com.arturoo404.NewsPage.entity.article.dto.CreateArticleDto;
 import com.arturoo404.NewsPage.entity.article.dto.TileArticleDto;
 import com.arturoo404.NewsPage.entity.photo.ArticlePhoto;
@@ -29,5 +30,5 @@ public interface ArticleService {
 
     PhotoDto getMainArticlePhoto(Long id) throws FileNotFoundException;
 
-    List<ArticlePageContentDto> getContent(Long id);
+    ArticlePageDataDto getContent(Long id);
 }

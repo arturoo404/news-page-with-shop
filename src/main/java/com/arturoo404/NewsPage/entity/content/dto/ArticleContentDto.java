@@ -1,4 +1,4 @@
-package com.arturoo404.NewsPage.entity.article.dto;
+package com.arturoo404.NewsPage.entity.content.dto;
 
 import com.arturoo404.NewsPage.enums.ContentType;
 import lombok.AllArgsConstructor;
@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @Setter
-public class ArticlePageContentDto {
+public class ArticleContentDto {
 
     private Long contentId;
     private ContentType contentType;
