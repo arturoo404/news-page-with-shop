@@ -1,6 +1,7 @@
 package com.arturoo404.NewsPage.controller.api;
 
 import com.arturoo404.NewsPage.entity.article.dto.ArticlePageDataDto;
+import com.arturoo404.NewsPage.entity.article.dto.ArticleTitleDto;
 import com.arturoo404.NewsPage.entity.content.dto.ArticleContentDto;
 import com.arturoo404.NewsPage.entity.article.dto.CreateArticleDto;
 import com.arturoo404.NewsPage.entity.article.dto.TileArticleDto;
@@ -74,11 +75,11 @@ public class ArticleApiController {
     }
 
     @GetMapping(path = "/{id}/photo")
-    public void productImage(@PathVariable(name = "id") Long id, HttpServletResponse response) throws IOException {
-        PhotoDto userAvatarDto = articleService.getMainArticlePhoto(id);
+    public void articleImg(@PathVariable(name = "id") Long id, HttpServletResponse response) throws IOException {
+        PhotoDto photoDto = articleService.getMainArticlePhoto(id);
 
         response.setContentType("image/jpeg");
-        InputStream is = new ByteArrayInputStream(userAvatarDto.getPhoto());
+        InputStream is = new ByteArrayInputStream(photoDto.getPhoto());
         IOUtils.copy(is, response.getOutputStream());
     }
 
@@ -86,5 +87,20 @@ public class ArticleApiController {
     public ResponseEntity<ArticlePageDataDto> content(@RequestParam("articleId") Long id){
         return ResponseEntity.status(HttpStatus.OK)
                 .body(articleService.getContent(id));
+    }
+
+    @GetMapping(path = "/title")
+    public ResponseEntity<ArticleTitleDto> articleTitle(@RequestParam("articleId") Long id){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(articleService.getTitle(id));
+    }
+
+    @GetMapping(path = "/photo/inside/{id}")
+    public void articleInsideImg(@PathVariable(name = "id") Long id, HttpServletResponse response) throws IOException {
+        PhotoDto photoDto = articleService.getArticleInsidePhoto(id);
+
+        response.setContentType("image/jpeg");
+        InputStream is = new ByteArrayInputStream(photoDto.getPhoto());
+        IOUtils.copy(is, response.getOutputStream());
     }
 }

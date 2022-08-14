@@ -3,6 +3,7 @@ package com.arturoo404.NewsPage.service.impl;
 import com.arturoo404.NewsPage.converter.TagConverter;
 import com.arturoo404.NewsPage.entity.article.Article;
 import com.arturoo404.NewsPage.entity.article.dto.ArticlePageDataDto;
+import com.arturoo404.NewsPage.entity.article.dto.ArticleTitleDto;
 import com.arturoo404.NewsPage.entity.content.dto.ArticleContentDto;
 import com.arturoo404.NewsPage.entity.article.dto.CreateArticleDto;
 import com.arturoo404.NewsPage.entity.article.dto.TileArticleDto;
@@ -152,6 +153,22 @@ public class ArticleServiceImpl implements ArticleService {
                                 .build())
                         .collect(Collectors.toList()))
                 .build();
+    }
+
+    @Override
+    public ArticleTitleDto getTitle(Long id) {
+        ArticleTitleDto articleTitleDto = new ArticleTitleDto();
+        articleTitleDto.setTitle(articleRepository.findArticleById(id).getTitle());
+        return articleTitleDto;
+    }
+
+    @Override
+    public PhotoDto getArticleInsidePhoto(Long id) throws FileNotFoundException {
+        final Optional<ArticlePhoto> articlePhoto = articlePhotoRepository.findById(id);
+        if (articlePhoto.isEmpty()){
+            throw new FileNotFoundException("Photo not found");
+        }
+        return new PhotoDto(articlePhoto.get().getContentPhoto());
     }
 
     private List<Content> contentList(String content, Article article){
