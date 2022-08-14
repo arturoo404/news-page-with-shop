@@ -1,5 +1,6 @@
 package com.arturoo404.NewsPage.entity.user;
 
+import com.arturoo404.NewsPage.entity.comments.Comments;
 import com.arturoo404.NewsPage.enums.UserRole;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -9,6 +10,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
+
 @Builder
 @Setter
 @Getter
@@ -47,6 +50,13 @@ public class User implements UserDetails {
     private boolean enabled = true;
 
     private boolean locked = false;
+
+    @OneToMany(
+            mappedBy = "user",
+            fetch = FetchType.LAZY,
+            cascade = {CascadeType.MERGE, CascadeType.PERSIST}
+    )
+    private List<Comments> comments;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

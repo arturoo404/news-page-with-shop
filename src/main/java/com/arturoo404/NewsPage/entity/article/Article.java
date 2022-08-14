@@ -1,5 +1,6 @@
 package com.arturoo404.NewsPage.entity.article;
 
+import com.arturoo404.NewsPage.entity.comments.Comments;
 import com.arturoo404.NewsPage.entity.content.Content;
 import com.arturoo404.NewsPage.entity.journalist.Journalist;
 import com.arturoo404.NewsPage.entity.tag.Tags;
@@ -58,4 +59,12 @@ public class Article {
 
     @Column(name = "article_status")
     private boolean articleStatus;
+
+    @OneToMany(
+            mappedBy = "article",
+            cascade = CascadeType.PERSIST,
+            fetch = FetchType.LAZY
+    )
+    @JsonIgnore
+    private List<Comments> comments;
 }
