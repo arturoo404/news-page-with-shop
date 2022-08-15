@@ -16,7 +16,20 @@
 <div>
     <div class="div20">
     </div>
-    <div class="divContent mt-4" id="contentCont">
+    <div class="divContent mt-4">
+        <div id="contentCont">
+        </div>
+        <div class="mt-4">
+            <input type="hidden" class="form-control" name="username" id="username" th:value="${#request.remoteUser}">
+            <h2>Comments</h2>
+            <div class="form-group">
+                <label for="comments"></label>
+                <textarea class="form-control" id="comments" rows="8" placeholder="Your comments..." maxlength="1000"></textarea>
+            </div>
+            <div class="mt-2 mb-4" style="float: right">
+                <button class="btn btn-dark btn-lg">Add comments</button>
+            </div>
+        </div>
     </div>
     <div class="div20">
     </div>

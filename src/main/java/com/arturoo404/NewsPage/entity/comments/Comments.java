@@ -22,7 +22,7 @@ public class Comments {
 
     @Column(
             name = "content",
-            length = 500,
+            length = 1000,
             nullable = false
     )
     private String content;
