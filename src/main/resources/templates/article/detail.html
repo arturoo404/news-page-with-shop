@@ -20,14 +20,14 @@
         <div id="contentCont">
         </div>
         <div class="mt-4">
-            <input type="hidden" class="form-control" name="username" id="username" th:value="${#request.remoteUser}">
+            <input type="hidden" class="form-control" name="email" id="email" th:value="${#request.remoteUser}">
             <h2>Comments</h2>
             <div class="form-group">
                 <label for="comments"></label>
                 <textarea class="form-control" id="comments" rows="8" placeholder="Your comments..." maxlength="1000"></textarea>
             </div>
             <div class="mt-2 mb-4" style="float: right">
-                <button class="btn btn-dark btn-lg">Add comments</button>
+                <button class="btn btn-dark btn-lg" onclick="add_comments()">Add comments</button>
             </div>
         </div>
     </div>
@@ -35,5 +35,6 @@
     </div>
 </div>
 <script type="text/javascript" src="/js/article/content_loader.js"></script>
+<script type="text/javascript" src="/js/comments/add_comments.js"></script>
 </body>
 </html>
