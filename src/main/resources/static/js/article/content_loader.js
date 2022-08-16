@@ -1,5 +1,6 @@
 window.onload = function() {
     content_loader();
+    generateComments();
 };
 
 
