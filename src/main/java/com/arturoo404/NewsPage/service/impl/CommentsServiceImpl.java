@@ -53,7 +53,7 @@ public class CommentsServiceImpl implements CommentsService {
     @Override
     public List<CommentsDetailDto> getCommentsDetail(Long articleId) {
 
-        return commentsRepository.findAllCommentsByArticleId(articleId).stream()
+        return commentsRepository.findAllCommentsByArticleIdOrderByIdDesc(articleId).stream()
                 .map(c -> {
                     try {
                         return new CommentsDetailDto(c.getUser().getNick(), c.getContent(), parseDate(c.getDate()).toString()

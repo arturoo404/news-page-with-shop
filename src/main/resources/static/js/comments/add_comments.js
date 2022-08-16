@@ -6,6 +6,14 @@ function add_comments(){
     const articleId = urlParams.get('articleId');
 
     request();
+    refreshComments();
+    generateComments();
+
+    function refreshComments(){
+        console.log("test");
+        var element = document.getElementById('section');
+        element.parentNode.removeChild(element);
+    }
 
     function request() {
         const addArticle = {
@@ -24,8 +32,7 @@ function add_comments(){
             error: function (xhr, status, error) {
                 console.log(xhr);
             },
-            success: function (data) {
-
+            success: function () {
             }
         });
     }

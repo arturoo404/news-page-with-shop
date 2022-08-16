@@ -17,7 +17,8 @@ function generateComments() {
 
     function createComments(data){
         for (let i = 0; i < data.length; i++){
-            divGenerator('comments_section', 'card' + i, 'card mb-4');
+            divGenerator('comments_section', 'section', '');
+            divGenerator('section', 'card' + i, 'card mb-4');
             divGenerator('card' + i, 'body' + i, 'card-body');
             divGenerator('body' + i, 'nick' + i, 'mb-4');
             imgGenerator('nick' + i);
@@ -54,7 +55,7 @@ function generateComments() {
     function bTextGenerator(divId, text){
         var bDiv = document.getElementById(divId);
         var bElement = document.createElement('b');
-        bElement.className = "small mb-2 mt-2 ms-2";
+        bElement.className = "small mb-4 mt-2 ms-2";
         bElement.style.float = 'left';
         bElement.textContent = text;
 
