@@ -40,7 +40,7 @@ public class JournalistApiController {
 
     @PostMapping(path = "/photo/add/{id}")
     public ResponseEntity<Object> addJournalistPhoto(@RequestParam("file") MultipartFile photo,
-                                                     @PathVariable("id") Short id) throws IOException {
+                                                     @PathVariable(value = "id") Short id) throws IOException {
         journalistService.addJournalistPhoto(photo, id);
         return ResponseEntity
                 .ok("Photo uploaded successfully.");

@@ -4,9 +4,14 @@ function add_article() {
     const content = document.getElementById('content').value;
     const select = document.getElementById('journalistList');
     const value = select.options[select.selectedIndex].value;
+    const errorDiv = document.getElementById('errors');
 
     function add() {
-        request();
+        if( document.getElementById('article_photo').files.length === 0 ){
+            error_h6(errorDiv, 'You do not chose photo.')
+        }else {
+            request();
+        }
     }
 
     //TODO add article description
@@ -26,12 +31,10 @@ function add_article() {
             url: '/api/article/add',
             data: JSON.stringify(addArticle),
             error: function (xhr, status, error) {
-                console.log(xhr);
+                error(errorDiv, xhr);
             },
             success: function (data) {
                 uploadFile(data.id);
-                createArticleEditLink(data.id);
-                createSuccessText();
             }
         });
     }
@@ -58,6 +61,10 @@ function add_article() {
             method: "POST",
             body: formData
         });
+        if (response.ok){
+            createArticleEditLink(id);
+            createSuccessText();
+        }
     }
 
     function createArticleEditLink(id) {

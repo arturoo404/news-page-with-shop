@@ -3,6 +3,7 @@ package com.arturoo404.NewsPage.service.impl;
 import com.arturoo404.NewsPage.entity.journalist.Journalist;
 import com.arturoo404.NewsPage.entity.journalist.dto.JournalistAddDto;
 import com.arturoo404.NewsPage.entity.journalist.dto.JournalistGetDto;
+import com.arturoo404.NewsPage.exception.EmptyValueException;
 import com.arturoo404.NewsPage.exception.ExistInDatabaseException;
 import com.arturoo404.NewsPage.repository.JournalistRepository;
 import com.arturoo404.NewsPage.service.JournalistService;
@@ -26,7 +27,7 @@ public class JournalistServiceImpl implements JournalistService {
     }
 
     @Override
-    public Journalist addJournalist(JournalistAddDto journalistAddDto) throws ExistInDatabaseException {
+    public Journalist addJournalist(JournalistAddDto journalistAddDto) throws ExistInDatabaseException{
         Optional<Journalist> journalist = journalistRepository.findByName(journalistAddDto.getName());
         if (journalist.isPresent()){
             throw new ExistInDatabaseException("This journalist exist");

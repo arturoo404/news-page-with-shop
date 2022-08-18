@@ -31,18 +31,33 @@ public class ArticleApiController {
 
     @PostMapping(path = "/add")
     ResponseEntity<Object> addArticle(@RequestBody CreateArticleDto createArticleDto){
+        if (createArticleDto.getContent().isBlank()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Content field can not be blank.");
+        }
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(articleService.addArticle(createArticleDto));
     }
 
     @PostMapping(path = "/photo/add/{id}")
-    public ResponseEntity<Object> addArticlePhoto(@RequestParam("file") MultipartFile photo,
+    public ResponseEntity<String> addArticlePhoto(@RequestParam("file") MultipartFile photo,
                                                   @PathVariable("id") Long id) throws IOException {
+        if (photo.getSize() == 0){
+            articleService.deleteArticle(id);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("You did not chose photo");
+        }
         articleService.addArticlePhoto(photo, id);
         return ResponseEntity
                 .ok("Photo uploaded successfully.");
     }
 
+    @DeleteMapping(path = "/delete/{id}")
+    public ResponseEntity<String> deleteArticle(@PathVariable("id") Long id){
+        articleService.deleteArticle(id);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body("Successfully delete article");
+    }
     @GetMapping(path = "/photo/content/{id}")
     public ResponseEntity<Integer> contentForAddPhoto(@PathVariable(name = "id") Long articleId){
         return ResponseEntity.status(HttpStatus.OK)

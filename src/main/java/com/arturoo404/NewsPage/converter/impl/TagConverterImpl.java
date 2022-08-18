@@ -33,14 +33,12 @@ public class TagConverterImpl implements TagConverter {
                 return Tag.TECH;
             case "politics":
                 return Tag.POLITICS;
-            case "news":
-                return Tag.NEWS;
             case "science":
                 return Tag.SCIENCE;
             case "country":
                 return Tag.COUNTRY;
+            default:
+                return Tag.NEWS;
         }
-
-        return Tag.NEWS;
     }
 }

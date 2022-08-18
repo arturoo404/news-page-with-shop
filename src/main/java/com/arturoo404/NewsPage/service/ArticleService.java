@@ -37,4 +37,6 @@ public interface ArticleService {
     Page<ArticleStatusListDto> getArticleList(Integer page);
 
     void changeArticleStatus(Long articleId);
+
+    void deleteArticle(Long id);
 }
