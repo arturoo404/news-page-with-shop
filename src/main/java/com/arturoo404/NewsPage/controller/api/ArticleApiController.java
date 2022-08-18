@@ -1,10 +1,7 @@
 package com.arturoo404.NewsPage.controller.api;
 
-import com.arturoo404.NewsPage.entity.article.dto.ArticlePageDataDto;
-import com.arturoo404.NewsPage.entity.article.dto.ArticleTitleDto;
+import com.arturoo404.NewsPage.entity.article.dto.*;
 import com.arturoo404.NewsPage.entity.content.dto.ArticleContentDto;
-import com.arturoo404.NewsPage.entity.article.dto.CreateArticleDto;
-import com.arturoo404.NewsPage.entity.article.dto.TileArticleDto;
 import com.arturoo404.NewsPage.entity.photo.dto.ArticlePhotoAddDto;
 import com.arturoo404.NewsPage.entity.photo.dto.PhotoDto;
 import com.arturoo404.NewsPage.service.ArticleService;
@@ -102,5 +99,17 @@ public class ArticleApiController {
         response.setContentType("image/jpeg");
         InputStream is = new ByteArrayInputStream(photoDto.getPhoto());
         IOUtils.copy(is, response.getOutputStream());
+    }
+    @GetMapping(path = "/manage/list")
+    public ResponseEntity<Page<ArticleStatusListDto>> articleStatus(@RequestParam("pageNumber") Integer page){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(articleService.getArticleList(page));
+    }
+
+    @PostMapping(path = "/manage/status")
+    public ResponseEntity<String> changeStatus(@RequestParam("articleId") Long articleId){
+        articleService.changeArticleStatus(articleId);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body("Test");
     }
 }

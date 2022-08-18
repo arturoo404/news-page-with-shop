@@ -2,11 +2,8 @@ package com.arturoo404.NewsPage.service.impl;
 
 import com.arturoo404.NewsPage.converter.TagConverter;
 import com.arturoo404.NewsPage.entity.article.Article;
-import com.arturoo404.NewsPage.entity.article.dto.ArticlePageDataDto;
-import com.arturoo404.NewsPage.entity.article.dto.ArticleTitleDto;
+import com.arturoo404.NewsPage.entity.article.dto.*;
 import com.arturoo404.NewsPage.entity.content.dto.ArticleContentDto;
-import com.arturoo404.NewsPage.entity.article.dto.CreateArticleDto;
-import com.arturoo404.NewsPage.entity.article.dto.TileArticleDto;
 import com.arturoo404.NewsPage.entity.content.Content;
 import com.arturoo404.NewsPage.entity.journalist.dto.JournalistGetDto;
 import com.arturoo404.NewsPage.entity.photo.ArticlePhoto;
@@ -169,6 +166,25 @@ public class ArticleServiceImpl implements ArticleService {
             throw new FileNotFoundException("Photo not found");
         }
         return new PhotoDto(articlePhoto.get().getContentPhoto());
+    }
+
+    @Override
+    public Page<ArticleStatusListDto> getArticleList(Integer page) {
+        Pageable pageable = PageRequest.of(page, 5, Sort.by("id").descending());
+        return articleRepository.findAll(pageable)
+                .map(a -> ArticleStatusListDto.builder()
+                        .articleId(a.getId())
+                        .status(a.isArticleStatus())
+                        .journalist(a.getJournalist().getName())
+                        .title(a.getTitle())
+                        .build());
+    }
+
+    @Override
+    public void changeArticleStatus(Long articleId) {
+        Article article = articleRepository.findArticleById(articleId);
+        article.setArticleStatus(!article.isArticleStatus());
+        articleRepository.save(article);
     }
 
     private List<Content> contentList(String content, Article article){
