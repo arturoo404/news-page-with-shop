@@ -89,6 +89,14 @@ public class ArticleServiceImpl implements ArticleService {
     public ArticlePhoto saveArticleStatistic(ArticlePhotoAddDto addDto) {
         ArticlePhoto articlePhoto = articlePhotoRepository
                 .findByArticleIdAndPosition(addDto.getArticleId(), addDto.getPhotoPosition());
+
+        if (addDto.getPhotoPlace().isBlank() || addDto.getPhotoHeight() < 0 || addDto.getPhotoWidth() < 0){
+            articlePhoto.setPhotoHeight(600);
+            articlePhoto.setPhotoWidth(800);
+            articlePhoto.setPhotoPlace("left");
+            return articlePhotoRepository.save(articlePhoto);
+        }
+
         articlePhoto.setPhotoHeight(addDto.getPhotoHeight());
         articlePhoto.setPhotoWidth(addDto.getPhotoWidth());
         articlePhoto.setPhotoPlace(addDto.getPhotoPlace());
@@ -225,4 +233,5 @@ public class ArticleServiceImpl implements ArticleService {
         }
         return  contents;
     }
+
 }

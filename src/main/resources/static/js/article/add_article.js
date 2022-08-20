@@ -8,7 +8,7 @@ function add_article() {
 
     function add() {
         if( document.getElementById('article_photo').files.length === 0 ){
-            error_h6(errorDiv, 'You do not chose photo.')
+            error_h6(errorDiv, 'You did not chose photo.', 'd')
         }else {
             request();
         }

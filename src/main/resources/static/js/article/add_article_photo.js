@@ -8,6 +8,7 @@ function add_article_photo() {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const id = urlParams.get('articleId');
+    const info = document.getElementById('info');
 
     function request() {
         const articlePhoto = {
@@ -25,7 +26,7 @@ function add_article_photo() {
             url: '/api/article/photo/parameter',
             data: JSON.stringify(articlePhoto),
             error: function(xhr, status, error) {
-                console.log(xhr);
+                error_h6(info, xhr, 'd');
             },
             success:function(data) {
                 uploadPhoto(id, photoPosition)
@@ -48,6 +49,9 @@ function add_article_photo() {
             method: "POST",
             body: formData
         });
+        if (response.ok){
+            error_h6(info, await response.text(), 's');
+        }
     }
 
     request();

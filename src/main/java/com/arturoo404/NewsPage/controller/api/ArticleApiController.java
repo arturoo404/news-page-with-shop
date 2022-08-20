@@ -66,6 +66,11 @@ public class ArticleApiController {
 
     @PostMapping(path = "/photo/parameter")
     public ResponseEntity<Object> savePhotoStatistic(@RequestBody ArticlePhotoAddDto addDto){
+        if (addDto.getPhotoPosition() < 0 || addDto.getPhotoPosition() == null){
+            ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Select your photo position.");
+        }
+
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(articleService.saveArticleStatistic(addDto));
     }
