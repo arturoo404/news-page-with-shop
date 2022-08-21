@@ -2,13 +2,27 @@ window.onload = function() {
     generateDivs()
 };
 
-//TODO Make page button
+var totalPage;
+var page = 0;
+
+function pageChangerNext(){
+    if (page < totalPage - 1){
+        var element = document.getElementById('main');
+        element.parentNode.removeChild(element);
+        page = page + 1;
+        generateDivs()
+    }
+}
+function pageChangerPrevious(){
+    if (page > 0){
+        var element = document.getElementById('main');
+        element.parentNode.removeChild(element);
+        page = page - 1;
+        generateDivs();
+    }
+}
 
 function generateDivs() {
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const page = urlParams.get('pageNumber');
-
     getData();
 
     function getData() {
@@ -17,16 +31,21 @@ function generateDivs() {
             url: '/api/article/manage/list?pageNumber=' + page,
             dataType: 'json',
             success: function (data) {
+                totalPage = data.totalPages;
+                var info = document.getElementById('info');
+                var currentPage = page + 1;
+                info.innerText = 'Current page: ' + currentPage + '   Total pages: ' + totalPage;
                 generate(data.content);
             }
         });
     }
 
     function generate(data) {
-        hrGenerator('section');
+        divGenerator('section', 'main', 'text-center', '100%');
+        hrGenerator('main');
         for (let i = 0; i < data.length; i++){
             console.log(data[i]);
-            divGenerator('section', 'content' + i, 'text-center', '100%');
+            divGenerator('main', 'content' + i, 'text-center', '100%');
             divGenerator('content' + i, 'id' + i, '', '100%');
             bGenerator('id' + i, 'Article ID:');
             pGenerator('id' + i, data[i].articleId);

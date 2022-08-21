@@ -39,7 +39,7 @@ public class ArticleController {
     }
 
     @GetMapping(path = "/manage")
-    public String manageArticle(@RequestParam("pageNumber") Integer page ){
+    public String manageArticle(){
         return "article/manage";
     }
 }

@@ -12,6 +12,6 @@ import java.util.Optional;
 
 @Repository
 public interface TagRepository extends JpaRepository<Tags, Long> {
-    @Query(value = "FROM Tags t WHERE t.tag = ?1")
+    @Query(value = "FROM Tags t WHERE t.tag = ?1 AND t.articleTag.articleStatus = true")
     Page<Tags> findAllByTag(Tag tagConv, Pageable pageable);
 }
