@@ -10,7 +10,6 @@ function add_comments(){
     generateComments();
 
     function refreshComments(){
-        console.log("test");
         var element = document.getElementById('section');
         element.parentNode.removeChild(element);
     }

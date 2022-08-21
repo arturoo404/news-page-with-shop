@@ -3,6 +3,24 @@ window.onload = function() {
 };
 
 var page = 0;
+var lastPage;
+
+function pageChangerNext(){
+    if (page < lastPage - 1){
+        var element = document.getElementById('content');
+        element.parentNode.removeChild(element);
+        page = page + 1;
+        tile_generator();
+    }
+}
+function pageChangerPrevious(){
+    if (page > 0){
+        var element = document.getElementById('content');
+        element.parentNode.removeChild(element);
+        page = page - 1;
+        tile_generator();
+    }
+}
 
 function tile_generator(){
     const queryString = window.location.search;
@@ -15,14 +33,23 @@ function tile_generator(){
             url: '/api/article/tile?tag=' + tag + '&page=' + page,
             dataType: 'json',
             success: function (data) {
+                lastPage = data.totalPages;
+                var info = document.getElementById('info');
+                var currentPage = page + 1;
+                info.innerText = 'Current page: ' + currentPage + '   Total pages: ' + lastPage;
                 tile(data);
             }
         });
     }
 
     function tile(data){
+        var section = document.getElementById("section");
+        var sectionDiv = document.createElement('div');
+        sectionDiv.id = 'content';
+        section.appendChild(sectionDiv);
+
         for (let i = 0; i < data.content.length; i++){
-            var myDiv = document.getElementById("tileCont");
+            var myDiv = document.getElementById("content");
             var div = document.createElement('div');
             div.id = 'tile' + i;
             div.className = 'tile';
