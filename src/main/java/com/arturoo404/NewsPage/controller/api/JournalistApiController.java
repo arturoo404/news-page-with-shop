@@ -6,6 +6,7 @@ import com.arturoo404.NewsPage.exception.ExistInDatabaseException;
 import com.arturoo404.NewsPage.service.JournalistService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,6 +25,7 @@ public class JournalistApiController {
     }
 
     @PostMapping(path = "/add")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Object> userRegistration(@RequestBody JournalistAddDto journalistAddDto){
         if (journalistAddDto.getName().isEmpty() || journalistAddDto.getInfo().isEmpty()){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
@@ -39,6 +41,7 @@ public class JournalistApiController {
     }
 
     @PostMapping(path = "/photo/add/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Object> addJournalistPhoto(@RequestParam("file") MultipartFile photo,
                                                      @PathVariable(value = "id") Short id) throws IOException {
         journalistService.addJournalistPhoto(photo, id);
@@ -47,6 +50,7 @@ public class JournalistApiController {
     }
 
     @GetMapping("/list")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<List<JournalistGetDto>> getJournalistList(){
         return ResponseEntity.status(HttpStatus.OK)
                 .body(journalistService.getJournalistList());

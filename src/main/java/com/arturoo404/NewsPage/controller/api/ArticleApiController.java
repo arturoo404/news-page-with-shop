@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -30,6 +31,7 @@ public class ArticleApiController {
     }
 
     @PostMapping(path = "/add")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'JOURNALIST')")
     ResponseEntity<Object> addArticle(@RequestBody CreateArticleDto createArticleDto){
         if (createArticleDto.getContent().isBlank()){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
@@ -40,6 +42,7 @@ public class ArticleApiController {
     }
 
     @PostMapping(path = "/photo/add/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'JOURNALIST')")
     public ResponseEntity<String> addArticlePhoto(@RequestParam("file") MultipartFile photo,
                                                   @PathVariable("id") Long id) throws IOException {
         if (photo.getSize() == 0){
@@ -53,18 +56,21 @@ public class ArticleApiController {
     }
 
     @DeleteMapping(path = "/delete/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'JOURNALIST')")
     public ResponseEntity<String> deleteArticle(@PathVariable("id") Long id){
         articleService.deleteArticle(id);
         return ResponseEntity.status(HttpStatus.OK)
                 .body("Successfully delete article");
     }
     @GetMapping(path = "/photo/content/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'JOURNALIST')")
     public ResponseEntity<Integer> contentForAddPhoto(@PathVariable(name = "id") Long articleId){
         return ResponseEntity.status(HttpStatus.OK)
                 .body(articleService.getNumberOfPhotos(articleId));
     }
 
     @PostMapping(path = "/photo/parameter")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'JOURNALIST')")
     public ResponseEntity<Object> savePhotoStatistic(@RequestBody ArticlePhotoAddDto addDto){
         if (addDto.getPhotoPosition() < 0 || addDto.getPhotoPosition() == null){
             ResponseEntity.status(HttpStatus.BAD_REQUEST)
@@ -76,6 +82,7 @@ public class ArticleApiController {
     }
 
     @PostMapping(path = "/photo/inside")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'JOURNALIST')")
     public ResponseEntity<Object> addPhotoInsideArticle(@RequestParam("file") MultipartFile photo,
                                                         @RequestParam("articleId") Long id,
                                                         @RequestParam("position") Integer position) throws IOException {
@@ -121,12 +128,14 @@ public class ArticleApiController {
         IOUtils.copy(is, response.getOutputStream());
     }
     @GetMapping(path = "/manage/list")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'JOURNALIST')")
     public ResponseEntity<Page<ArticleStatusListDto>> articleStatus(@RequestParam("pageNumber") Integer page){
         return ResponseEntity.status(HttpStatus.OK)
                 .body(articleService.getArticleList(page));
     }
 
     @PostMapping(path = "/manage/status")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'JOURNALIST')")
     public ResponseEntity<String> changeStatus(@RequestParam("articleId") Long articleId){
         articleService.changeArticleStatus(articleId);
         return ResponseEntity.status(HttpStatus.OK)
