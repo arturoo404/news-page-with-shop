@@ -51,7 +51,7 @@ class ArticlePhotoRepositoryTest {
         //When
         ArticlePhoto byArticleIdAndPosition = articlePhotoRepository
                 .findByArticleIdAndPosition(1L, 1);
-        
+
         //Then
         assertThat(byArticleIdAndPosition.getPhotoPosition()).isEqualTo(1);
         assertThat(article.getContent().get(0).getContentType()).isEqualTo(ContentType.PHOTO);
