@@ -21,7 +21,6 @@ class ArticleRepositoryTest {
     @Test
     @DisplayName("Should return article find by id.")
     void isShouldFindArticleById() {
-        
         //Given
          Article article = articleRepository.save(Article.builder()
                  .journalist(journalistRepository.save(Journalist.builder()
@@ -34,9 +33,8 @@ class ArticleRepositoryTest {
         //When
         Article articleFromDataBase = articleRepository.findArticleById(article.getId());
 
-        System.out.println(articleFromDataBase.getId());
         //Then
-        assertThat(articleFromDataBase.getTitle().equals(article.getTitle()));
-        assertThat(articleFromDataBase.getJournalist().getId().equals(article.getJournalist().getId()));
+        assertThat(articleFromDataBase.getTitle().equals(article.getTitle())).isTrue();
+        assertThat(articleFromDataBase.getJournalist().getId().equals(article.getJournalist().getId())).isTrue();
     }
 }
