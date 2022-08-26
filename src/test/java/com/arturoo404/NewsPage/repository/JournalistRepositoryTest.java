@@ -44,7 +44,7 @@ class JournalistRepositoryTest {
         //Given
 
         //When
-        final Journalist journalistById = journalistRepository.findJournalistById((short) 1);
+        final Journalist journalistById = journalistRepository.findJournalistById((short) 2);
 
         //Then
         assertThat(journalistById.getName()).isNotNull();
