@@ -20,7 +20,7 @@ class ArticleRepositoryTest {
 
     @Test
     @DisplayName("Should return article find by id.")
-    void isShouldFindArticleById() {
+    void itShouldFindArticleById() {
         //Given
          Article article = articleRepository.save(Article.builder()
                  .journalist(journalistRepository.save(Journalist.builder()

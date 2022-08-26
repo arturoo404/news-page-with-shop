@@ -29,7 +29,7 @@ class CommentsRepositoryTest {
     private JournalistRepository journalistRepository;
 
     @Test
-    void isShouldFindAllCommentsByArticleIdOrderByIdDesc() {
+    void itShouldFindAllCommentsByArticleIdOrderByIdDesc() {
 
         //Given
         Article article = articleRepository.save(Article.builder()

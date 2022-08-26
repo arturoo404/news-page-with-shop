@@ -44,7 +44,7 @@ class ArticlePhotoRepositoryTest {
     }
 
     @Test
-    void isShouldFindByArticleIdAndPosition() {
+    void itShouldFindByArticleIdAndPosition() {
         //Given
         Article article = articleRepository.findArticleById(1L);
 
