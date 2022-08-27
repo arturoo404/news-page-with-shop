@@ -9,6 +9,7 @@ import com.arturoo404.NewsPage.repository.ArticleRepository;
 import com.arturoo404.NewsPage.repository.CommentsRepository;
 import com.arturoo404.NewsPage.repository.UserRepository;
 import com.arturoo404.NewsPage.service.CommentsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
@@ -21,11 +22,12 @@ import java.util.stream.Collectors;
 
 @Service
 public class CommentsServiceImpl implements CommentsService {
-
+    @Autowired
     private final CommentsRepository commentsRepository;
 
+    @Autowired
     private final UserRepository userRepository;
-
+    @Autowired
     private final ArticleRepository articleRepository;
 
     public CommentsServiceImpl(CommentsRepository commentsRepository, UserRepository userRepository, ArticleRepository articleRepository) {
