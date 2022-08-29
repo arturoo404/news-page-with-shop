@@ -19,10 +19,10 @@ public class PasswordValidImpl implements PasswordValid {
     public void password(String password, String confirmPassword) throws ValidException {
         Matcher matcher = pattern.matcher(password);
         if (!password.equals(confirmPassword)) {
-            throw new ValidException("Passwords do not match");
+            throw new ValidException("Passwords do not match.");
         }
         if (!matcher.matches()){
-            throw new ValidException("Password strength is to low");
+            throw new ValidException("Password strength is to low.");
         }
     }
 }
