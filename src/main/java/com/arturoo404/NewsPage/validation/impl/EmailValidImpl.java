@@ -25,10 +25,10 @@ public class EmailValidImpl implements EmailValid{
     public void emailValid(String email) throws ValidException {
         Matcher matcher = pattern.matcher(email);
         if (!matcher.matches()){
-            throw new ValidException("Bad email");
+            throw new ValidException("Bad email syntax.");
         }
-        if (!userRepository.findByEmail(email).isEmpty()){
-            throw new ValidException("This email is already taken");
+        if (userRepository.findByEmail(email).isPresent()){
+            throw new ValidException("This email is already taken.");
         }
     }
 }
