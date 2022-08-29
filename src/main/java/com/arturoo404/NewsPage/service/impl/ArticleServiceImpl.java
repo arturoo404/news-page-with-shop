@@ -32,18 +32,18 @@ import java.util.stream.Collectors;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
-
+    @Autowired
     private final ArticleRepository articleRepository;
-
+    @Autowired
     private final ArticlePhotoRepository articlePhotoRepository;
 
+    @Autowired
     private final JournalistRepository journalistRepository;
-
+    @Autowired
     private final TagRepository tagRepository;
-
+    @Autowired
     private final TagConverter tagConverter;
 
-    @Autowired
     public ArticleServiceImpl(ArticleRepository articleRepository, ArticlePhotoRepository articlePhotoRepository, JournalistRepository journalistRepository, TagRepository tagRepository, TagConverter tagConverter) {
         this.articleRepository = articleRepository;
         this.articlePhotoRepository = articlePhotoRepository;
@@ -97,9 +97,18 @@ public class ArticleServiceImpl implements ArticleService {
             return articlePhotoRepository.save(articlePhoto);
         }
 
+        String photoPlace = addDto.getPhotoPlace().toLowerCase();
+
+        if (photoPlace.equals("left") || photoPlace.equals("center") || photoPlace.equals("right")){
+            articlePhoto.setPhotoHeight(addDto.getPhotoHeight());
+            articlePhoto.setPhotoWidth(addDto.getPhotoWidth());
+            articlePhoto.setPhotoPlace(photoPlace);
+            return articlePhotoRepository.save(articlePhoto);
+        }
+
         articlePhoto.setPhotoHeight(addDto.getPhotoHeight());
         articlePhoto.setPhotoWidth(addDto.getPhotoWidth());
-        articlePhoto.setPhotoPlace(addDto.getPhotoPlace());
+        articlePhoto.setPhotoPlace("left");
         return articlePhotoRepository.save(articlePhoto);
     }
 
