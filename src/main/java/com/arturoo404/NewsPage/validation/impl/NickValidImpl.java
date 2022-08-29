@@ -21,7 +21,7 @@ public class NickValidImpl implements NickValid {
     public void nickValid(String nick) throws ValidException {
         Optional<User> user = userRepository.findByNick(nick);
         if (user.isPresent()){
-            throw new ValidException("Nick is already taken");
+            throw new ValidException("Nick is already taken.");
         }
     }
 }
