@@ -1,7 +1,6 @@
 package com.arturoo404.NewsPage.controller.api;
 
 import com.arturoo404.NewsPage.entity.article.dto.*;
-import com.arturoo404.NewsPage.entity.content.dto.ArticleContentDto;
 import com.arturoo404.NewsPage.entity.photo.dto.ArticlePhotoAddDto;
 import com.arturoo404.NewsPage.entity.photo.dto.PhotoDto;
 import com.arturoo404.NewsPage.service.ArticleService;

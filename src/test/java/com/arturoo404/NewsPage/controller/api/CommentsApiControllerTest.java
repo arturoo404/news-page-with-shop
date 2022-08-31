@@ -3,7 +3,6 @@ package com.arturoo404.NewsPage.controller.api;
 import com.arturoo404.NewsPage.entity.comments.dto.AddCommentsDto;
 import com.arturoo404.NewsPage.entity.comments.dto.CommentsDetailDto;
 import com.arturoo404.NewsPage.service.CommentsService;
-import com.arturoo404.NewsPage.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -16,12 +15,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import java.util.Date;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;

@@ -1,6 +1,5 @@
 package com.arturoo404.NewsPage.controller.api;
 
-import com.arturoo404.NewsPage.entity.user.User;
 import com.arturoo404.NewsPage.entity.user.dto.UserRegistrationDto;
 import com.arturoo404.NewsPage.exception.ValidException;
 import com.arturoo404.NewsPage.service.UserService;
