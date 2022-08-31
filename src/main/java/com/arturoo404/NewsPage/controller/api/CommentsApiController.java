@@ -4,6 +4,7 @@ import com.arturoo404.NewsPage.entity.comments.dto.AddCommentsDto;
 import com.arturoo404.NewsPage.entity.comments.dto.CommentsDetailDto;
 import com.arturoo404.NewsPage.exception.ExistInDatabaseException;
 import com.arturoo404.NewsPage.service.CommentsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,13 +20,14 @@ public class CommentsApiController {
 
     private final CommentsService commentsService;
 
+    @Autowired
     public CommentsApiController(CommentsService commentsService) {
         this.commentsService = commentsService;
     }
 
     @PostMapping(path = "/add")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<Object> addComments(@RequestBody AddCommentsDto addCommentsDto) throws ParseException {
+    public ResponseEntity<Object> addComments(@RequestBody AddCommentsDto addCommentsDto) {
         try {
             commentsService.addComments(addCommentsDto);
         } catch (Exception e) {

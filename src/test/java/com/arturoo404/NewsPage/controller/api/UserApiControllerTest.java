@@ -1,5 +1,6 @@
 package com.arturoo404.NewsPage.controller.api;
 
+import com.arturoo404.NewsPage.entity.user.User;
 import com.arturoo404.NewsPage.entity.user.dto.UserRegistrationDto;
 import com.arturoo404.NewsPage.exception.ValidException;
 import com.arturoo404.NewsPage.service.UserService;
@@ -32,14 +33,9 @@ class UserApiControllerTest {
 
     @Test
     @WithMockUser
-    void userRegistrationReturnStatus400WhenValidFail() throws Exception {
+    void itShouldReturnStatus400WhenValidFail() throws Exception {
         //Given
-        UserRegistrationDto userDto = UserRegistrationDto.builder()
-                .nick("account")
-                .password("password")
-                .passwordConfirm("pasword")
-                .email("email@gmail.com")
-                .build();
+        UserRegistrationDto userDto = getBuild();
 
         //When
         when(userService.registerUser(any(UserRegistrationDto.class))).thenThrow(new ValidException("Test"));
@@ -48,20 +44,16 @@ class UserApiControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectToJson(userDto))
                 .with(csrf())).andReturn();
+
         //Then
         assertThat(mvcResult.getResponse().getStatus()).isEqualTo(400);
     }
 
     @Test
     @WithMockUser
-    void userRegistrationReturnStatus200AndUserEntity() throws Exception {
+    void itShouldReturnStatus200AndUserEntity() throws Exception {
         //Given
-        UserRegistrationDto userDto = UserRegistrationDto.builder()
-                .nick("account")
-                .password("password")
-                .passwordConfirm("pasword")
-                .email("email@gmail.com")
-                .build();
+        UserRegistrationDto userDto = getBuild();
 
         //When
         doAnswer(invocationOnMock -> {
@@ -75,10 +67,20 @@ class UserApiControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectToJson(userDto))
                 .with(csrf())).andReturn();
-        
+
         //Then
         assertThat(mvcResult.getResponse().getStatus()).isEqualTo(201);
     }
+
+    private UserRegistrationDto getBuild() {
+        return UserRegistrationDto.builder()
+                .nick("account")
+                .password("password")
+                .passwordConfirm("password")
+                .email("email@gmail.com")
+                .build();
+    }
+
 
     private String objectToJson(Object object) {
         try {
