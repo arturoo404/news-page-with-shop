@@ -1,12 +1,12 @@
 package com.arturoo404.NewsPage.entity.article.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ArticleStatusListDto {
 
     private Long articleId;

@@ -47,7 +47,7 @@ public class ArticleApiController {
         if (photo.getSize() == 0){
             articleService.deleteArticle(id);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("You did not chose photo");
+                    .body("You did not chose photo.");
         }
         articleService.addArticlePhoto(photo, id);
         return ResponseEntity
@@ -59,11 +59,11 @@ public class ArticleApiController {
     public ResponseEntity<String> deleteArticle(@PathVariable("id") Long id){
         articleService.deleteArticle(id);
         return ResponseEntity.status(HttpStatus.OK)
-                .body("Successfully delete article");
+                .body("Successfully delete article.");
     }
     @GetMapping(path = "/photo/content/{id}")
     @PreAuthorize("hasAnyAuthority('ADMIN', 'JOURNALIST')")
-    public ResponseEntity<Integer> contentForAddPhoto(@PathVariable(name = "id") Long articleId){
+    public ResponseEntity<Integer> getTotalNumberOfPhotosInArticle(@PathVariable(name = "id") Long articleId){
         return ResponseEntity.status(HttpStatus.OK)
                 .body(articleService.getNumberOfPhotos(articleId));
     }
@@ -71,8 +71,8 @@ public class ArticleApiController {
     @PostMapping(path = "/photo/parameter")
     @PreAuthorize("hasAnyAuthority('ADMIN', 'JOURNALIST')")
     public ResponseEntity<Object> savePhotoStatistic(@RequestBody ArticlePhotoAddDto addDto){
-        if (addDto.getPhotoPosition() < 0 || addDto.getPhotoPosition() == null){
-            ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        if (addDto.getPhotoPosition() < 1){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Select your photo position.");
         }
 
@@ -138,6 +138,6 @@ public class ArticleApiController {
     public ResponseEntity<String> changeStatus(@RequestParam("articleId") Long articleId){
         articleService.changeArticleStatus(articleId);
         return ResponseEntity.status(HttpStatus.OK)
-                .body("Test");
+                .body("Status has changed.");
     }
 }
