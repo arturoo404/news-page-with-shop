@@ -1,17 +1,23 @@
 package com.arturoo404.NewsPage.service.impl;
 
 import com.arturoo404.NewsPage.entity.user.User;
+import com.arturoo404.NewsPage.entity.user.dto.UserChangePasswordDto;
 import com.arturoo404.NewsPage.entity.user.dto.UserRegistrationDto;
 import com.arturoo404.NewsPage.enums.UserRole;
+import com.arturoo404.NewsPage.exception.ExistInDatabaseException;
 import com.arturoo404.NewsPage.exception.ValidException;
 import com.arturoo404.NewsPage.repository.UserRepository;
 import com.arturoo404.NewsPage.service.UserService;
+import com.arturoo404.NewsPage.validation.PasswordValid;
 import com.arturoo404.NewsPage.validation.RegistrationValid;
+import com.arturoo404.NewsPage.validation.impl.PasswordValidImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -46,5 +52,24 @@ public class UserServiceImpl implements UserService {
                         )
                         .build()
                 );
+    }
+
+    @Override
+    public User changePassword(UserChangePasswordDto user) throws ExistInDatabaseException, ValidException {
+        PasswordValid passwordValid = new PasswordValidImpl();
+        passwordValid.password(user.getNewPassword(), user.getConfirmPassword());
+
+        final Optional<User> byEmail = userRepository.findByEmail(user.getAccount());
+        if (byEmail.isEmpty()){
+            throw new ExistInDatabaseException("User not found.");
+        }
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        if (!encoder.matches(user.getOldPassword(), byEmail.get().getPassword())){
+            throw new ValidException("Bad old password.");
+        }
+        byEmail.get().setPassword(encoder.encode(user.getNewPassword()));
+
+        return userRepository.save(byEmail.get());
     }
 }

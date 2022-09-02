@@ -27,7 +27,7 @@ class PasswordValidImplTest {
         try {
             passwordValid.password(password, confirmPassword);
         } catch (ValidException e) {
-            assertThat(e.getMessage()).isEqualTo("Passwords do not match.");
+            assertThat(e.getMessage()).isEqualTo("Passwords did not match.");
         }
     }
 

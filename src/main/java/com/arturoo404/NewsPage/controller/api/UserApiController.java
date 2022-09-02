@@ -1,16 +1,15 @@
 package com.arturoo404.NewsPage.controller.api;
 
 import com.arturoo404.NewsPage.entity.user.User;
+import com.arturoo404.NewsPage.entity.user.dto.UserChangePasswordDto;
 import com.arturoo404.NewsPage.entity.user.dto.UserRegistrationDto;
+import com.arturoo404.NewsPage.exception.ExistInDatabaseException;
 import com.arturoo404.NewsPage.exception.ValidException;
 import com.arturoo404.NewsPage.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController()
 @RequestMapping(path = "/api/user")
@@ -34,5 +33,24 @@ public class UserApiController {
         }
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(user);
+    }
+
+    //TODO Change password test
+    @PatchMapping(path = "/change-password")
+    public ResponseEntity<Object> changePassword(@RequestBody UserChangePasswordDto user){
+        if (user.getAccount().isBlank() ||
+                user.getConfirmPassword().isBlank() ||
+                user.getNewPassword().isBlank() ||
+                user.getConfirmPassword().isBlank()){
+            return ResponseEntity.status(HttpStatus.NO_CONTENT)
+                    .body("One or more field is empty.");
+        }
+
+        try {
+            return ResponseEntity.ok(userService.changePassword(user));
+        } catch (ExistInDatabaseException | ValidException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(e.getMessage());
+        }
     }
 }
