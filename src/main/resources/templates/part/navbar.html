@@ -43,6 +43,36 @@
       <li class="nav-item">
         <a class="nav-link" href="http://localhost:8080/article?tag=science">Science</a>
       </li>
+      <li class="nav-item dropdown" sec:authorize="hasAuthority('USER')">
+        <a class="nav-link dropdown-toggle" id="navUserDrop" role="button"
+           data-bs-toggle="dropdown" aria-expanded="false">
+          Account
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <li><a class="dropdown-item" href="http://localhost:8080/">Account manage</a></li>
+        </ul>
+      </li>
+      <li class="nav-item dropdown" sec:authorize="hasAuthority('ADMIN')">
+        <a class="nav-link dropdown-toggle" id="navAdminDrop" role="button"
+           data-bs-toggle="dropdown" aria-expanded="false">
+          Manage
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <li><a class="dropdown-item" href="http://localhost:8080/article/create">Add article</a></li>
+          <li><a class="dropdown-item" href="http://localhost:8080/journalist/create">Add journalist</a></li>
+          <li><a class="dropdown-item" href="http://localhost:8080/article/manage">Article manage</a></li>
+        </ul>
+      </li>
+      <li class="nav-item dropdown" sec:authorize="hasAuthority('JOURNALIST')">
+        <a class="nav-link dropdown-toggle" id="navJournalistDrop" role="button"
+           data-bs-toggle="dropdown" aria-expanded="false">
+          Manage
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <li><a class="dropdown-item" href="http://localhost:8080/article/create">Add article</a></li>
+          <li><a class="dropdown-item" href="http://localhost:8080/article/manage">Article manage</a></li>
+        </ul>
+      </li>
     </ul>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item me-4" sec:authorize="hasAuthority('USER')">
