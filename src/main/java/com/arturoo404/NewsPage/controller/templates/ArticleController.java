@@ -46,4 +46,9 @@ public class ArticleController {
     public String manageArticle(){
         return "article/manage";
     }
+
+    @GetMapping("/search")
+    public String articleSearch(){
+        return "article/search";
+    }
 }

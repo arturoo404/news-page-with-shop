@@ -85,15 +85,14 @@
             <input type="submit" class="btn btn-outline-danger" value="Logout"/>
           </form>
         </li>
-        <li class="nav-item">
-          <form class="d-flex" th:action="@{/}">
-            <input class="form-control me-2" type="search" name="keyword" placeholder="Search" aria-label="Search">
+        <li class="nav-item d-flex">
+          <form class="d-flex" th:action="@{/article/search}">
+            <input class="form-control me-2" type="search" name="keyword" placeholder="Search by title" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Search</button>
           </form>
         </li>
       </ul>
     </div>
-  </div>
 </nav>
 </body>
 </html>

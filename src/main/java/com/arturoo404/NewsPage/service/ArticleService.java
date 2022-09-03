@@ -39,4 +39,6 @@ public interface ArticleService {
     void changeArticleStatus(Long articleId);
 
     void deleteArticle(Long id);
+
+    Page<TileArticleDto> getArticleTileByKeyword(Integer page, String keyword);
 }

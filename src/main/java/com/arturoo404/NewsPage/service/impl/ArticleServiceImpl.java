@@ -209,6 +209,13 @@ public class ArticleServiceImpl implements ArticleService {
         articleRepository.delete(articleRepository.findArticleById(id));
     }
 
+    @Override
+    public Page<TileArticleDto> getArticleTileByKeyword(Integer page, String keyword) {
+        Pageable pageable = PageRequest.of(page, 5, Sort.by("id").descending());
+        return articleRepository.findAllByKeyword(keyword, pageable)
+                .map(a -> new TileArticleDto(a.getId(), a.getTitle()));
+    }
+
     private List<Content> contentList(String content, Article article){
 
         String[] contentTextSplit = content.split("@text");

@@ -97,6 +97,14 @@ public class ArticleApiController {
                 .body(articleService.getArticleTile(page, tag));
     }
 
+    //TODO Search article test
+    @GetMapping(path = "/search")
+    public ResponseEntity<Page<TileArticleDto>> tilePageByKeyword(@RequestParam("page") Integer page,
+                                                         @RequestParam("keyword") String keyword){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(articleService.getArticleTileByKeyword(page, keyword));
+    }
+
     @GetMapping(path = "/{id}/photo")
     public void articleImg(@PathVariable(name = "id") Long id, HttpServletResponse response) throws IOException {
         PhotoDto photoDto = articleService.getMainArticlePhoto(id);
