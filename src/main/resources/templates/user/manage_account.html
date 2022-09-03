@@ -13,6 +13,7 @@
 </head>
 <body>
 <div th:replace="~{part/navbar :: navbar}" style="margin-bottom: 50px"></div>
+<input type="hidden" class="form-control" name="email" id="email" th:value="${#request.remoteUser}">
 <div>
     <div class="div20"></div>
     <div class="divContent">
@@ -23,6 +24,7 @@
                         <div class="card-body p-4 p-md-5">
                             <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Change password:</h3>
                             <p class="text-danger" id="error"></p>
+                            <p class="text-success" id="success"></p>
                             <div class="row">
                                 <div class="col-md-6 mb-4">
                                     <div class="form-outline">
@@ -46,7 +48,7 @@
                                 </div>
                             </div>
                             <div class="mt-4 pt-2 text-center">
-                                <button class="btn btn-primary btn-lg" onclick="add_journalist()">Create</button>
+                                <button class="btn btn-dark btn-lg" onclick="changePassword()">Change password</button>
                             </div>
                         </div>
                     </div>
@@ -56,5 +58,6 @@
     </div>
     <div class="div20"></div>
 </div>
+<script type="text/javascript" src="/js/user/change_password.js"></script>
 </body>
 </html>

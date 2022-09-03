@@ -2,6 +2,7 @@ package com.arturoo404.NewsPage.entity.user;
 
 import com.arturoo404.NewsPage.entity.comments.Comments;
 import com.arturoo404.NewsPage.enums.UserRole;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -51,6 +52,7 @@ public class User implements UserDetails {
 
     private boolean locked = false;
 
+    @JsonIgnore
     @OneToMany(
             mappedBy = "user",
             fetch = FetchType.LAZY,
