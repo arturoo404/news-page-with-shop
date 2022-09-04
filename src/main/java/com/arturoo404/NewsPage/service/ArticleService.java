@@ -6,6 +6,7 @@ import com.arturoo404.NewsPage.entity.content.dto.ArticleContentDto;
 import com.arturoo404.NewsPage.entity.photo.ArticlePhoto;
 import com.arturoo404.NewsPage.entity.photo.dto.ArticlePhotoAddDto;
 import com.arturoo404.NewsPage.entity.photo.dto.PhotoDto;
+import com.arturoo404.NewsPage.exception.ExistInDatabaseException;
 import org.springframework.data.domain.Page;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,7 +29,7 @@ public interface ArticleService {
 
     PhotoDto getMainArticlePhoto(Long id) throws FileNotFoundException;
 
-    ArticlePageDataDto getContent(Long id);
+    ArticlePageDataDto getContent(Long id) throws ExistInDatabaseException;
 
     ArticleTitleDto getTitle(Long id);
 
@@ -41,4 +42,6 @@ public interface ArticleService {
     void deleteArticle(Long id);
 
     Page<TileArticleDto> getArticleTileByKeyword(Integer page, String keyword);
+
+    void changeArticlePopularity(Long id);
 }

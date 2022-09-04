@@ -14,6 +14,10 @@ function content_loader() {
             type: 'GET',
             url: '/api/article/content?articleId=' + article,
             dataType: 'json',
+            error: function (xhr, status, error) {
+                const errorElement = document.getElementById("error");
+                errorElement.innerText = "Article not found.";
+            },
             success: function (data) {
                 contentGen(data);
             }

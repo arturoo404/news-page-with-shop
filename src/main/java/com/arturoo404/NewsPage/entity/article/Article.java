@@ -51,6 +51,9 @@ public class Article {
     @JsonIgnore
     private List<Tags> tags;
 
+    @Column(name = "article_popularity")
+    private Long articlePopularity;
+
     @Column(
             name = "article_main_photo",
             length = 729496729

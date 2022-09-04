@@ -13,6 +13,7 @@ import com.arturoo404.NewsPage.entity.photo.dto.PhotoPropertiesDto;
 import com.arturoo404.NewsPage.entity.tag.Tags;
 import com.arturoo404.NewsPage.enums.ContentType;
 import com.arturoo404.NewsPage.enums.Tag;
+import com.arturoo404.NewsPage.exception.ExistInDatabaseException;
 import com.arturoo404.NewsPage.repository.ArticlePhotoRepository;
 import com.arturoo404.NewsPage.repository.ArticleRepository;
 import com.arturoo404.NewsPage.repository.JournalistRepository;
@@ -23,6 +24,7 @@ import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -58,6 +60,7 @@ public class ArticleServiceImpl implements ArticleService {
                 .title(createArticleDto.getTitle())
                 .articleStatus(false)
                 .journalist(journalistRepository.findJournalistById(createArticleDto.getJournalist()))
+                .articlePopularity(0L)
                 .build();
 
         article.setTags(
@@ -136,10 +139,14 @@ public class ArticleServiceImpl implements ArticleService {
         }
         return new PhotoDto(article.get().getArticleMainPhoto());
     }
-
     @Override
-    public ArticlePageDataDto getContent(Long id) {
+    public ArticlePageDataDto getContent(Long id) throws ExistInDatabaseException {
         Article article = articleRepository.findArticleById(id);
+
+        if (article == null){
+            throw new ExistInDatabaseException("Article not found");
+        }
+
         return ArticlePageDataDto.builder()
                 .title(article.getTitle())
                 .journalistGetDto(new JournalistGetDto(
@@ -214,6 +221,12 @@ public class ArticleServiceImpl implements ArticleService {
         Pageable pageable = PageRequest.of(page, 5, Sort.by("id").descending());
         return articleRepository.findAllByKeyword(keyword, pageable)
                 .map(a -> new TileArticleDto(a.getId(), a.getTitle()));
+    }
+
+    @Override
+    public void changeArticlePopularity(Long id) {
+        Article article = articleRepository.findArticleById(id);
+        articleRepository.updatePopularityRanking(id, article.getArticlePopularity() + 1);
     }
 
     private List<Content> contentList(String content, Article article){

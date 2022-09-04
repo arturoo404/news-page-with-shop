@@ -3,6 +3,7 @@ package com.arturoo404.NewsPage.controller.api;
 import com.arturoo404.NewsPage.entity.article.dto.*;
 import com.arturoo404.NewsPage.entity.photo.dto.ArticlePhotoAddDto;
 import com.arturoo404.NewsPage.entity.photo.dto.PhotoDto;
+import com.arturoo404.NewsPage.exception.ExistInDatabaseException;
 import com.arturoo404.NewsPage.service.ArticleService;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,10 +115,19 @@ public class ArticleApiController {
         IOUtils.copy(is, response.getOutputStream());
     }
 
+    //TODO Article content test
     @GetMapping(path = "/content")
-    public ResponseEntity<ArticlePageDataDto> content(@RequestParam("articleId") Long id){
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(articleService.getContent(id));
+    public ResponseEntity<Object> content(@RequestParam("articleId") Long id){
+        try {
+            final ResponseEntity<Object> body = ResponseEntity.status(HttpStatus.OK)
+                    .body(articleService.getContent(id));
+
+            articleService.changeArticlePopularity(id);
+            return body;
+        } catch (ExistInDatabaseException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(e.getMessage());
+        }
     }
 
     @GetMapping(path = "/title")

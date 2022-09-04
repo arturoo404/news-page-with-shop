@@ -18,6 +18,11 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     @Query(value = "FROM Article a WHERE a.id = ?1")
     Article findArticleById(Long id);
 
-    @Query(value = "FROM Article a WHERE a.title LIKE %?1%")
+    @Query(value = "FROM Article a WHERE a.title LIKE %?1% AND a.articleStatus = true")
     Page<Article> findAllByKeyword(String keyword, Pageable pageable);
+
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "UPDATE Article a SET a.articlePopularity = ?2 WHERE a.id = ?1")
+    void updatePopularityRanking(Long id, long l);
 }
