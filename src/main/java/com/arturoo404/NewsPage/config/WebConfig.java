@@ -38,7 +38,7 @@ public class WebConfig {
                 .antMatchers("/api/article/tile").permitAll()
                 .antMatchers("/api/article/{\\\\d+}/photo").permitAll()
                 .antMatchers("/api/article/content").permitAll()
-                .antMatchers("/api/weather/current").permitAll()
+                .antMatchers("/api/weather/**").permitAll()
                 .antMatchers("/api/article/search").permitAll()
                 .antMatchers("/api/article/title").permitAll()
                 .antMatchers("/api/article/photo/inside/{\\\\d+}").permitAll()

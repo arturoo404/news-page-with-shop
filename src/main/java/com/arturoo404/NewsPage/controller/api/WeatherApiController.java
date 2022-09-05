@@ -31,4 +31,16 @@ public class WeatherApiController {
                     .body(e.getMessage());
         }
     }
+
+    @GetMapping("/forecast")
+    public ResponseEntity<Object> forecastCityWeather(@RequestParam("city") String city){
+        try {
+            return ResponseEntity
+                    .ok(weatherService.getForecast(city));
+        } catch (WeatherException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(e.getMessage());
+        }
+    }
+
 }
