@@ -1,5 +1,6 @@
 window.onload = function() {
     weather();
+    forecast();
 };
 
 const city = 'Krakow';
@@ -22,6 +23,37 @@ function weather() {
     getData()
 }
 
+function forecast() {
+
+    function getData() {
+        $.ajax({
+            type: 'GET',
+            url: '/api/weather/forecast?city=' + city,
+            dataType: 'json',
+            error: function (xhr, status, error) {
+            },
+            success: function (data) {
+                generateLongTermForcast(data);
+            }
+        });
+    }
+    getData()
+}
+
+function generateLongTermForcast(data){
+
+    for (let i = 0; i < data.list.length; i++){
+        hrGenerator('forecast-section');
+        divGenerator('forecast-section', 'weather' + i, 'divWeather text-white');
+        divGenerator('weather' + i, 'currentDate' + i, 'divDate text-center mt-2');
+        divGenerator('weather' + i, 'currentTemp' + i, 'divTemp text-center');
+        divGenerator('weather' + i, 'currentDes' + i, 'divDes text-center');
+        bTextGenerator('currentDate' + i, data.list[i].dt_txt);
+        bTextGenerator('currentTemp' + i, 'Temperature: ' + Math.round(data.list[i].main.temp));
+        bTextGenerator('currentDes' + i, 'Description: ' + data.list[i].weather[0].main);
+    }
+}
+
 function generateCurrentWeather(data){
     divGenerator('section', 'weather', 'divWeather text-white');
     divGenerator('weather', 'currentDate', 'divDate text-center');
@@ -41,6 +73,14 @@ function dateGenerator(){
 
     today = mm + '/' + dd + '/' + yyyy;
     return today;
+}
+
+function hrGenerator(div){
+    var hrDiv = document.getElementById(div);
+    var hr = document.createElement('hr');
+    hr.className = "mt-2 mb-2";
+
+    hrDiv.appendChild(hr);
 }
 
 function bTextGenerator(divId, text){
