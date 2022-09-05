@@ -45,6 +45,7 @@ public class WebConfig {
                 .antMatchers("/article").permitAll()
                 .antMatchers("/article/search").permitAll()
                 .antMatchers("/article/detail").permitAll()
+                .antMatchers("/weather").permitAll()
                 .antMatchers("/api/comments/list").permitAll()
                 .anyRequest().authenticated()
                 .and()

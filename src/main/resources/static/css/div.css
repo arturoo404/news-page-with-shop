@@ -10,3 +10,26 @@
     float: left;
     height: 100%;
 }
+
+.divDate{
+    display: inline-block;
+    width: 35%;
+    height: auto;
+}
+
+.divTemp{
+    display: inline-block;
+    width: 30%;
+    height: auto;
+}
+
+.divDes{
+    display: inline-block;
+    width: 35%;
+    height: auto;
+}
+
+.divWeather{
+    background-color: #15257e;
+    height: 50px;
+}
