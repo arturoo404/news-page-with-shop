@@ -1,9 +1,54 @@
-window.onload = function() {
-    weather();
-    forecast();
-};
+var city;
+var error;
+var lon;
+var lat;
 
-const city = 'Krakow';
+function getLocation(){
+    getPermission();
+}
+
+ function getPermission() {
+     navigator.permissions.query({name:'geolocation'}).then(function(result) {
+         if (result.state === 'granted') {
+             getPosition();
+         }else {
+             city = 'Warsaw';
+             weather();
+             forecast();
+         }
+     });
+}
+
+function getPosition(){
+    navigator.geolocation.getCurrentPosition(getCor);
+}
+
+function getCor(position){
+    lon = position.coords.longitude;
+    lat = position.coords.latitude;
+    getCity();
+}
+
+function getCity() {
+    function getData() {
+        $.ajax({
+            type: 'GET',
+            url: '/api/geolocation/city?lat=' + lat + '&lon='+ lon,
+            dataType: 'json',
+            error: function (xhr, status, error) {
+                city = 'warsaw';
+                weather();
+                forecast();
+            },
+            success: function (data) {
+                city = data[0].name;
+                weather();
+                forecast();
+            }
+        });
+    }
+    getData()
+}
 
 function weather() {
 
@@ -15,7 +60,6 @@ function weather() {
             error: function (xhr, status, error) {
             },
             success: function (data) {
-                console.log(data);
                 generateCurrentWeather(data);
             }
         });
@@ -50,7 +94,7 @@ function generateLongTermForcast(data){
         divGenerator('weather' + i, 'currentDes' + i, 'divDes text-center');
         bTextGenerator('currentDate' + i, data.list[i].dt_txt);
         bTextGenerator('currentTemp' + i, 'Temperature: ' + Math.round(data.list[i].main.temp));
-        bTextGenerator('currentDes' + i, 'Description: ' + data.list[i].weather[0].main);
+        bTextGenerator('currentDes' + i, 'Conditions: ' + data.list[i].weather[0].main);
     }
 }
 
@@ -62,7 +106,7 @@ function generateCurrentWeather(data){
     h3Generator('currentTemp', 'Temperature: ' + Math.round(data.main.temp));
     bTextGenerator('currentDate', city);
     bTextGenerator('currentDate', dateGenerator());
-    bTextGenerator('currentDes', 'Description:  ' + data.weather[0].main);
+    bTextGenerator('currentDes', 'Conditions:  ' + data.weather[0].main);
 }
 
 function dateGenerator(){
