@@ -19,6 +19,7 @@ public class GeolocationApiController {
         this.geolocationService = geolocationService;
     }
 
+    //TODO Geolocation test
     @GetMapping("/city")
     public ResponseEntity<Object> getClientCity(@RequestParam("lat") String lat,
                                            @RequestParam("lon") String lon){

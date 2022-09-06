@@ -7,6 +7,21 @@ function getLocation(){
     getPermission();
 }
 
+function findWeather(){
+    var element = document.getElementById('weather');
+    if (element != null){
+        element.parentNode.removeChild(element);
+    }
+    var section = document.getElementById('forecast');
+    if (section != null){
+        section.parentNode.removeChild(section);
+    }
+
+    city = document.getElementById('city').value;
+    weather();
+    forecast();
+}
+
  function getPermission() {
      navigator.permissions.query({name:'geolocation'}).then(function(result) {
          if (result.state === 'granted') {
@@ -51,13 +66,13 @@ function getCity() {
 }
 
 function weather() {
-
     function getData() {
         $.ajax({
             type: 'GET',
             url: '/api/weather/current?city=' + city,
             dataType: 'json',
             error: function (xhr, status, error) {
+                console.log(xhr.responseText)
             },
             success: function (data) {
                 generateCurrentWeather(data);
@@ -75,6 +90,7 @@ function forecast() {
             url: '/api/weather/forecast?city=' + city,
             dataType: 'json',
             error: function (xhr, status, error) {
+                window.alert(xhr.responseText);
             },
             success: function (data) {
                 generateLongTermForcast(data);
@@ -86,9 +102,10 @@ function forecast() {
 
 function generateLongTermForcast(data){
 
+    divGenerator('forecast-section', 'forecast', 'divWeather text-white');
     for (let i = 0; i < data.list.length; i++){
-        hrGenerator('forecast-section');
-        divGenerator('forecast-section', 'weather' + i, 'divWeather text-white');
+        hrGenerator('forecast');
+        divGenerator('forecast', 'weather' + i, 'divWeather text-white');
         divGenerator('weather' + i, 'currentDate' + i, 'divDate text-center mt-2');
         divGenerator('weather' + i, 'currentTemp' + i, 'divTemp text-center');
         divGenerator('weather' + i, 'currentDes' + i, 'divDes text-center');
