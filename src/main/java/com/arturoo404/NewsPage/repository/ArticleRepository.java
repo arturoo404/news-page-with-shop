@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -25,4 +26,8 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     @Modifying(clearAutomatically = true)
     @Query(value = "UPDATE Article a SET a.articlePopularity = ?2 WHERE a.id = ?1")
     void updatePopularityRanking(Long id, long l);
+
+    @Query(nativeQuery = true,
+            value = "SELECT * FROM article WHERE article_status = true ORDER BY id desc LIMIT 5")
+    List<Article> findArticleLastPublishedList();
 }

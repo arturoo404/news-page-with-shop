@@ -44,4 +44,6 @@ public interface ArticleService {
     Page<TileArticleDto> getArticleTileByKeyword(Integer page, String keyword);
 
     void changeArticlePopularity(Long id);
+
+    List<TileArticleDto> getLastPublishedArticleList();
 }

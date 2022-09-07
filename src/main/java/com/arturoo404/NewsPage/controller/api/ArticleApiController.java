@@ -158,4 +158,12 @@ public class ArticleApiController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body("Status has changed.");
     }
+
+    //TODO Last published test
+    @GetMapping(path = "/last-published")
+    public ResponseEntity<?> lastPublishedArticle(){
+        return ResponseEntity.ok(
+                articleService.getLastPublishedArticleList()
+        );
+    }
 }

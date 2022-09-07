@@ -229,6 +229,14 @@ public class ArticleServiceImpl implements ArticleService {
         articleRepository.updatePopularityRanking(id, article.getArticlePopularity() + 1);
     }
 
+    @Override
+    public List<TileArticleDto> getLastPublishedArticleList() {
+        return articleRepository.findArticleLastPublishedList()
+                .stream()
+                .map(a -> new TileArticleDto(a.getId(), a.getTitle()))
+                .collect(Collectors.toList());
+    }
+
     private List<Content> contentList(String content, Article article){
 
         String[] contentTextSplit = content.split("@text");
