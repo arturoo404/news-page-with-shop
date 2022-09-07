@@ -19,6 +19,7 @@ import com.arturoo404.NewsPage.repository.ArticleRepository;
 import com.arturoo404.NewsPage.repository.JournalistRepository;
 import com.arturoo404.NewsPage.repository.TagRepository;
 import com.arturoo404.NewsPage.service.ArticleService;
+import org.hibernate.annotations.BatchSize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
@@ -234,6 +235,21 @@ public class ArticleServiceImpl implements ArticleService {
         return articleRepository.findArticleLastPublishedList()
                 .stream()
                 .map(a -> new TileArticleDto(a.getId(), a.getTitle()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<TileArticleDto> lastPublishedArticleByTagList(String tag) {
+        final Tag singleTag = tagConverter.getSingleTag(tag);
+        Pageable pageable = PageRequest.of(0, 5);
+        final Page<Tags> articlePage
+                = tagRepository.findArticleLastPublishedListByTag(pageable, singleTag);
+
+        return articlePage.stream()
+                .map(p -> new TileArticleDto(
+                        p.getArticleTag().getId(),
+                        p.getArticleTag().getTitle())
+                )
                 .collect(Collectors.toList());
     }
 

@@ -43,7 +43,7 @@ public class WebConfig {
                 .antMatchers("/api/article/search").permitAll()
                 .antMatchers("/api/article/title").permitAll()
                 .antMatchers("/api/article/photo/inside/{\\\\d+}").permitAll()
-                .antMatchers("/api/article/last-published").permitAll()
+                .antMatchers("/api/article/last-published/**").permitAll()
                 .antMatchers("/article").permitAll()
                 .antMatchers("/article/search").permitAll()
                 .antMatchers("/article/detail").permitAll()

@@ -46,4 +46,6 @@ public interface ArticleService {
     void changeArticlePopularity(Long id);
 
     List<TileArticleDto> getLastPublishedArticleList();
+
+    List<TileArticleDto> lastPublishedArticleByTagList(String tag);
 }

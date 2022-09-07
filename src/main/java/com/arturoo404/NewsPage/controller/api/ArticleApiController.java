@@ -166,4 +166,11 @@ public class ArticleApiController {
                 articleService.getLastPublishedArticleList()
         );
     }
+
+    @GetMapping(path = "/last-published/{tag}")
+    public ResponseEntity<?> lastPublishedArticleByTag(@PathVariable(name = "tag") String tag){
+        return ResponseEntity.ok(
+                articleService.lastPublishedArticleByTagList(tag)
+        );
+    }
 }
