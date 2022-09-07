@@ -2,6 +2,7 @@ package com.arturoo404.NewsPage.repository;
 
 import com.arturoo404.NewsPage.entity.article.Article;
 import com.arturoo404.NewsPage.entity.article.dto.ArticleTitleDto;
+import com.arturoo404.NewsPage.entity.article.dto.TileArticleDto;
 import com.arturoo404.NewsPage.enums.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,4 +31,7 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     @Query(nativeQuery = true,
             value = "SELECT * FROM article WHERE article_status = true ORDER BY id desc LIMIT 5")
     List<Article> findArticleLastPublishedList();
+
+    @Query(value = "FROM Article a WHERE a.articleStatus = true ORDER BY a.articlePopularity desc")
+    List<Article> findArticleByPopularity(Pageable pageable);
 }

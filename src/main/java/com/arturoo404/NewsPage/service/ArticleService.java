@@ -48,4 +48,6 @@ public interface ArticleService {
     List<TileArticleDto> getLastPublishedArticleList();
 
     List<TileArticleDto> lastPublishedArticleByTagList(String tag);
+
+    List<TileArticleDto> getPopularityArticle();
 }

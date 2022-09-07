@@ -167,10 +167,19 @@ public class ArticleApiController {
         );
     }
 
+    //TODO Last published by tag test
     @GetMapping(path = "/last-published/{tag}")
     public ResponseEntity<?> lastPublishedArticleByTag(@PathVariable(name = "tag") String tag){
         return ResponseEntity.ok(
                 articleService.lastPublishedArticleByTagList(tag)
+        );
+    }
+
+    //TODO Popularity article test
+    @GetMapping(path = "/popularity")
+    public ResponseEntity<?> popularityArticle(){
+        return ResponseEntity.ok(
+                articleService.getPopularityArticle()
         );
     }
 }

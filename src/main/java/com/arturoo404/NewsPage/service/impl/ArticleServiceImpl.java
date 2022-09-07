@@ -249,8 +249,18 @@ public class ArticleServiceImpl implements ArticleService {
                 .map(p -> new TileArticleDto(
                         p.getArticleTag().getId(),
                         p.getArticleTag().getTitle())
-                )
-                .collect(Collectors.toList());
+                ).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<TileArticleDto> getPopularityArticle() {
+        Pageable pageable = PageRequest.of(0, 5);
+        return articleRepository.findArticleByPopularity(pageable)
+                .stream()
+                .map(p -> new TileArticleDto(
+                        p.getId(),
+                        p.getTitle())
+                ).collect(Collectors.toList());
     }
 
     private List<Content> contentList(String content, Article article){
