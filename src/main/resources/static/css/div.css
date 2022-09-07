@@ -4,6 +4,20 @@
     float: left;
     height: 100%;
 }
+.div10{
+    display: inline-block;
+    width: 10%;
+    float: left;
+    height: 100%;
+}
+
+.divContent80{
+    display: inline-block;
+    width: 80%;
+    float: left;
+    height: 100%;
+}
+
 .divContent{
     display: inline-block;
     width: 60%;
@@ -11,6 +25,26 @@
     height: 100%;
 }
 
+.divArticleMain{
+    display: inline-block;
+    width: 18%;
+    float: left;
+    margin-left: 1%;
+    margin-right: 1%;
+    height: 80%;
+    background-color: #212529;
+    border-radius: 5%;
+}
+.divHeightContent{
+    margin-top: 30px;
+    margin-bottom: 20px;
+    height: 35%;
+}
+
+.imgHomePage{
+    width: 90%;
+    height: 50%;
+}
 .divDate{
     display: inline-block;
     width: 35%;

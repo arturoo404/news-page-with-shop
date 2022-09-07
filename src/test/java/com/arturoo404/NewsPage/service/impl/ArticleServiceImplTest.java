@@ -13,6 +13,7 @@ import com.arturoo404.NewsPage.entity.photo.dto.PhotoDto;
 import com.arturoo404.NewsPage.entity.tag.Tags;
 import com.arturoo404.NewsPage.enums.ContentType;
 import com.arturoo404.NewsPage.enums.Tag;
+import com.arturoo404.NewsPage.exception.ExistInDatabaseException;
 import com.arturoo404.NewsPage.repository.ArticlePhotoRepository;
 import com.arturoo404.NewsPage.repository.ArticleRepository;
 import com.arturoo404.NewsPage.repository.JournalistRepository;
@@ -170,7 +171,7 @@ class ArticleServiceImplTest {
     }
 
     @Test
-    void getContent() {
+    void getContent() throws ExistInDatabaseException {
         //Given
         Article article = Article.builder()
                 .id(1L)

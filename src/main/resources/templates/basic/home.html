@@ -14,25 +14,39 @@
 <body>
 <div th:replace="~{part/navbar :: navbar}" style="margin-bottom: 50px"></div>
 <div>
-    <div class="div20"></div>
-    <div class="divContent">
-        <div>
-            Last Article 5
+    <div class="div10"></div>
+    <div class="divContent80">
+        <div id="section" style="margin-left: 10%; margin-right: 10%;" class="mt-4 mb-4">
         </div>
-        <div>
-            Weather
+        <div class="divHeightContent mt-4">
+            <hr>
+            <h5 class="text-left mt-4">Last published article: </h5>
+            <div id="last-article-section" class="text-center">
+            </div>
         </div>
-        <div>
-            News
+        <div class="divHeightContent mt-4">
+            <hr>
+            <h5 class="text-left">News: </h5>
+            <div id="news-article-section" class="text-center">
+            </div>
         </div>
-        <div>
-            Random tag
+        <div class="divHeightContent mt-4">
+            <hr>
+            <h5 class="text-left">Recommended: </h5>
+            <div id="random-article-section" class="text-center">
+            </div>
         </div>
-        <div>
-            Popularity
+        <div class="divHeightContent mt-4">
+            <hr>
+            <h5 class="text-left">Popularity: </h5>
+            <div id="popularity-article-section" class="text-center">
+            </div>
         </div>
     </div>
-    <div class="div20"></div>
+    <div class="div10"></div>
 </div>
+<script type="text/javascript" src="/js/weather/weather.js"></script>
+<script type="text/javascript" src="/js/main/home_page_loader.js"></script>
+<script type="text/javascript" src="/js/main/generate_home_page_article.js"></script>
 </body>
 </html>

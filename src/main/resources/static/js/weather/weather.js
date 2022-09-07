@@ -2,8 +2,14 @@ var city;
 var error;
 var lon;
 var lat;
+var home;
 
 function getLocation(){
+    getPermission();
+}
+
+function homePage(){
+    home = true;
     getPermission();
 }
 
@@ -29,7 +35,9 @@ function findWeather(){
          }else {
              city = 'Warsaw';
              weather();
-             forecast();
+             if (!home){
+                 forecast();
+             }
          }
      });
 }
@@ -53,12 +61,16 @@ function getCity() {
             error: function (xhr, status, error) {
                 city = 'warsaw';
                 weather();
-                forecast();
+                if (!home){
+                    forecast();
+                }
             },
             success: function (data) {
                 city = data[0].name;
                 weather();
-                forecast();
+                if (!home){
+                    forecast();
+                }
             }
         });
     }
