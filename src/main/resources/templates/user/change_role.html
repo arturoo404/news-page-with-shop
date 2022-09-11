@@ -32,24 +32,26 @@
             </label>
             <div class="mt-4 mb-4">
                 <label style="margin: 5px">
-                    <input type="radio" name="tag" value="USER"> USER
+                    <input type="radio" name="role" value="USER" checked> USER
                 </label>
                 <label style="margin: 5px">
-                    <input type="radio" name="tag" value="JOURNALIST"> JOURNALIST
+                    <input type="radio" name="role" value="JOURNALIST"> JOURNALIST
                 </label>
                 <label style="margin: 5px">
-                    <input type="radio" name="tag" value="MODERATOR"> MODERATOR
+                    <input type="radio" name="role" value="MODERATOR"> MODERATOR
                 </label>
                 <label style="margin: 5px">
-                    <input type="radio" name="tag" value="ADMIN"> ADMIN
+                    <input type="radio" name="role" value="ADMIN"> ADMIN
                 </label>
             </div>
-            <button class="btn btn-dark ml-2" onclick="pageChangerNext()" style="margin-bottom: 5px">Change</button>
+            <button class="btn btn-dark ml-2" onclick="changeRole()" style="margin-bottom: 5px">Change</button>
+            <h4 class="mt-4" id="change-role-text"></h4>
         </div>
         <hr>
     </div>
     <div class="div20"></div>
 </div>
 <script type="text/javascript" src="/js/user/check_role.js"></script>
+<script type="text/javascript" src="/js/user/change_role.js"></script>
 </body>
 </html>

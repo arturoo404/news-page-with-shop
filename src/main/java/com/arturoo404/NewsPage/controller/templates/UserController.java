@@ -16,6 +16,7 @@ public class UserController {
     }
 
     @GetMapping(path = "/change-role")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String changeUserRole(){
         return "user/change_role";
     }

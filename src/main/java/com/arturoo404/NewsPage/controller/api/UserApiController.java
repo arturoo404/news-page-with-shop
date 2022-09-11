@@ -59,6 +59,7 @@ public class UserApiController {
 
     //TODO Current role test
     @GetMapping(path = "/current-role")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Object> searchCurrentUserRole(@RequestParam("email") String email){
         if (email.isBlank()){
             return ResponseEntity.status(HttpStatus.NO_CONTENT)
@@ -75,6 +76,7 @@ public class UserApiController {
     }
     //TODO Change role test
     @PatchMapping(path = "/change-role")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Object> changeUserRole(@RequestBody UserChangeRoleDto userChangeRoleDto){
         if (userChangeRoleDto.getEmail().isBlank()){
             return ResponseEntity.status(HttpStatus.NO_CONTENT)
