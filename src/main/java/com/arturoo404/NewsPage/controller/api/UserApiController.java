@@ -59,7 +59,7 @@ public class UserApiController {
 
     //TODO Current role test
     @GetMapping(path = "/current-role")
-    public ResponseEntity<Object> searchCurrentUserRole(@RequestParam String email){
+    public ResponseEntity<Object> searchCurrentUserRole(@RequestParam("email") String email){
         if (email.isBlank()){
             return ResponseEntity.status(HttpStatus.NO_CONTENT)
                     .body("Email field is empty.");

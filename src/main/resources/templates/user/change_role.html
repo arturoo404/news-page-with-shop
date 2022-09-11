@@ -18,11 +18,11 @@
     <div class="divContent mt-8">
         <hr>
         <div style="margin-right: 30%; margin-left: 30%" class="text-center mt-4 mb-4">
-            <h3>User role:</h3>
+            <h3 id="user-role">User role:</h3>
             <label>
                 <input type="email" class="text-left" id="check-email" placeholder="User email" style="height: 40px;">
             </label>
-            <button class="btn btn-dark ml-2" onclick="pageChangerNext()" style="margin-bottom: 5px">Check</button>
+            <button class="btn btn-dark ml-2" onclick="checkRole()" style="margin-bottom: 5px">Check</button>
         </div>
         <hr>
         <div style="margin-right: 20%; margin-left: 20%" class="text-center mt-4 mb-4">
@@ -46,9 +46,10 @@
             </div>
             <button class="btn btn-dark ml-2" onclick="pageChangerNext()" style="margin-bottom: 5px">Change</button>
         </div>
+        <hr>
     </div>
-    <hr>
     <div class="div20"></div>
 </div>
+<script type="text/javascript" src="/js/user/check_role.js"></script>
 </body>
 </html>
