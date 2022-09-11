@@ -20,4 +20,6 @@ public interface UserService extends UserDetailsService {
     User changePassword(UserChangePasswordDto user) throws ExistInDatabaseException, ValidException;
 
     void changeUserRole(UserChangeRoleDto userChangeRoleDto) throws ExistInDatabaseException;
+
+    Object findCurrentRole(String email) throws ExistInDatabaseException;
 }

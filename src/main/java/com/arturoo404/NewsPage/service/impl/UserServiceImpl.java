@@ -76,17 +76,27 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void changeUserRole(UserChangeRoleDto userRole) throws ExistInDatabaseException {
-        final Optional<User> byEmail = userRepository.findByEmail(userRole.getEmail());
-        System.out.println(userRole.getRole());
-        if (byEmail.isEmpty()) {
-            throw new ExistInDatabaseException("User not found.");
-        }
-        User user = byEmail.get();
+        User user = userInDataBase(userRole.getEmail());
 
         if (userRole.getRole().equals(user.getUserRole())){
             throw new ExistInDatabaseException("User already have this role.");
         }
         user.setUserRole(userRole.getRole());
         userRepository.save(user);
+    }
+
+    @Override
+    public Object findCurrentRole(String email) throws ExistInDatabaseException {
+        final User user = userInDataBase(email);
+
+        return new UserChangeRoleDto(user.getEmail(), user.getUserRole());
+    }
+
+    private User userInDataBase(String email) throws ExistInDatabaseException {
+        final Optional<User> byEmail = userRepository.findByEmail(email);
+        if (byEmail.isEmpty()) {
+            throw new ExistInDatabaseException("User not found.");
+        }
+        return byEmail.get();
     }
 }

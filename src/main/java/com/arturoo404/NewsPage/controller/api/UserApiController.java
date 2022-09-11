@@ -57,8 +57,23 @@ public class UserApiController {
         }
     }
 
+    @GetMapping(path = "/current-role")
+    public ResponseEntity<Object> searchCurrentUserRole(@RequestParam String email){
+        if (email.isBlank()){
+            return ResponseEntity.status(HttpStatus.NO_CONTENT)
+                    .body("Email field is empty.");
+        }
+
+        try {
+            return ResponseEntity
+                    .ok(userService.findCurrentRole(email));
+        } catch (ExistInDatabaseException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(e.getMessage());
+        }
+    }
     @PatchMapping(path = "/change-role")
-    public ResponseEntity<?> changeUserRole(@RequestBody UserChangeRoleDto userChangeRoleDto){
+    public ResponseEntity<Object> changeUserRole(@RequestBody UserChangeRoleDto userChangeRoleDto){
         if (userChangeRoleDto.getEmail().isBlank()){
             return ResponseEntity.status(HttpStatus.NO_CONTENT)
                     .body("Email field is empty.");
