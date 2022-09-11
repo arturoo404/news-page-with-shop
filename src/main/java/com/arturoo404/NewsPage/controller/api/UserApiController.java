@@ -57,6 +57,7 @@ public class UserApiController {
         }
     }
 
+    //TODO Current role test
     @GetMapping(path = "/current-role")
     public ResponseEntity<Object> searchCurrentUserRole(@RequestParam String email){
         if (email.isBlank()){
@@ -72,6 +73,7 @@ public class UserApiController {
                     .body(e.getMessage());
         }
     }
+    //TODO Change role test
     @PatchMapping(path = "/change-role")
     public ResponseEntity<Object> changeUserRole(@RequestBody UserChangeRoleDto userChangeRoleDto){
         if (userChangeRoleDto.getEmail().isBlank()){

@@ -14,4 +14,9 @@ public class UserController {
     public String changePassword(){
         return "user/manage_account";
     }
+
+    @GetMapping(path = "/change-role")
+    public String changeUserRole(){
+        return "user/change_role";
+    }
 }
