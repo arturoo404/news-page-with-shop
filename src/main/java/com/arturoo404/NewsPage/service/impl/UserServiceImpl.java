@@ -2,6 +2,7 @@ package com.arturoo404.NewsPage.service.impl;
 
 import com.arturoo404.NewsPage.entity.user.User;
 import com.arturoo404.NewsPage.entity.user.dto.UserChangePasswordDto;
+import com.arturoo404.NewsPage.entity.user.dto.UserChangeRoleDto;
 import com.arturoo404.NewsPage.entity.user.dto.UserRegistrationDto;
 import com.arturoo404.NewsPage.enums.UserRole;
 import com.arturoo404.NewsPage.exception.ExistInDatabaseException;
@@ -71,5 +72,21 @@ public class UserServiceImpl implements UserService {
         byEmail.get().setPassword(encoder.encode(user.getNewPassword()));
 
         return userRepository.save(byEmail.get());
+    }
+
+    @Override
+    public void changeUserRole(UserChangeRoleDto userRole) throws ExistInDatabaseException {
+        final Optional<User> byEmail = userRepository.findByEmail(userRole.getEmail());
+        System.out.println(userRole.getRole());
+        if (byEmail.isEmpty()) {
+            throw new ExistInDatabaseException("User not found.");
+        }
+        User user = byEmail.get();
+
+        if (userRole.getRole().equals(user.getUserRole())){
+            throw new ExistInDatabaseException("User already have this role.");
+        }
+        user.setUserRole(userRole.getRole());
+        userRepository.save(user);
     }
 }

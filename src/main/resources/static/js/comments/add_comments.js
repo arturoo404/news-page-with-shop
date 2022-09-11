@@ -6,8 +6,12 @@ function add_comments(){
     const articleId = urlParams.get('articleId');
 
     request();
-    refreshComments();
-    generateComments();
+    setTimeout(continueExecution, 1000)
+
+    function continueExecution() {
+        refreshComments();
+        generateComments();
+    }
 
     function refreshComments(){
         var element = document.getElementById('section');

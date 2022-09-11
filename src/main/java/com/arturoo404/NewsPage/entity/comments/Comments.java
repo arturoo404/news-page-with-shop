@@ -27,7 +27,7 @@ public class Comments {
     )
     private String content;
 
-    @Column(name = "date")
+    @Column(name = "comments_date")
     private Date date;
 
     @ManyToOne
