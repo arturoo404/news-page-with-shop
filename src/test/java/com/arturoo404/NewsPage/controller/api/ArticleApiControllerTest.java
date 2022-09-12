@@ -290,6 +290,57 @@ class ArticleApiControllerTest {
         assertThat(mvcResult.getResponse().getContentAsString()).isEqualTo("Status has changed.");
     }
 
+    @Test
+    @WithMockUser
+    void itShouldReturnListOfPublishedArticleAndStatusOk() throws Exception {
+        //Given
+        List<TileArticleDto> list = List.of(new TileArticleDto(1L, "title"));
+
+        //When
+        when(articleService.getLastPublishedArticleList()).thenReturn(list);
+
+        final MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(url + "/last-published")
+                .with(csrf())).andReturn();
+
+        //Then
+        assertThat(mvcResult.getResponse().getStatus()).isEqualTo(200);
+        assertThat(mvcResult.getResponse().getContentAsString()).isNotEmpty();
+    }
+
+    @Test
+    @WithMockUser
+    void itShouldReturnListOfPublishedArticleByTagAndStatusOk() throws Exception {
+        //Given
+        List<TileArticleDto> list = List.of(new TileArticleDto(1L, "title"));
+
+        //When
+        when(articleService.lastPublishedArticleByTagList(anyString())).thenReturn(list);
+
+        final MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(url + "/last-published/NEWS")
+                .with(csrf())).andReturn();
+
+        //Then
+        assertThat(mvcResult.getResponse().getStatus()).isEqualTo(200);
+        assertThat(mvcResult.getResponse().getContentAsString()).isNotEmpty();
+    }
+
+    @Test
+    @WithMockUser
+    void itShouldReturnListOfPopularityArticleAndStatusOk() throws Exception {
+        //Given
+        List<TileArticleDto> list = List.of(new TileArticleDto(1L, "title"));
+
+        //When
+        when(articleService.getPopularityArticle()).thenReturn(list);
+
+        final MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(url + "/popularity")
+                .with(csrf())).andReturn();
+
+        //Then
+        assertThat(mvcResult.getResponse().getStatus()).isEqualTo(200);
+        assertThat(mvcResult.getResponse().getContentAsString()).isNotEmpty();
+    }
+
     private String objectToJson(Object object) {
         try {
             return new ObjectMapper().writeValueAsString(object);
