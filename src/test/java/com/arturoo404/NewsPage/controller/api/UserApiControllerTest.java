@@ -1,6 +1,10 @@
 package com.arturoo404.NewsPage.controller.api;
 
+import com.arturoo404.NewsPage.entity.user.dto.UserChangePasswordDto;
+import com.arturoo404.NewsPage.entity.user.dto.UserChangeRoleDto;
 import com.arturoo404.NewsPage.entity.user.dto.UserRegistrationDto;
+import com.arturoo404.NewsPage.enums.UserRole;
+import com.arturoo404.NewsPage.exception.ExistInDatabaseException;
 import com.arturoo404.NewsPage.exception.ValidException;
 import com.arturoo404.NewsPage.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -17,8 +21,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doAnswer;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 
 @WebMvcTest(UserApiController.class)
@@ -69,6 +73,163 @@ class UserApiControllerTest {
 
         //Then
         assertThat(mvcResult.getResponse().getStatus()).isEqualTo(201);
+    }
+
+    @Test
+    @WithMockUser
+    void itShouldReturnStatusNoContentWhenOneOrMoreFieldWasEmpty() throws Exception {
+        //Given
+        UserChangePasswordDto userDto = new UserChangePasswordDto("pass", "pass", "", "acc");
+
+        //When
+        final MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.patch("/api/user/change-password")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectToJson(userDto))
+                .with(csrf())).andReturn();
+
+        //Then
+        assertThat(mvcResult.getResponse().getStatus()).isEqualTo(204);
+        assertThat(mvcResult.getResponse().getContentAsString()).isEqualTo("One or more field is empty.");
+    }
+
+    @Test
+    @WithMockUser
+    void itShouldThrownValidExceptionWhenPasswordWasIncorrectAndReturnStatusBadRequest() throws Exception {
+        //Given
+        UserChangePasswordDto userDto = new UserChangePasswordDto("pass", "password", "pass", "acc");
+
+        //When
+        when(userService.changePassword(any(UserChangePasswordDto.class)))
+                .thenThrow(new ValidException(any()));
+
+        final MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.patch("/api/user/change-password")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectToJson(userDto))
+                .with(csrf())).andReturn();
+
+        //Then
+        assertThat(mvcResult.getResponse().getStatus()).isEqualTo(400);
+    }
+    @Test
+    @WithMockUser
+    void itShouldThrownExistInDatabaseExceptionAndReturnStatusBadRequestWhenUserNotExist() throws Exception {
+        //Given
+        UserChangePasswordDto userDto = new UserChangePasswordDto("pass", "password", "pass", "acc");
+
+        //When
+        when(userService.changePassword(any(UserChangePasswordDto.class)))
+                .thenThrow(new ExistInDatabaseException(any()));
+
+        final MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.patch("/api/user/change-password")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectToJson(userDto))
+                .with(csrf())).andReturn();
+
+        //Then
+        assertThat(mvcResult.getResponse().getStatus()).isEqualTo(400);
+    }
+
+    @Test
+    @WithMockUser
+    void itShouldReturnNoContentWhenEmailParmsWasBlankCurrentRole() throws Exception {
+        //Given
+        //When
+        final MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/api/user/current-role")
+                        .param("email", "")
+                .with(csrf())).andReturn();
+
+        //Then
+        assertThat(mvcResult.getResponse().getStatus()).isEqualTo(204);
+        assertThat(mvcResult.getResponse().getContentAsString()).isEqualTo("Email field is empty.");
+    }
+
+    @Test
+    @WithMockUser
+    void itShouldThrowExistInDatabaseExceptionWhenUserNotExistCurrentRole() throws Exception {
+        //Given
+        //When
+        when(userService.findCurrentRole(anyString()))
+                .thenThrow(new ExistInDatabaseException(any()));
+
+        final MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/api/user/current-role")
+                .param("email", "email@gmail")
+                .with(csrf())).andReturn();
+
+        //Then
+        assertThat(mvcResult.getResponse().getStatus()).isEqualTo(400);
+    }
+
+    @Test
+    @WithMockUser
+    void itShouldReturnRoleObjectAndStatusOkCurrentRole() throws Exception {
+        //Given
+        UserChangeRoleDto userChangeRoleDto = new UserChangeRoleDto("email@gmail.com", UserRole.ADMIN);
+
+        //When
+        when(userService.findCurrentRole(anyString())).thenReturn(userChangeRoleDto);
+
+        final MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/api/user/current-role")
+                .param("email", "email@gmail")
+                .with(csrf())).andReturn();
+
+        //Then
+        assertThat(mvcResult.getResponse().getStatus()).isEqualTo(200);
+        assertThat(mvcResult.getResponse().getContentAsString()).isNotEmpty();
+    }
+
+    @Test
+    @WithMockUser
+    void itShouldReturnNoContentWhenEmailParmsWasBlankChangeRole() throws Exception {
+        //Given
+        UserChangeRoleDto userChangeRoleDto = new UserChangeRoleDto("", UserRole.ADMIN);
+
+        //When
+        final MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.patch("/api/user/change-role")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectToJson(userChangeRoleDto))
+                .with(csrf())).andReturn();
+
+        //Then
+        assertThat(mvcResult.getResponse().getStatus()).isEqualTo(204);
+        assertThat(mvcResult.getResponse().getContentAsString()).isEqualTo("Email field is empty.");
+    }
+
+    @Test
+    @WithMockUser
+    void itShouldThrowExistInDatabaseExceptionWhenUserNotExistChangeRole() throws Exception {
+        //Given
+        UserChangeRoleDto userChangeRoleDto = new UserChangeRoleDto("email@gmail.com", UserRole.ADMIN);
+
+        //When
+        doThrow(new ExistInDatabaseException(""))
+                .when(userService).changeUserRole(any(UserChangeRoleDto.class));
+
+        final MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.patch("/api/user/change-role")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectToJson(userChangeRoleDto))
+                .with(csrf())).andReturn();
+
+        //Then
+        assertThat(mvcResult.getResponse().getStatus()).isEqualTo(400);
+    }
+
+    @Test
+    @WithMockUser
+    void itShouldReturnRoleObjectAndStatusOkChangeRole() throws Exception {
+        //Given
+        UserChangeRoleDto userChangeRoleDto = new UserChangeRoleDto("email@gmail.com", UserRole.ADMIN);
+
+        //When
+        when(userService.findCurrentRole(anyString())).thenReturn(userChangeRoleDto);
+
+        final MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.patch("/api/user/change-role")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectToJson(userChangeRoleDto))
+                .with(csrf())).andReturn();
+
+        //Then
+        assertThat(mvcResult.getResponse().getStatus()).isEqualTo(200);
+        assertThat(mvcResult.getResponse().getContentAsString()).isEqualTo("Successfully changed user role.");
     }
 
     private UserRegistrationDto getBuild() {

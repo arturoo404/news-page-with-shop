@@ -44,7 +44,8 @@ public class UserApiController {
         if (user.getAccount().isBlank() ||
                 user.getConfirmPassword().isBlank() ||
                 user.getNewPassword().isBlank() ||
-                user.getConfirmPassword().isBlank()){
+                user.getOldPassword().isBlank()){
+
             return ResponseEntity.status(HttpStatus.NO_CONTENT)
                     .body("One or more field is empty.");
         }
