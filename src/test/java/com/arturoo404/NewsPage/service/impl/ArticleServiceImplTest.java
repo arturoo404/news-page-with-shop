@@ -5,6 +5,7 @@ import com.arturoo404.NewsPage.entity.article.Article;
 import com.arturoo404.NewsPage.entity.article.dto.ArticlePageDataDto;
 import com.arturoo404.NewsPage.entity.article.dto.ArticleTitleDto;
 import com.arturoo404.NewsPage.entity.article.dto.CreateArticleDto;
+import com.arturoo404.NewsPage.entity.article.dto.TileArticleDto;
 import com.arturoo404.NewsPage.entity.content.Content;
 import com.arturoo404.NewsPage.entity.journalist.Journalist;
 import com.arturoo404.NewsPage.entity.photo.ArticlePhoto;
@@ -24,14 +25,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 
 import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
@@ -173,24 +174,7 @@ class ArticleServiceImplTest {
     @Test
     void getContent() throws ExistInDatabaseException {
         //Given
-        Article article = Article.builder()
-                .id(1L)
-                .title("Title")
-                .articleStatus(true)
-                .journalist(Journalist.builder()
-                        .id((short) 1)
-                        .name("Journalist")
-                        .build())
-                .build();
-        article.setTags(List.of(new Tags(Tag.NEWS, article)));
-        article.setContent(List.of(
-                new Content(ContentType.TEXT, "Text", article),
-                new Content(ContentType.PHOTO, ArticlePhoto.builder()
-                        .photoPosition(1)
-                        .photoWidth(500)
-                        .photoHeight(500)
-                        .photoPlace("left")
-                        .build(), article)));
+        Article article = getArticle();
 
         given(articleRepository.findArticleById(anyLong())).willReturn(article);
 
@@ -259,5 +243,75 @@ class ArticleServiceImplTest {
 
         //Then
         assertThat(articleInsidePhoto.getPhoto()).isNotEmpty();
+    }
+
+    @Test
+    void itShouldReturnListOfPublishedArticle() {
+        //Given
+        given(articleRepository.findArticleLastPublishedList())
+                .willReturn(List.of(getArticle()));
+
+        //When
+        final List<TileArticleDto> list = articleService.getLastPublishedArticleList();
+
+        //Then
+        assertThat(list.size()).isNotZero();
+        assertThat(list.get(0).getTitle()).isNotNull();
+    }
+
+    @Test
+    void itShouldReturnListOfLastPublishedArticleByTag() {
+        //Given
+        final Page<Tags> tags = new PageImpl<>(
+                List.of(getArticle().getTags().toArray(new Tags[0]))
+        );
+
+        //When
+        when(tagRepository.findArticleLastPublishedListByTag(any(), any()))
+                .thenReturn(tags);
+
+        final List<TileArticleDto> list = articleService.lastPublishedArticleByTagList("NEWS");
+
+        //Then
+        assertThat(list.size()).isNotZero();
+        assertThat(list.get(0).getTitle()).isNotNull();
+    }
+
+    @Test
+    void itShouldReturnArticleListByPopularity() {
+        //Given
+        final List<Article> articleList = List.of(getArticle());
+
+        //When
+        when(articleRepository.findArticleByPopularity(any()))
+                .thenReturn(articleList);
+
+        final List<TileArticleDto> list = articleService.getPopularityArticle();
+
+        //Then
+        assertThat(list.size()).isNotZero();
+        assertThat(list.get(0).getTitle()).isNotNull();
+    }
+
+    private Article getArticle() {
+        Article article = Article.builder()
+                .id(1L)
+                .title("Title")
+                .articleStatus(true)
+                .journalist(Journalist.builder()
+                        .id((short) 1)
+                        .name("Journalist")
+                        .build())
+                .build();
+        article.setTags(List.of(new Tags(Tag.NEWS, article)));
+        article.setContent(List.of(
+                new Content(ContentType.TEXT, "Text", article),
+                new Content(ContentType.PHOTO, ArticlePhoto.builder()
+                        .photoPosition(1)
+                        .photoWidth(500)
+                        .photoHeight(500)
+                        .photoPlace("left")
+                        .build(), article)));
+        return article;
     }
 }
