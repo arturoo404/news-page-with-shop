@@ -79,7 +79,7 @@ public class UserServiceImpl implements UserService {
         User user = userInDataBase(userRole.getEmail());
 
         if (userRole.getRole().equals(user.getUserRole())){
-            throw new ExistInDatabaseException("User already have this role.");
+            throw new ExistInDatabaseException("User already has this role.");
         }
         user.setUserRole(userRole.getRole());
         userRepository.save(user);
