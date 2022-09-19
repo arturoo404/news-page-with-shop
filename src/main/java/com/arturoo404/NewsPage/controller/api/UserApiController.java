@@ -6,6 +6,7 @@ import com.arturoo404.NewsPage.entity.user.dto.UserChangeRoleDto;
 import com.arturoo404.NewsPage.entity.user.dto.UserRegistrationDto;
 import com.arturoo404.NewsPage.enums.UserRole;
 import com.arturoo404.NewsPage.exception.ExistInDatabaseException;
+import com.arturoo404.NewsPage.exception.PermissionException;
 import com.arturoo404.NewsPage.exception.ValidException;
 import com.arturoo404.NewsPage.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,4 +91,23 @@ public class UserApiController {
                     .body(e.getMessage());
         }
     }
+
+    //TODO Block account test
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'MODERATOR')")
+    @PatchMapping("/block-account/{id}")
+    public ResponseEntity<?> blockUserAccount(@PathVariable("id") Long id){
+        try {
+            userService.blockUserAccount(id);
+        } catch (ExistInDatabaseException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(e.getMessage());
+
+        } catch (PermissionException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body(e.getMessage());
+        }
+        return ResponseEntity.status(HttpStatus.OK)
+                .body("Account has been blocked");
+    }
+
 }

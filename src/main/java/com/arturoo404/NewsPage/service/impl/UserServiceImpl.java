@@ -6,6 +6,7 @@ import com.arturoo404.NewsPage.entity.user.dto.UserChangeRoleDto;
 import com.arturoo404.NewsPage.entity.user.dto.UserRegistrationDto;
 import com.arturoo404.NewsPage.enums.UserRole;
 import com.arturoo404.NewsPage.exception.ExistInDatabaseException;
+import com.arturoo404.NewsPage.exception.PermissionException;
 import com.arturoo404.NewsPage.exception.ValidException;
 import com.arturoo404.NewsPage.repository.UserRepository;
 import com.arturoo404.NewsPage.service.UserService;
@@ -61,9 +62,7 @@ public class UserServiceImpl implements UserService {
         passwordValid.password(user.getNewPassword(), user.getConfirmPassword());
 
         final Optional<User> byEmail = userRepository.findByEmail(user.getAccount());
-        if (byEmail.isEmpty()){
-            throw new ExistInDatabaseException("User not found.");
-        }
+        userPresent(byEmail);
 
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         if (!encoder.matches(user.getOldPassword(), byEmail.get().getPassword())){
@@ -91,6 +90,27 @@ public class UserServiceImpl implements UserService {
 
         return new UserChangeRoleDto(user.getEmail(), user.getUserRole());
     }
+
+    @Override
+    public void blockUserAccount(Long id) throws ExistInDatabaseException, PermissionException {
+        final Optional<User> byId = userRepository.findById(id);
+        userPresent(byId);
+        User user = byId.get();
+
+        if (!user.getUserRole().equals(UserRole.USER)){
+            throw new PermissionException("You do not have permission to block this user.");
+        }
+        user.setLocked(true);
+
+        userRepository.save(user);
+    }
+
+    private void userPresent(Optional<User> byId) throws ExistInDatabaseException {
+        if (byId.isEmpty()){
+            throw new ExistInDatabaseException("User not found.");
+        }
+    }
+
 
     private User userInDataBase(String email) throws ExistInDatabaseException {
         final Optional<User> byEmail = userRepository.findByEmail(email);

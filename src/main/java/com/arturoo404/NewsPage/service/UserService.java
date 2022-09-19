@@ -6,6 +6,7 @@ import com.arturoo404.NewsPage.entity.user.dto.UserChangeRoleDto;
 import com.arturoo404.NewsPage.entity.user.dto.UserRegistrationDto;
 import com.arturoo404.NewsPage.enums.UserRole;
 import com.arturoo404.NewsPage.exception.ExistInDatabaseException;
+import com.arturoo404.NewsPage.exception.PermissionException;
 import com.arturoo404.NewsPage.exception.ValidException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,4 +23,6 @@ public interface UserService extends UserDetailsService {
     void changeUserRole(UserChangeRoleDto userChangeRoleDto) throws ExistInDatabaseException;
 
     Object findCurrentRole(String email) throws ExistInDatabaseException;
+
+    void blockUserAccount(Long id) throws ExistInDatabaseException, PermissionException;
 }
