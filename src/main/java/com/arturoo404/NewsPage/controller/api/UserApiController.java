@@ -38,7 +38,6 @@ public class UserApiController {
                 .body(user);
     }
 
-    //TODO Change password test
     @PatchMapping(path = "/change-password")
     public ResponseEntity<Object> changePassword(@RequestBody UserChangePasswordDto user){
         if (user.getAccount().isBlank() ||
@@ -58,7 +57,6 @@ public class UserApiController {
         }
     }
 
-    //TODO Current role test
     @GetMapping(path = "/current-role")
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Object> searchCurrentUserRole(@RequestParam("email") String email){
@@ -75,7 +73,6 @@ public class UserApiController {
                     .body(e.getMessage());
         }
     }
-    //TODO Change role test
     @PatchMapping(path = "/change-role")
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Object> changeUserRole(@RequestBody UserChangeRoleDto userChangeRoleDto){

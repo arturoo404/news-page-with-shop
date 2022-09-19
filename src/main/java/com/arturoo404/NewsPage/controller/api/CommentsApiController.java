@@ -2,6 +2,7 @@ package com.arturoo404.NewsPage.controller.api;
 
 import com.arturoo404.NewsPage.entity.comments.dto.AddCommentsDto;
 import com.arturoo404.NewsPage.entity.comments.dto.CommentsDetailDto;
+import com.arturoo404.NewsPage.exception.ExistInDatabaseException;
 import com.arturoo404.NewsPage.service.CommentsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,5 +41,20 @@ public class CommentsApiController {
     public ResponseEntity<List<CommentsDetailDto>> commentsList(@RequestParam("articleId") Long articleId){
         return ResponseEntity.status(HttpStatus.OK)
                 .body(commentsService.getCommentsDetail(articleId));
+    }
+
+    //TODO Comments delete test
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'MODERATOR')")
+    @DeleteMapping(path = "/delete/{id}")
+    public ResponseEntity<?> deleteComments(@PathVariable("id") Long id){
+        try {
+            commentsService.deleteComments(id);
+        } catch (ExistInDatabaseException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(e.getMessage());
+        }
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body("Comments has been deleted.");
     }
 }

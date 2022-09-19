@@ -11,4 +11,6 @@ public interface CommentsService {
     void addComments(AddCommentsDto addCommentsDto) throws Exception;
 
     List<CommentsDetailDto> getCommentsDetail(Long articleId);
+
+    void deleteComments(Long id) throws ExistInDatabaseException;
 }

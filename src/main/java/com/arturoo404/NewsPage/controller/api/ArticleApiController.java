@@ -159,7 +159,6 @@ public class ArticleApiController {
                 .body("Status has changed.");
     }
 
-    //TODO Last published test
     @GetMapping(path = "/last-published")
     public ResponseEntity<?> lastPublishedArticle(){
         return ResponseEntity.ok(
@@ -167,7 +166,6 @@ public class ArticleApiController {
         );
     }
 
-    //TODO Last published by tag test
     @GetMapping(path = "/last-published/{tag}")
     public ResponseEntity<?> lastPublishedArticleByTag(@PathVariable(name = "tag") String tag){
         return ResponseEntity.ok(
@@ -175,7 +173,6 @@ public class ArticleApiController {
         );
     }
 
-    //TODO Popularity article test
     @GetMapping(path = "/popularity")
     public ResponseEntity<?> popularityArticle(){
         return ResponseEntity.ok(

@@ -67,6 +67,16 @@ public class CommentsServiceImpl implements CommentsService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public void deleteComments(Long id) throws ExistInDatabaseException {
+        Optional<Comments> comments = commentsRepository.findById(id);
+        if (comments.isEmpty()){
+            throw new ExistInDatabaseException("Comments not found");
+        }
+
+        commentsRepository.delete(comments.get());
+    }
+
     private Date parseDate(Date date) throws ParseException {
         String pattern = "yyyy-MM-dd-HH-mm";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
