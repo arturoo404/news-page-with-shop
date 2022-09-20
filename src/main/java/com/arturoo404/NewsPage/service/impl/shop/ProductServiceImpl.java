@@ -8,7 +8,9 @@ import com.arturoo404.NewsPage.repository.shop.ProductRepository;
 import com.arturoo404.NewsPage.service.shop.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Optional;
 
 @Service
@@ -43,5 +45,16 @@ public class ProductServiceImpl implements ProductService {
                 .build());
 
         return productRepository.save(productBuild);
+    }
+
+    @Override
+    public Object setProductPhoto(MultipartFile photo, Long id) throws ExistInDatabaseException, IOException {
+        Optional<Product> byId = productRepository.findById(id);
+        if (byId.isEmpty()){
+            throw new ExistInDatabaseException("This product is not exist in database.");
+        }
+        byId.get().setPhoto(photo.getBytes());
+
+        return productRepository.save(byId.get());
     }
 }
