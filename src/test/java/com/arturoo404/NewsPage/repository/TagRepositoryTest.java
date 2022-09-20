@@ -1,10 +1,12 @@
 package com.arturoo404.NewsPage.repository;
 
-import com.arturoo404.NewsPage.entity.article.Article;
-import com.arturoo404.NewsPage.entity.journalist.Journalist;
-import com.arturoo404.NewsPage.entity.tag.Tags;
+import com.arturoo404.NewsPage.entity.news.article.Article;
+import com.arturoo404.NewsPage.entity.news.journalist.Journalist;
+import com.arturoo404.NewsPage.entity.news.tag.Tags;
 import com.arturoo404.NewsPage.enums.Tag;
-import org.junit.jupiter.api.BeforeEach;
+import com.arturoo404.NewsPage.repository.news.ArticleRepository;
+import com.arturoo404.NewsPage.repository.news.JournalistRepository;
+import com.arturoo404.NewsPage.repository.news.TagRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -16,7 +18,6 @@ import org.springframework.data.domain.Sort;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 class TagRepositoryTest {

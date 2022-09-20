@@ -1,16 +1,12 @@
 package com.arturoo404.NewsPage.microservice.impl;
 
-import com.arturoo404.NewsPage.entity.city.CityDto;
-import com.arturoo404.NewsPage.entity.weather.dto.CurrentWeatherDto;
+import com.arturoo404.NewsPage.entity.news.city.CityDto;
 import com.arturoo404.NewsPage.exception.NotFoundCityException;
-import com.arturoo404.NewsPage.exception.WeatherException;
 import com.arturoo404.NewsPage.microservice.GeolocationService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.List;
 
 @Service
 public class GeolocationServiceImpl implements GeolocationService {

@@ -1,10 +1,13 @@
 package com.arturoo404.NewsPage.repository;
 
-import com.arturoo404.NewsPage.entity.article.Article;
-import com.arturoo404.NewsPage.entity.content.Content;
-import com.arturoo404.NewsPage.entity.journalist.Journalist;
-import com.arturoo404.NewsPage.entity.photo.ArticlePhoto;
+import com.arturoo404.NewsPage.entity.news.article.Article;
+import com.arturoo404.NewsPage.entity.news.content.Content;
+import com.arturoo404.NewsPage.entity.news.journalist.Journalist;
+import com.arturoo404.NewsPage.entity.news.photo.ArticlePhoto;
 import com.arturoo404.NewsPage.enums.ContentType;
+import com.arturoo404.NewsPage.repository.news.ArticlePhotoRepository;
+import com.arturoo404.NewsPage.repository.news.ArticleRepository;
+import com.arturoo404.NewsPage.repository.news.JournalistRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +16,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 class ArticlePhotoRepositoryTest {

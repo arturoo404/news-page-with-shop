@@ -1,15 +1,15 @@
 package com.arturoo404.NewsPage.service.impl;
 
-import com.arturoo404.NewsPage.entity.article.Article;
-import com.arturoo404.NewsPage.entity.comments.Comments;
-import com.arturoo404.NewsPage.entity.comments.dto.AddCommentsDto;
-import com.arturoo404.NewsPage.entity.comments.dto.CommentsDetailDto;
+import com.arturoo404.NewsPage.entity.news.article.Article;
+import com.arturoo404.NewsPage.entity.news.comments.Comments;
+import com.arturoo404.NewsPage.entity.news.comments.dto.AddCommentsDto;
+import com.arturoo404.NewsPage.entity.news.comments.dto.CommentsDetailDto;
 import com.arturoo404.NewsPage.entity.user.User;
-import com.arturoo404.NewsPage.enums.UserRole;
-import com.arturoo404.NewsPage.repository.ArticleRepository;
-import com.arturoo404.NewsPage.repository.CommentsRepository;
+import com.arturoo404.NewsPage.repository.news.ArticleRepository;
+import com.arturoo404.NewsPage.repository.news.CommentsRepository;
 import com.arturoo404.NewsPage.repository.UserRepository;
-import com.arturoo404.NewsPage.service.CommentsService;
+import com.arturoo404.NewsPage.service.impl.news.CommentsServiceImpl;
+import com.arturoo404.NewsPage.service.news.CommentsService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,7 +18,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.verify;

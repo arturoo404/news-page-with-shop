@@ -1,10 +1,11 @@
 package com.arturoo404.NewsPage.repository;
 
-import com.arturoo404.NewsPage.entity.article.Article;
-import com.arturoo404.NewsPage.entity.comments.Comments;
-import com.arturoo404.NewsPage.entity.journalist.Journalist;
-import com.arturoo404.NewsPage.entity.user.User;
-import com.arturoo404.NewsPage.enums.UserRole;
+import com.arturoo404.NewsPage.entity.news.article.Article;
+import com.arturoo404.NewsPage.entity.news.comments.Comments;
+import com.arturoo404.NewsPage.entity.news.journalist.Journalist;
+import com.arturoo404.NewsPage.repository.news.ArticleRepository;
+import com.arturoo404.NewsPage.repository.news.CommentsRepository;
+import com.arturoo404.NewsPage.repository.news.JournalistRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -14,7 +15,6 @@ import java.util.Date;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 class CommentsRepositoryTest {

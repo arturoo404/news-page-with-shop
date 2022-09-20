@@ -1,11 +1,12 @@
 package com.arturoo404.NewsPage.controller.api;
 
-import com.arturoo404.NewsPage.entity.weather.dto.CurrentWeatherDto;
-import com.arturoo404.NewsPage.entity.weather.dto.ForecastWeatherDto;
-import com.arturoo404.NewsPage.entity.weather.model.CityStatistic;
-import com.arturoo404.NewsPage.entity.weather.model.Temperature;
-import com.arturoo404.NewsPage.entity.weather.model.WeatherDescription;
-import com.arturoo404.NewsPage.entity.weather.model.WeatherList;
+import com.arturoo404.NewsPage.controller.api.news.WeatherApiController;
+import com.arturoo404.NewsPage.entity.news.weather.dto.CurrentWeatherDto;
+import com.arturoo404.NewsPage.entity.news.weather.dto.ForecastWeatherDto;
+import com.arturoo404.NewsPage.entity.news.weather.model.CityStatistic;
+import com.arturoo404.NewsPage.entity.news.weather.model.Temperature;
+import com.arturoo404.NewsPage.entity.news.weather.model.WeatherDescription;
+import com.arturoo404.NewsPage.entity.news.weather.model.WeatherList;
 import com.arturoo404.NewsPage.exception.WeatherException;
 import com.arturoo404.NewsPage.microservice.WeatherService;
 import org.junit.jupiter.api.Test;

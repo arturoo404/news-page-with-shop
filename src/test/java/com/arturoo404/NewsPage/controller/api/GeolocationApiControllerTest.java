@@ -1,6 +1,7 @@
 package com.arturoo404.NewsPage.controller.api;
 
-import com.arturoo404.NewsPage.entity.city.CityDto;
+import com.arturoo404.NewsPage.controller.api.news.GeolocationApiController;
+import com.arturoo404.NewsPage.entity.news.city.CityDto;
 import com.arturoo404.NewsPage.exception.NotFoundCityException;
 import com.arturoo404.NewsPage.microservice.GeolocationService;
 import org.junit.jupiter.api.Test;

@@ -1,7 +1,9 @@
 package com.arturoo404.NewsPage.repository;
 
-import com.arturoo404.NewsPage.entity.article.Article;
-import com.arturoo404.NewsPage.entity.journalist.Journalist;
+import com.arturoo404.NewsPage.entity.news.article.Article;
+import com.arturoo404.NewsPage.entity.news.journalist.Journalist;
+import com.arturoo404.NewsPage.repository.news.ArticleRepository;
+import com.arturoo404.NewsPage.repository.news.JournalistRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

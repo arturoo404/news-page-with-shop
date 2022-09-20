@@ -1,11 +1,12 @@
 package com.arturoo404.NewsPage.service.impl;
 
-import com.arturoo404.NewsPage.entity.journalist.Journalist;
-import com.arturoo404.NewsPage.entity.journalist.dto.JournalistAddDto;
-import com.arturoo404.NewsPage.entity.journalist.dto.JournalistGetDto;
+import com.arturoo404.NewsPage.entity.news.journalist.Journalist;
+import com.arturoo404.NewsPage.entity.news.journalist.dto.JournalistAddDto;
+import com.arturoo404.NewsPage.entity.news.journalist.dto.JournalistGetDto;
 import com.arturoo404.NewsPage.exception.ExistInDatabaseException;
-import com.arturoo404.NewsPage.repository.JournalistRepository;
-import com.arturoo404.NewsPage.service.JournalistService;
+import com.arturoo404.NewsPage.repository.news.JournalistRepository;
+import com.arturoo404.NewsPage.service.impl.news.JournalistServiceImpl;
+import com.arturoo404.NewsPage.service.news.JournalistService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

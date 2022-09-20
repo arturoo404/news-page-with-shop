@@ -1,9 +1,10 @@
 package com.arturoo404.NewsPage.controller.api;
 
-import com.arturoo404.NewsPage.entity.article.Article;
-import com.arturoo404.NewsPage.entity.article.dto.*;
-import com.arturoo404.NewsPage.entity.photo.dto.ArticlePhotoAddDto;
-import com.arturoo404.NewsPage.service.ArticleService;
+import com.arturoo404.NewsPage.controller.api.news.ArticleApiController;
+import com.arturoo404.NewsPage.entity.news.article.Article;
+import com.arturoo404.NewsPage.entity.news.article.dto.*;
+import com.arturoo404.NewsPage.entity.news.photo.dto.ArticlePhotoAddDto;
+import com.arturoo404.NewsPage.service.news.ArticleService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;

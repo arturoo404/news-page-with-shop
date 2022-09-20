@@ -1,8 +1,9 @@
 package com.arturoo404.NewsPage.controller.api;
 
-import com.arturoo404.NewsPage.entity.comments.dto.AddCommentsDto;
-import com.arturoo404.NewsPage.entity.comments.dto.CommentsDetailDto;
-import com.arturoo404.NewsPage.service.CommentsService;
+import com.arturoo404.NewsPage.controller.api.news.CommentsApiController;
+import com.arturoo404.NewsPage.entity.news.comments.dto.AddCommentsDto;
+import com.arturoo404.NewsPage.entity.news.comments.dto.CommentsDetailDto;
+import com.arturoo404.NewsPage.service.news.CommentsService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;

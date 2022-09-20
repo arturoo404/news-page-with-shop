@@ -1,9 +1,10 @@
 package com.arturoo404.NewsPage.controller.api;
 
-import com.arturoo404.NewsPage.entity.journalist.dto.JournalistAddDto;
-import com.arturoo404.NewsPage.entity.journalist.dto.JournalistGetDto;
+import com.arturoo404.NewsPage.controller.api.news.JournalistApiController;
+import com.arturoo404.NewsPage.entity.news.journalist.dto.JournalistAddDto;
+import com.arturoo404.NewsPage.entity.news.journalist.dto.JournalistGetDto;
 import com.arturoo404.NewsPage.exception.ExistInDatabaseException;
-import com.arturoo404.NewsPage.service.JournalistService;
+import com.arturoo404.NewsPage.service.news.JournalistService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;

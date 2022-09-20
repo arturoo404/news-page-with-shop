@@ -1,6 +1,6 @@
 package com.arturoo404.NewsPage.entity.user;
 
-import com.arturoo404.NewsPage.entity.comments.Comments;
+import com.arturoo404.NewsPage.entity.news.comments.Comments;
 import com.arturoo404.NewsPage.enums.UserRole;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;

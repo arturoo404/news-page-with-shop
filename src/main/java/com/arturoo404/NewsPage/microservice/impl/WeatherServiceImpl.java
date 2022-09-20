@@ -1,7 +1,7 @@
 package com.arturoo404.NewsPage.microservice.impl;
 
-import com.arturoo404.NewsPage.entity.weather.dto.CurrentWeatherDto;
-import com.arturoo404.NewsPage.entity.weather.dto.ForecastWeatherDto;
+import com.arturoo404.NewsPage.entity.news.weather.dto.CurrentWeatherDto;
+import com.arturoo404.NewsPage.entity.news.weather.dto.ForecastWeatherDto;
 import com.arturoo404.NewsPage.exception.WeatherException;
 import com.arturoo404.NewsPage.microservice.WeatherService;
 import org.springframework.beans.factory.annotation.Value;
