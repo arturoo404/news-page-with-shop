@@ -2,6 +2,7 @@ package com.arturoo404.NewsPage.entity.shop.product;
 
 import com.arturoo404.NewsPage.entity.shop.price.ProductPrice;
 import com.arturoo404.NewsPage.enums.ProductCategory;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -25,12 +26,6 @@ public class Product {
             unique = true
     )
     private String name;
-
-    @Column(
-            nullable = false,
-            name = "price"
-    )
-    private Double price;
 
     @Column(
             name = "photo",
@@ -57,5 +52,6 @@ public class Product {
             name = "product_price",
             referencedColumnName = "id"
     )
+    @JsonIgnore
     private ProductPrice productPrice;
 }
