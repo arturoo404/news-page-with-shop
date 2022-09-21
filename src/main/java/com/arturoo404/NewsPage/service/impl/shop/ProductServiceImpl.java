@@ -6,6 +6,7 @@ import com.arturoo404.NewsPage.entity.shop.available.AvailableProduct;
 import com.arturoo404.NewsPage.entity.shop.price.ProductPrice;
 import com.arturoo404.NewsPage.entity.shop.product.Product;
 import com.arturoo404.NewsPage.entity.shop.product.dto.ProductCreateDto;
+import com.arturoo404.NewsPage.entity.shop.product.dto.ProductDetail;
 import com.arturoo404.NewsPage.entity.shop.product.dto.ProductPageDto;
 import com.arturoo404.NewsPage.enums.Tag;
 import com.arturoo404.NewsPage.exception.ExistInDatabaseException;
@@ -64,9 +65,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Object setProductPhoto(MultipartFile photo, Long id) throws ExistInDatabaseException, IOException {
         Optional<Product> byId = productRepository.findById(id);
-        if (byId.isEmpty()){
-            throw new ExistInDatabaseException("This product is not exist in database.");
-        }
+        productDatabaseExist(byId);
         byId.get().setPhoto(photo.getBytes());
 
         return productRepository.save(byId.get());
@@ -88,5 +87,25 @@ public class ProductServiceImpl implements ProductService {
     public PhotoDto getProductPhoto(Long id) {
         final Product product = productRepository.findById(id).get();
         return new PhotoDto(product.getPhoto());
+    }
+
+    @Override
+    public ProductDetail productDetail(Long id) throws ExistInDatabaseException {
+        final Optional<Product> byId = productRepository.findByIdAndStatus(id);
+        productDatabaseExist(byId);
+        Product product = byId.get();
+        return ProductDetail.builder()
+                .description(product.getDescription())
+                .productQuantity(product.getAvailableProduct().getProductQuantity())
+                .discountPrice(product.getProductPrice().getDiscountPrice())
+                .price(product.getProductPrice().getPrice())
+                .name(product.getName())
+                .build();
+    }
+
+    private void productDatabaseExist(Optional<Product> byId) throws ExistInDatabaseException {
+        if (byId.isEmpty()){
+            throw new ExistInDatabaseException("This product is not exist in database.");
+        }
     }
 }

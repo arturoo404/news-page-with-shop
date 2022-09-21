@@ -15,4 +15,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query(value = "FROM Product p WHERE p.availableProduct.availableStatus = true")
     Page<Product> findALllAvailableProduct(Pageable pageable);
+
+    @Query(value ="FROM Product p WHERE p.availableProduct.availableStatus = true AND p.id = ?1")
+    Optional<Product> findByIdAndStatus(Long id);
 }

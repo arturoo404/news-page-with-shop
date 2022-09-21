@@ -75,4 +75,15 @@ public class ProductApiController {
         InputStream is = new ByteArrayInputStream(photoDto.getPhoto());
         IOUtils.copy(is, response.getOutputStream());
     }
+
+    @GetMapping(path = "/detail")
+    public ResponseEntity<?> productDetail(@RequestParam("id") Long id){
+        try {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(productService.productDetail(id));
+        } catch (ExistInDatabaseException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(e.getMessage());
+        }
+    }
 }
