@@ -36,4 +36,16 @@ public class ProductManagementApiController {
                     .body(e.getMessage());
         }
     }
+
+    @PatchMapping(path = "/product-quantity/{id}")
+    public ResponseEntity<?> updateQuantityOfProduct(@PathVariable("id") Long id,
+                                                     @RequestParam("quantity") Integer quantity){
+        try {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(productManagementService.updateProductQuantity(id, quantity));
+        } catch (ExistInDatabaseException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(e.getMessage());
+        }
+    }
 }

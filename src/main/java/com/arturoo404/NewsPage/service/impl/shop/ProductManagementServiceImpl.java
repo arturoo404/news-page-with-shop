@@ -1,7 +1,6 @@
 package com.arturoo404.NewsPage.service.impl.shop;
 
 import com.arturoo404.NewsPage.entity.shop.available.AvailableProduct;
-import com.arturoo404.NewsPage.entity.shop.product.Product;
 import com.arturoo404.NewsPage.exception.ExistInDatabaseException;
 import com.arturoo404.NewsPage.repository.shop.AvailableProductRepository;
 import com.arturoo404.NewsPage.repository.shop.ProductPriceRepository;
@@ -33,6 +32,15 @@ public class ProductManagementServiceImpl implements ProductManagementService {
         AvailableProduct availableProduct = availableProductById.get();
         availableProduct.setAvailableStatus(status);
 
+        return availableProductRepository.save(availableProduct);
+    }
+
+    @Override
+    public Object updateProductQuantity(Long id, Integer quantity) throws ExistInDatabaseException {
+        Optional<AvailableProduct> availableProductById = availableProductRepository.findAvailableProductById(id);
+        objectDatabaseExist(availableProductById);
+        AvailableProduct availableProduct = availableProductById.get();
+        availableProduct.setProductQuantity(quantity);
         return availableProductRepository.save(availableProduct);
     }
 
