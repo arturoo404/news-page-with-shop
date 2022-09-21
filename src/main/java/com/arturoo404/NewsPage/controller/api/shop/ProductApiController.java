@@ -2,6 +2,7 @@ package com.arturoo404.NewsPage.controller.api.shop;
 
 import com.arturoo404.NewsPage.entity.news.photo.dto.PhotoDto;
 import com.arturoo404.NewsPage.entity.shop.product.dto.ProductCreateDto;
+import com.arturoo404.NewsPage.enums.ProductCategory;
 import com.arturoo404.NewsPage.exception.ExistInDatabaseException;
 import com.arturoo404.NewsPage.service.shop.ProductService;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
@@ -67,8 +68,15 @@ public class ProductApiController {
                 .body(productService.getProductList(page));
     }
 
+    @GetMapping(path = "/list/{category}")
+    public ResponseEntity<Page<?>> productPageByCategory(@RequestParam("page") Integer page,
+                                                         @PathVariable("category") ProductCategory productCategory){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(productService.getProductListByCategory(page, productCategory));
+    }
+
     @GetMapping(path = "/photo/get/{id}")
-    public void productPhoto(Long id, HttpServletResponse response) throws IOException {
+    public void productPhoto(@PathVariable Long id, HttpServletResponse response) throws IOException {
         PhotoDto photoDto = productService.getProductPhoto(id);
 
         response.setContentType("image/jpeg");
@@ -77,7 +85,7 @@ public class ProductApiController {
     }
 
     @GetMapping(path = "/detail")
-    public ResponseEntity<?> productDetail(@RequestParam("id") Long id){
+    public ResponseEntity<?> productDetail(@RequestParam("id") Long id) {
         try {
             return ResponseEntity.status(HttpStatus.OK)
                     .body(productService.productDetail(id));

@@ -1,6 +1,7 @@
 package com.arturoo404.NewsPage.repository.shop;
 
 import com.arturoo404.NewsPage.entity.shop.product.Product;
+import com.arturoo404.NewsPage.enums.ProductCategory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,4 +19,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query(value ="FROM Product p WHERE p.availableProduct.availableStatus = true AND p.id = ?1")
     Optional<Product> findByIdAndStatus(Long id);
+
+    @Query(value = "FROM Product p WHERE p.availableProduct.availableStatus = true AND p.productCategory = ?1")
+    Page<Product> findALllAvailableProductByCategory(Pageable pageable, ProductCategory productCategory);
 }

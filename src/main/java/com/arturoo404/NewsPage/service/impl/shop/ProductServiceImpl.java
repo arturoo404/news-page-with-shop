@@ -8,6 +8,7 @@ import com.arturoo404.NewsPage.entity.shop.product.Product;
 import com.arturoo404.NewsPage.entity.shop.product.dto.ProductCreateDto;
 import com.arturoo404.NewsPage.entity.shop.product.dto.ProductDetail;
 import com.arturoo404.NewsPage.entity.shop.product.dto.ProductPageDto;
+import com.arturoo404.NewsPage.enums.ProductCategory;
 import com.arturoo404.NewsPage.enums.Tag;
 import com.arturoo404.NewsPage.exception.ExistInDatabaseException;
 import com.arturoo404.NewsPage.repository.shop.ProductRepository;
@@ -101,6 +102,18 @@ public class ProductServiceImpl implements ProductService {
                 .price(product.getProductPrice().getPrice())
                 .name(product.getName())
                 .build();
+    }
+
+    @Override
+    public Page<ProductPageDto> getProductListByCategory(Integer page, ProductCategory productCategory) {
+        Pageable pageable = PageRequest.of(page, 5, Sort.by("id").descending());
+        return productRepository.findALllAvailableProductByCategory(pageable, productCategory)
+                .map(t -> ProductPageDto.builder()
+                        .id(t.getId())
+                        .discountPrice(t.getProductPrice().getDiscountPrice())
+                        .name(t.getName())
+                        .price(t.getProductPrice().getPrice())
+                        .build());
     }
 
     private void productDatabaseExist(Optional<Product> byId) throws ExistInDatabaseException {
