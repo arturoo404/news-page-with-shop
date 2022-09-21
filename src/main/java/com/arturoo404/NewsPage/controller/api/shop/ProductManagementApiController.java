@@ -76,4 +76,16 @@ public class ProductManagementApiController {
         }
     }
 
+    @PatchMapping(path = "/promotion-status/{id}")
+    public ResponseEntity<?> changePromotionStatus(@PathVariable("id") Long id,
+                                                   @RequestParam("status") Boolean status){
+        try {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(productManagementService.updatePromotionStatus(id, status));
+        } catch (ExistInDatabaseException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(e.getMessage());
+        }
+    }
+
 }

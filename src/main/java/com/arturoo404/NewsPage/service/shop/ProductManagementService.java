@@ -10,4 +10,6 @@ public interface ProductManagementService {
     Object updateProductPrice(Long id, Double price) throws ExistInDatabaseException;
 
     Object updateProductDiscountPrice(Long id, Double price) throws ExistInDatabaseException;
+
+    Object updatePromotionStatus(Long id, Boolean status) throws ExistInDatabaseException;
 }
