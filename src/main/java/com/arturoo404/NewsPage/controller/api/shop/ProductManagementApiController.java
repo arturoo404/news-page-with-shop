@@ -50,6 +50,7 @@ public class ProductManagementApiController {
         }
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'EMPLOY')")
     @PatchMapping(path = "/change-price/{id}")
     public ResponseEntity<?> changeProductPrice(@PathVariable("id") Long id,
                                                 @RequestParam("price") Double price){
@@ -61,4 +62,18 @@ public class ProductManagementApiController {
                     .body(e.getMessage());
         }
     }
+
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'EMPLOY')")
+    @PatchMapping(path = "/discount-price/{id}")
+    public ResponseEntity<?> changeDiscountPrice(@PathVariable("id") Long id,
+                                                 @RequestParam("price") Double price){
+        try {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(productManagementService.updateProductDiscountPrice(id, price));
+        } catch (ExistInDatabaseException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(e.getMessage());
+        }
+    }
+
 }

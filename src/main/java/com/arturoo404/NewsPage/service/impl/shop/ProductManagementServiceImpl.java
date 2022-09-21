@@ -55,6 +55,16 @@ public class ProductManagementServiceImpl implements ProductManagementService {
         return productPriceRepository.save(productPrice);
     }
 
+    @Override
+    public Object updateProductDiscountPrice(Long id, Double price) throws ExistInDatabaseException {
+        Optional<ProductPrice> productPriceByProductId = productPriceRepository.findProductPriceByProductId(id);
+        objectDatabaseExist(productPriceByProductId);
+
+        ProductPrice productPrice = productPriceByProductId.get();
+        productPrice.setDiscountPrice(price);
+        return productPriceRepository.save(productPrice);
+    }
+
     private void objectDatabaseExist(Optional<?> byId) throws ExistInDatabaseException {
         if (byId.isEmpty()){
             throw new ExistInDatabaseException("This product is not exist in database.");

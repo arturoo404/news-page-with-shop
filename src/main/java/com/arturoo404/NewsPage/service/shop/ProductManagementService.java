@@ -8,4 +8,6 @@ public interface ProductManagementService {
     Object updateProductQuantity(Long id, Integer quantity) throws ExistInDatabaseException;
 
     Object updateProductPrice(Long id, Double price) throws ExistInDatabaseException;
+
+    Object updateProductDiscountPrice(Long id, Double price) throws ExistInDatabaseException;
 }
