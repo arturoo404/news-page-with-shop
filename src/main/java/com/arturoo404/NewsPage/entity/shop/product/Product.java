@@ -1,5 +1,6 @@
 package com.arturoo404.NewsPage.entity.shop.product;
 
+import com.arturoo404.NewsPage.entity.shop.available.AvailableProduct;
 import com.arturoo404.NewsPage.entity.shop.price.ProductPrice;
 import com.arturoo404.NewsPage.enums.ProductCategory;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -45,7 +46,7 @@ public class Product {
     private ProductCategory productCategory;
 
     @OneToOne(
-            cascade = CascadeType.PERSIST,
+            cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
     @JoinColumn(
@@ -54,4 +55,15 @@ public class Product {
     )
     @JsonIgnore
     private ProductPrice productPrice;
+
+
+    @OneToOne(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
+    @JoinColumn(
+            name = "available_product",
+            referencedColumnName = "id"
+    )
+    private AvailableProduct availableProduct;
 }

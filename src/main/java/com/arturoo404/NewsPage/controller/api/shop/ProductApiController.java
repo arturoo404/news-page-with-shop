@@ -4,6 +4,7 @@ import com.arturoo404.NewsPage.entity.shop.product.dto.ProductCreateDto;
 import com.arturoo404.NewsPage.exception.ExistInDatabaseException;
 import com.arturoo404.NewsPage.service.shop.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -52,5 +53,11 @@ public class ProductApiController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(e.getMessage());
         }
+    }
+
+    @GetMapping(path = "/list")
+    public ResponseEntity<Page<?>> productPage(@RequestParam("page") Integer page){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(productService.getProductList(page));
     }
 }

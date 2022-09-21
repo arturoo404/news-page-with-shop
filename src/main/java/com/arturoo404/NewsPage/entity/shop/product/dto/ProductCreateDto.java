@@ -13,4 +13,5 @@ public class ProductCreateDto {
     private Double price;
     private String description;
     private ProductCategory productCategory;
+    private Integer productQuantity;
 }

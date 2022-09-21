@@ -1,12 +1,20 @@
 package com.arturoo404.NewsPage.service.impl.shop;
 
+import com.arturoo404.NewsPage.entity.news.article.dto.TileArticleDto;
+import com.arturoo404.NewsPage.entity.shop.available.AvailableProduct;
 import com.arturoo404.NewsPage.entity.shop.price.ProductPrice;
 import com.arturoo404.NewsPage.entity.shop.product.Product;
 import com.arturoo404.NewsPage.entity.shop.product.dto.ProductCreateDto;
+import com.arturoo404.NewsPage.entity.shop.product.dto.ProductPageDto;
+import com.arturoo404.NewsPage.enums.Tag;
 import com.arturoo404.NewsPage.exception.ExistInDatabaseException;
 import com.arturoo404.NewsPage.repository.shop.ProductRepository;
 import com.arturoo404.NewsPage.service.shop.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -43,6 +51,11 @@ public class ProductServiceImpl implements ProductService {
                 .discountPrice(product.getPrice())
                 .price(product.getPrice())
                 .build());
+        productBuild.setAvailableProduct(AvailableProduct.builder()
+                        .availableStatus(true)
+                        .productQuantity(product.getProductQuantity())
+                        .product(productBuild)
+                .build());
 
         return productRepository.save(productBuild);
     }
@@ -56,5 +69,17 @@ public class ProductServiceImpl implements ProductService {
         byId.get().setPhoto(photo.getBytes());
 
         return productRepository.save(byId.get());
+    }
+
+    @Override
+    public Page<ProductPageDto> getProductList(Integer page) {
+        Pageable pageable = PageRequest.of(page, 5, Sort.by("id").descending());
+        return productRepository.findALllAvailableProduct(pageable)
+                .map(t -> ProductPageDto.builder()
+                        .id(t.getId())
+                        .discountPrice(t.getProductPrice().getDiscountPrice())
+                        .name(t.getName())
+                        .price(t.getProductPrice().getPrice())
+                        .build());
     }
 }
