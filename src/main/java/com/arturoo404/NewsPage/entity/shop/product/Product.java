@@ -65,5 +65,6 @@ public class Product {
             name = "available_product",
             referencedColumnName = "id"
     )
+    @JsonIgnore
     private AvailableProduct availableProduct;
 }

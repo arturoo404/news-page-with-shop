@@ -1,6 +1,5 @@
 package com.arturoo404.NewsPage.service.impl.shop;
 
-import com.arturoo404.NewsPage.entity.news.article.dto.TileArticleDto;
 import com.arturoo404.NewsPage.entity.news.photo.dto.PhotoDto;
 import com.arturoo404.NewsPage.entity.shop.available.AvailableProduct;
 import com.arturoo404.NewsPage.entity.shop.price.ProductPrice;
@@ -9,7 +8,6 @@ import com.arturoo404.NewsPage.entity.shop.product.dto.ProductCreateDto;
 import com.arturoo404.NewsPage.entity.shop.product.dto.ProductDetail;
 import com.arturoo404.NewsPage.entity.shop.product.dto.ProductPageDto;
 import com.arturoo404.NewsPage.enums.ProductCategory;
-import com.arturoo404.NewsPage.enums.Tag;
 import com.arturoo404.NewsPage.exception.ExistInDatabaseException;
 import com.arturoo404.NewsPage.repository.shop.ProductRepository;
 import com.arturoo404.NewsPage.service.shop.ProductService;
