@@ -1,5 +1,6 @@
 package com.arturoo404.NewsPage.service.shop;
 
+import com.arturoo404.NewsPage.entity.news.photo.dto.PhotoDto;
 import com.arturoo404.NewsPage.entity.shop.product.dto.ProductCreateDto;
 import com.arturoo404.NewsPage.entity.shop.product.dto.ProductPageDto;
 import com.arturoo404.NewsPage.exception.ExistInDatabaseException;
@@ -14,4 +15,6 @@ public interface ProductService {
     Object setProductPhoto(MultipartFile photo, Long id) throws ExistInDatabaseException, IOException;
 
     Page<ProductPageDto> getProductList(Integer page);
+
+    PhotoDto getProductPhoto(Long id);
 }

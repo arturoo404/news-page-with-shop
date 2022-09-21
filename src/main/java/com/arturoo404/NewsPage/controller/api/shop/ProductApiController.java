@@ -1,8 +1,10 @@
 package com.arturoo404.NewsPage.controller.api.shop;
 
+import com.arturoo404.NewsPage.entity.news.photo.dto.PhotoDto;
 import com.arturoo404.NewsPage.entity.shop.product.dto.ProductCreateDto;
 import com.arturoo404.NewsPage.exception.ExistInDatabaseException;
 import com.arturoo404.NewsPage.service.shop.ProductService;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -12,8 +14,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
+//TODO Product Test
 @Controller
 @RequestMapping( "/api/shop/product")
 public class ProductApiController {
@@ -59,5 +65,14 @@ public class ProductApiController {
     public ResponseEntity<Page<?>> productPage(@RequestParam("page") Integer page){
         return ResponseEntity.status(HttpStatus.OK)
                 .body(productService.getProductList(page));
+    }
+
+    @GetMapping(path = "/photo/get/{id}")
+    public void productPhoto(Long id, HttpServletResponse response) throws IOException {
+        PhotoDto photoDto = productService.getProductPhoto(id);
+
+        response.setContentType("image/jpeg");
+        InputStream is = new ByteArrayInputStream(photoDto.getPhoto());
+        IOUtils.copy(is, response.getOutputStream());
     }
 }

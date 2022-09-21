@@ -1,6 +1,7 @@
 package com.arturoo404.NewsPage.service.impl.shop;
 
 import com.arturoo404.NewsPage.entity.news.article.dto.TileArticleDto;
+import com.arturoo404.NewsPage.entity.news.photo.dto.PhotoDto;
 import com.arturoo404.NewsPage.entity.shop.available.AvailableProduct;
 import com.arturoo404.NewsPage.entity.shop.price.ProductPrice;
 import com.arturoo404.NewsPage.entity.shop.product.Product;
@@ -81,5 +82,11 @@ public class ProductServiceImpl implements ProductService {
                         .name(t.getName())
                         .price(t.getProductPrice().getPrice())
                         .build());
+    }
+
+    @Override
+    public PhotoDto getProductPhoto(Long id) {
+        final Product product = productRepository.findById(id).get();
+        return new PhotoDto(product.getPhoto());
     }
 }
