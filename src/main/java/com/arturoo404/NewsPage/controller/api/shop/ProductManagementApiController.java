@@ -75,7 +75,7 @@ public class ProductManagementApiController {
                     .body(e.getMessage());
         }
     }
-
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'EMPLOY')")
     @PatchMapping(path = "/promotion-status/{id}")
     public ResponseEntity<?> changePromotionStatus(@PathVariable("id") Long id,
                                                    @RequestParam("status") Boolean status){

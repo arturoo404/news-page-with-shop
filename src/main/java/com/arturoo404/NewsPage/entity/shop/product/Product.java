@@ -1,12 +1,14 @@
 package com.arturoo404.NewsPage.entity.shop.product;
 
 import com.arturoo404.NewsPage.entity.shop.available.AvailableProduct;
+import com.arturoo404.NewsPage.entity.shop.cartDetail.CartDetail;
 import com.arturoo404.NewsPage.entity.shop.price.ProductPrice;
 import com.arturoo404.NewsPage.enums.ProductCategory;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "product")
@@ -67,4 +69,13 @@ public class Product {
     )
     @JsonIgnore
     private AvailableProduct availableProduct;
+
+
+    @JsonIgnore
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            mappedBy = "product"
+    )
+    private List<CartDetail> cartDetail;
 }

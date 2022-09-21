@@ -1,6 +1,7 @@
 package com.arturoo404.NewsPage.entity.user;
 
 import com.arturoo404.NewsPage.entity.news.comments.Comments;
+import com.arturoo404.NewsPage.entity.shop.cart.Cart;
 import com.arturoo404.NewsPage.enums.UserRole;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
@@ -59,6 +60,17 @@ public class User implements UserDetails {
             cascade = {CascadeType.MERGE, CascadeType.PERSIST}
     )
     private List<Comments> comments;
+
+    @JsonIgnore
+    @OneToOne(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
+    @JoinColumn(
+            name = "cart",
+            referencedColumnName = "id"
+    )
+    private Cart cart;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
