@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Repository
 public interface CartDetailRepository extends JpaRepository<CartDetail, Long> {
 
@@ -14,4 +16,7 @@ public interface CartDetailRepository extends JpaRepository<CartDetail, Long> {
     @Modifying(clearAutomatically = true)
     @Query(value = "UPDATE CartDetail c SET c.quantity = ?1 WHERE c.id = ?2")
     void updateProductQuantity(Integer quantity, Long id);
+
+    @Query(value = "FROM CartDetail c WHERE c.cart.user.email = ?1 AND c.product.id = ?2")
+    Optional<CartDetail> findByIdAndUserEmail(String email, Long id);
 }

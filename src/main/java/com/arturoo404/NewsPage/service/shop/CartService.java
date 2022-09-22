@@ -10,4 +10,6 @@ public interface CartService {
     CartNavInfoDto findCartNavInfo(String email) throws ExistInDatabaseException;
 
     Object findCartDetail(String email) throws ExistInDatabaseException;
+
+    Object deleteProductFromCart(String email, Long id, Integer quantity) throws ExistInDatabaseException;
 }

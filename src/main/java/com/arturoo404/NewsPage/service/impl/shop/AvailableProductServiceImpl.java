@@ -31,13 +31,13 @@ public class AvailableProductServiceImpl implements AvailableProductService {
             throw new ExistInDatabaseException("We do not have that many product, please select less number of it.");
         }
 
-        if (product.getAvailableProduct().getProductQuantity().equals(quantity)){
-            product.getAvailableProduct().setAvailableStatus(false);
-            product.getAvailableProduct().setProductQuantity(0);
-            return productRepository.save(product);
-        }
+//       if (product.getAvailableProduct().getProductQuantity().equals(quantity)){
+//            product.getAvailableProduct().setAvailableStatus(false);
+//            product.getAvailableProduct().setProductQuantity(0);
+//            return productRepository.save(product);
+//        }
 
-        product.getAvailableProduct().setProductQuantity(product.getAvailableProduct().getProductQuantity() - quantity);
-        return productRepository.save(product);
+        // product.getAvailableProduct().setProductQuantity(product.getAvailableProduct().getProductQuantity() - quantity);
+        return product;
     }
 }

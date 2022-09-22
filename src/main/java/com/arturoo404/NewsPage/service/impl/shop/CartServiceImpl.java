@@ -102,8 +102,34 @@ public class CartServiceImpl implements CartService {
         );
     }
 
-    private void userExist(Optional<Cart> cart) throws ExistInDatabaseException {
-        if (cart.isEmpty()){
+    @Override
+    public Object deleteProductFromCart(String email, Long id, Integer quantity) throws ExistInDatabaseException {
+        Optional<CartDetail> cartDetailOptional = cartDetailRepository.findByIdAndUserEmail(email, id);
+        if (cartDetailOptional.isEmpty()){
+            throw new ExistInDatabaseException("Entity does not exist.");
+        }
+
+        CartDetail cartDetail = cartDetailOptional.get();
+        if (cartDetail.getQuantity() < quantity){
+            throw new IndexOutOfBoundsException("Item quantity is too large.");
+        }
+
+        if (cartDetail.getQuantity().equals(quantity)){
+            cartDetail.getCart().setProductQuantity(cartDetail.getCart().getProductQuantity() - quantity);
+            cartDetail.getCart().setAmount(cartDetail.getCart().getAmount() - productPrice(id) * quantity);
+            cartDetailRepository.delete(cartDetail);
+            return "Successfully deleted product from cart.";
+        }
+
+        cartDetail.setQuantity(cartDetail.getQuantity() - quantity);
+        cartDetail.getCart().setProductQuantity(cartDetail.getCart().getProductQuantity() - quantity);
+        cartDetail.getCart().setAmount(cartDetail.getCart().getAmount() - productPrice(id) * quantity);
+        cartDetailRepository.save(cartDetail);
+        return "Successfully deleted product from cart.";
+    }
+
+    private void userExist(Optional<?> o) throws ExistInDatabaseException {
+        if (o.isEmpty()){
             throw new ExistInDatabaseException("User does not exist");
         }
     }
