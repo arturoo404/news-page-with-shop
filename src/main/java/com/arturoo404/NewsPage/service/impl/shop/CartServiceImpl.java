@@ -1,6 +1,7 @@
 package com.arturoo404.NewsPage.service.impl.shop;
 
 import com.arturoo404.NewsPage.entity.shop.cart.Cart;
+import com.arturoo404.NewsPage.entity.shop.cart.dto.CartNavInfoDto;
 import com.arturoo404.NewsPage.entity.shop.cartDetail.CartDetail;
 import com.arturoo404.NewsPage.entity.shop.product.Product;
 import com.arturoo404.NewsPage.exception.ExistInDatabaseException;
@@ -9,7 +10,6 @@ import com.arturoo404.NewsPage.repository.shop.CartRepository;
 import com.arturoo404.NewsPage.repository.shop.ProductRepository;
 import com.arturoo404.NewsPage.service.shop.AvailableProductService;
 import com.arturoo404.NewsPage.service.shop.CartService;
-import com.arturoo404.NewsPage.service.shop.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -72,6 +72,16 @@ public class CartServiceImpl implements CartService {
         cart.setAmount(cart.getAmount() + productPrice(id) * quantity);
 
         return cartRepository.save(cart);
+    }
+
+    @Override
+    public Object findCartNavInfo(String email) throws ExistInDatabaseException {
+        Optional<Cart> cart = cartRepository.findByUserEmail(email);
+        if (cart.isEmpty()){
+            throw new ExistInDatabaseException("User does not exist");
+        }
+
+        return new CartNavInfoDto(cart.get().getAmount(), cart.get().getProductQuantity());
     }
 
     private Double productPrice(Long productId){

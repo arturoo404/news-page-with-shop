@@ -5,7 +5,9 @@ import com.arturoo404.NewsPage.service.shop.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,13 +23,25 @@ public class CartApiController {
         this.cartService = cartService;
     }
 
-    @PostMapping("/add-product")
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping(path = "/add-product")
     public ResponseEntity<?> cart(@RequestParam("email") String email,
                                   @RequestParam("productId") Long id,
                                   @RequestParam(value = "quantity", defaultValue = "1") Integer quantity){
         try {
             return ResponseEntity.status(HttpStatus.OK)
                     .body(cartService.addProductToCart(email, id, quantity));
+        } catch (ExistInDatabaseException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(e.getMessage());
+        }
+    }
+
+    @GetMapping(path = "/nav-info")
+    public ResponseEntity<?> cartNavbarInfo(@RequestParam("email") String email){
+        try {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(cartService.findCartNavInfo(email));
         } catch (ExistInDatabaseException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(e.getMessage());
