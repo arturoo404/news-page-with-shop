@@ -3,10 +3,7 @@ package com.arturoo404.NewsPage.entity.shop.cartDetail;
 import com.arturoo404.NewsPage.entity.shop.cart.Cart;
 import com.arturoo404.NewsPage.entity.shop.product.Product;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -14,6 +11,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "cart_detail")

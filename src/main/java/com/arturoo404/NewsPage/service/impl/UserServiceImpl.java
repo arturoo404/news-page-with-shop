@@ -1,5 +1,6 @@
 package com.arturoo404.NewsPage.service.impl;
 
+import com.arturoo404.NewsPage.entity.shop.cart.Cart;
 import com.arturoo404.NewsPage.entity.user.User;
 import com.arturoo404.NewsPage.entity.user.dto.UserChangePasswordDto;
 import com.arturoo404.NewsPage.entity.user.dto.UserChangeRoleDto;
@@ -48,6 +49,10 @@ public class UserServiceImpl implements UserService {
                         .email(userDto.getEmail())
                         .nick(userDto.getNick())
                         .userRole(UserRole.USER)
+                        .cart(Cart.builder()
+                                .amount(0D)
+                                .productQuantity(0L)
+                                .build())
                         .password(
                                 new BCryptPasswordEncoder()
                                         .encode(userDto.getPassword())
