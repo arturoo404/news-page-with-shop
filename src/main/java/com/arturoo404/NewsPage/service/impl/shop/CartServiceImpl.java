@@ -1,7 +1,9 @@
 package com.arturoo404.NewsPage.service.impl.shop;
 
 import com.arturoo404.NewsPage.entity.shop.cart.Cart;
+import com.arturoo404.NewsPage.entity.shop.cart.dto.CartDetailDto;
 import com.arturoo404.NewsPage.entity.shop.cart.dto.CartNavInfoDto;
+import com.arturoo404.NewsPage.entity.shop.cart.dto.CartProductDetailDto;
 import com.arturoo404.NewsPage.entity.shop.cartDetail.CartDetail;
 import com.arturoo404.NewsPage.entity.shop.product.Product;
 import com.arturoo404.NewsPage.exception.ExistInDatabaseException;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CartServiceImpl implements CartService {
@@ -75,13 +78,34 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Object findCartNavInfo(String email) throws ExistInDatabaseException {
+    public CartNavInfoDto findCartNavInfo(String email) throws ExistInDatabaseException {
         Optional<Cart> cart = cartRepository.findByUserEmail(email);
+        userExist(cart);
+        return new CartNavInfoDto(cart.get().getAmount(), cart.get().getProductQuantity());
+    }
+
+    @Override
+    public Object findCartDetail(String email) throws ExistInDatabaseException {
+        Optional<Cart> cartOptional = cartRepository.findByUserEmail(email);
+        userExist(cartOptional);
+        Cart cart = cartOptional.get();
+
+        return new CartDetailDto(cart.getAmount(),
+                cart.getProductQuantity(),
+                cart.getCartDetail().stream()
+                        .map(c -> new CartProductDetailDto(
+                                c.getQuantity(),
+                                c.getProduct().getId(),
+                                c.getProduct().getName()
+                        ))
+                        .collect(Collectors.toList())
+        );
+    }
+
+    private void userExist(Optional<Cart> cart) throws ExistInDatabaseException {
         if (cart.isEmpty()){
             throw new ExistInDatabaseException("User does not exist");
         }
-
-        return new CartNavInfoDto(cart.get().getAmount(), cart.get().getProductQuantity());
     }
 
     private Double productPrice(Long productId){

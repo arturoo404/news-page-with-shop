@@ -1,5 +1,6 @@
 package com.arturoo404.NewsPage.controller.api.shop;
 
+import com.arturoo404.NewsPage.entity.shop.cart.dto.CartNavInfoDto;
 import com.arturoo404.NewsPage.exception.ExistInDatabaseException;
 import com.arturoo404.NewsPage.service.shop.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,11 +38,24 @@ public class CartApiController {
         }
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping(path = "/nav-info")
-    public ResponseEntity<?> cartNavbarInfo(@RequestParam("email") String email){
+    public ResponseEntity<Object> cartNavbarInfo(@RequestParam("email") String email){
         try {
             return ResponseEntity.status(HttpStatus.OK)
                     .body(cartService.findCartNavInfo(email));
+        } catch (ExistInDatabaseException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(e.getMessage());
+        }
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping(path = "/detail")
+    public ResponseEntity<?> cartDetail(@RequestParam("email") String email){
+        try {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(cartService.findCartDetail(email));
         } catch (ExistInDatabaseException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(e.getMessage());
