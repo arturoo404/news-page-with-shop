@@ -21,7 +21,7 @@ public class CartApiController {
         this.cartService = cartService;
     }
 
-    @PreAuthorize("isAuthenticated()")
+    //@PreAuthorize("isAuthenticated()")
     @PostMapping(path = "/add-product")
     public ResponseEntity<?> cart(@RequestParam("email") String email,
                                   @RequestParam("productId") Long id,

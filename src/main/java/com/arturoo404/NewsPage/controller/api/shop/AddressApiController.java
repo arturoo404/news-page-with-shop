@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+
+//TODO get address
 @Controller
 @RequestMapping(path = "/api/shop/address")
 public class AddressApiController {

@@ -44,6 +44,13 @@ public class Order {
     )
     private Date orderDate;
 
+    @Column(
+            name = "comments_to_order",
+            length = 2000
+    )
+    private String commentsToOrder;
+
+
     @JsonIgnore
     @OneToMany(
             mappedBy = "orders",

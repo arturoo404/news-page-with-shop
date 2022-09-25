@@ -19,4 +19,9 @@ public interface CartDetailRepository extends JpaRepository<CartDetail, Long> {
 
     @Query(value = "FROM CartDetail c WHERE c.cart.user.email = ?1 AND c.product.id = ?2")
     Optional<CartDetail> findByIdAndUserEmail(String email, Long id);
+
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "DELETE CartDetail c WHERE c.cart.id = ?1")
+    void deleteAllCartDetails(Long id);
 }

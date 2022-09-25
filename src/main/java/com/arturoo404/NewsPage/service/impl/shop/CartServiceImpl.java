@@ -42,7 +42,7 @@ public class CartServiceImpl implements CartService {
 
     //TODO Remove all product from cart when promotion start
     @Override
-    public Cart addProductToCart(String email, Long id, Integer quantity) throws ExistInDatabaseException {
+    public Object addProductToCart(String email, Long id, Integer quantity) throws ExistInDatabaseException {
         Optional<Cart> byUserEmail = cartRepository.findByUserEmail(email);
         if (byUserEmail.isEmpty()){
             throw new ExistInDatabaseException("We did not find user with this email:\u00A0" + email);
@@ -65,16 +65,18 @@ public class CartServiceImpl implements CartService {
             cart.setCartDetail(cartDetail);
             cart.setProductQuantity(cart.getProductQuantity() + quantity);
             cart.setAmount(cart.getAmount() + productPrice(id) * quantity);
+            cartRepository.save(cart);
 
-            return cartRepository.save(cart);
+            return "Product has added";
         }
-        cartDetailRepository.updateProductQuantity(first.get().getQuantity() + quantity, first.get().getId());
 
         cart.setCartDetail(cartDetail);
         cart.setProductQuantity(cart.getProductQuantity() + quantity);
         cart.setAmount(cart.getAmount() + productPrice(id) * quantity);
+        cartRepository.save(cart);
 
-        return cartRepository.save(cart);
+        cartDetailRepository.updateProductQuantity(first.get().getQuantity() + quantity, first.get().getId());
+        return "Product has added";
     }
 
     @Override
@@ -126,6 +128,16 @@ public class CartServiceImpl implements CartService {
         cartDetail.getCart().setAmount(cartDetail.getCart().getAmount() - productPrice(id) * quantity);
         cartDetailRepository.save(cartDetail);
         return "Successfully deleted product from cart.";
+    }
+
+    @Override
+    public void deleteCartDetail(Long cartId) {
+        cartDetailRepository.deleteAllCartDetails(cartId);
+    }
+
+    @Override
+    public void restartStatistic(Long id) {
+        cartRepository.restartCartStatistic(id);
     }
 
     private void userExist(Optional<?> o) throws ExistInDatabaseException {
