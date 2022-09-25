@@ -53,7 +53,7 @@ public class WebConfig {
                 .antMatchers("/api/shop/product/list/**").permitAll()
                 .antMatchers("/api/shop/product/detail").permitAll()
                 //TEST PLACE
-                .antMatchers("/api/shop/cart/**").permitAll()
+                .antMatchers("/api/shop/address/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
