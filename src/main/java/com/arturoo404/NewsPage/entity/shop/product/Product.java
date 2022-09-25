@@ -2,6 +2,7 @@ package com.arturoo404.NewsPage.entity.shop.product;
 
 import com.arturoo404.NewsPage.entity.shop.available.AvailableProduct;
 import com.arturoo404.NewsPage.entity.shop.cartDetail.CartDetail;
+import com.arturoo404.NewsPage.entity.shop.order_detail.OrderDetail;
 import com.arturoo404.NewsPage.entity.shop.price.ProductPrice;
 import com.arturoo404.NewsPage.enums.ProductCategory;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -78,4 +79,12 @@ public class Product {
             mappedBy = "product"
     )
     private List<CartDetail> cartDetail;
+
+    @JsonIgnore
+    @OneToMany(
+            fetch = FetchType.LAZY,
+            cascade = {CascadeType.MERGE, CascadeType.PERSIST},
+            mappedBy = "product"
+    )
+    private List<OrderDetail> orderDetail;
 }

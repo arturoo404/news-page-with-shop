@@ -1,10 +1,13 @@
 package com.arturoo404.NewsPage.entity.shop.order;
 
+import com.arturoo404.NewsPage.entity.shop.order_detail.OrderDetail;
 import com.arturoo404.NewsPage.enums.OrderStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -12,7 +15,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "order")
+@Table(name = "orders")
 public class Order {
 
     @Id
@@ -38,4 +41,13 @@ public class Order {
             name = "order_date"
     )
     private Date orderDate;
+
+    @JsonIgnore
+    @OneToMany(
+            mappedBy = "orders",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL
+    )
+    private List<OrderDetail> orderDetails;
+
 }
