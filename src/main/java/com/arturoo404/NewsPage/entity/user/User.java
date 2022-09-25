@@ -3,6 +3,7 @@ package com.arturoo404.NewsPage.entity.user;
 import com.arturoo404.NewsPage.entity.news.comments.Comments;
 import com.arturoo404.NewsPage.entity.shop.address.Address;
 import com.arturoo404.NewsPage.entity.shop.cart.Cart;
+import com.arturoo404.NewsPage.entity.shop.order.Order;
 import com.arturoo404.NewsPage.enums.UserRole;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
@@ -84,6 +85,14 @@ public class User implements UserDetails {
             referencedColumnName = "id"
     )
     private Address address;
+
+    @JsonIgnore
+    @OneToMany(
+            mappedBy = "user",
+            fetch = FetchType.LAZY,
+            cascade = {CascadeType.MERGE, CascadeType.PERSIST}
+    )
+    private List<Order> orders;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

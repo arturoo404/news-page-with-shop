@@ -1,6 +1,8 @@
 package com.arturoo404.NewsPage.entity.shop.order;
 
+import com.arturoo404.NewsPage.entity.shop.order_adderss.OrderAddress;
 import com.arturoo404.NewsPage.entity.shop.order_detail.OrderDetail;
+import com.arturoo404.NewsPage.entity.user.User;
 import com.arturoo404.NewsPage.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
@@ -49,5 +51,22 @@ public class Order {
             cascade = CascadeType.ALL
     )
     private List<OrderDetail> orderDetails;
+
+
+    @ManyToOne()
+    @JoinColumn(
+            name = "user"
+    )
+    private User user;
+
+    @OneToOne(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
+    @JoinColumn(
+            name = "orders_address",
+            nullable = false
+    )
+    private OrderAddress ordersAddress;
 
 }
