@@ -21,6 +21,10 @@ import com.arturoo404.NewsPage.service.shop.CartService;
 import com.arturoo404.NewsPage.service.shop.OrderService;
 import com.arturoo404.NewsPage.validation.PhoneNumberValid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -155,6 +159,18 @@ public class OrderServiceImpl implements OrderService {
                                         d.getProductQuantity())
                                 ).collect(Collectors.toList()))
                 .build();
+    }
+
+    @Override
+    public Page<OrderUserListDto> getPageOfOrderList(Integer page, OrderStatus orderStatus) {
+        Pageable pageable = PageRequest.of(page, 5, Sort.by("id"));
+        return orderRepository.findAllByOrderStatus(orderStatus, pageable)
+                .map(o -> OrderUserListDto.builder()
+                        .id(o.getId())
+                        .amount(o.getOrderAmount())
+                        .orderStatus(o.getOrderStatus())
+                        .date(o.getOrderDate())
+                        .build());
     }
 
     private Double productPrice(Long productId){

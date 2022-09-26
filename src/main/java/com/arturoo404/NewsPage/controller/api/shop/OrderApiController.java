@@ -1,9 +1,12 @@
 package com.arturoo404.NewsPage.controller.api.shop;
 
 import com.arturoo404.NewsPage.entity.shop.order.dto.OrderDto;
+import com.arturoo404.NewsPage.entity.shop.order.dto.OrderUserListDto;
+import com.arturoo404.NewsPage.enums.OrderStatus;
 import com.arturoo404.NewsPage.exception.ExistInDatabaseException;
 import com.arturoo404.NewsPage.service.shop.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -41,6 +44,7 @@ public class OrderApiController {
                 .body(orderService.getUserOrderList(email));
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping(path = "/user-detail")
     public ResponseEntity<?> userOrderDetail(@RequestParam("email") String email,
                                              @RequestParam("orderId") Long id){
@@ -51,5 +55,13 @@ public class OrderApiController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(e.getMessage());
         }
+    }
+
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'EMPLOY')")
+    @GetMapping(path = "/management/list")
+    public ResponseEntity<Page<OrderUserListDto>> management(@RequestParam("page") Integer page,
+                                                             @RequestParam("status") OrderStatus orderStatus){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(orderService.getPageOfOrderList(page, orderStatus));
     }
 }
