@@ -4,6 +4,7 @@ import com.arturoo404.NewsPage.entity.shop.cart.Cart;
 import com.arturoo404.NewsPage.entity.shop.cartDetail.CartDetail;
 import com.arturoo404.NewsPage.entity.shop.order.Order;
 import com.arturoo404.NewsPage.entity.shop.order.dto.OrderDto;
+import com.arturoo404.NewsPage.entity.shop.order.dto.OrderUserDetailDto;
 import com.arturoo404.NewsPage.entity.shop.order_adderss.OrderAddress;
 import com.arturoo404.NewsPage.entity.shop.order_detail.OrderDetail;
 import com.arturoo404.NewsPage.entity.shop.product.Product;
@@ -24,6 +25,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -118,6 +120,19 @@ public class OrderServiceImpl implements OrderService {
         cartService.restartStatistic(cart.getId());
 
         return "Successfully make an order";
+    }
+
+    @Override
+    public List<OrderUserDetailDto> getUserOrderDetail(String email) {
+        List<Order> orders = orderRepository.findAllByUserEmail(email);
+        return orders.stream()
+                .map(o -> OrderUserDetailDto.builder()
+                        .id(o.getId())
+                        .amount(o.getOrderAmount())
+                        .orderStatus(o.getOrderStatus())
+                        .date(o.getOrderDate())
+                        .build())
+                .collect(Collectors.toList());
     }
 
     private Double productPrice(Long productId){
