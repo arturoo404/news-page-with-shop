@@ -1,6 +1,7 @@
 package com.arturoo404.NewsPage.controller.api.shop;
 
 import com.arturoo404.NewsPage.entity.shop.order.dto.OrderDto;
+import com.arturoo404.NewsPage.exception.ExistInDatabaseException;
 import com.arturoo404.NewsPage.service.shop.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,9 +34,22 @@ public class OrderApiController {
         }
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping(path = "/user-list")
-    public ResponseEntity<?> userOrderDetail(@RequestParam("email") String email){
+    public ResponseEntity<?> userOrderList(@RequestParam("email") String email){
         return ResponseEntity.status(HttpStatus.OK)
-                .body(orderService.getUserOrderDetail(email));
+                .body(orderService.getUserOrderList(email));
+    }
+
+    @GetMapping(path = "/user-detail")
+    public ResponseEntity<?> userOrderDetail(@RequestParam("email") String email,
+                                             @RequestParam("orderId") Long id){
+        try {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(orderService.getUserOrderDetail(email, id));
+        } catch (ExistInDatabaseException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(e.getMessage());
+        }
     }
 }

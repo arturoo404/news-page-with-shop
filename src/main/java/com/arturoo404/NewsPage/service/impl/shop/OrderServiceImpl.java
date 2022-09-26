@@ -3,10 +3,12 @@ package com.arturoo404.NewsPage.service.impl.shop;
 import com.arturoo404.NewsPage.entity.shop.cart.Cart;
 import com.arturoo404.NewsPage.entity.shop.cartDetail.CartDetail;
 import com.arturoo404.NewsPage.entity.shop.order.Order;
+import com.arturoo404.NewsPage.entity.shop.order.dto.OrderDetailDto;
 import com.arturoo404.NewsPage.entity.shop.order.dto.OrderDto;
-import com.arturoo404.NewsPage.entity.shop.order.dto.OrderUserDetailDto;
+import com.arturoo404.NewsPage.entity.shop.order.dto.OrderUserListDto;
 import com.arturoo404.NewsPage.entity.shop.order_adderss.OrderAddress;
 import com.arturoo404.NewsPage.entity.shop.order_detail.OrderDetail;
+import com.arturoo404.NewsPage.entity.shop.order_detail.dto.OrderProductDto;
 import com.arturoo404.NewsPage.entity.shop.product.Product;
 import com.arturoo404.NewsPage.entity.user.User;
 import com.arturoo404.NewsPage.enums.OrderStatus;
@@ -123,16 +125,36 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderUserDetailDto> getUserOrderDetail(String email) {
+    public List<OrderUserListDto> getUserOrderList(String email) {
         List<Order> orders = orderRepository.findAllByUserEmail(email);
         return orders.stream()
-                .map(o -> OrderUserDetailDto.builder()
+                .map(o -> OrderUserListDto.builder()
                         .id(o.getId())
                         .amount(o.getOrderAmount())
                         .orderStatus(o.getOrderStatus())
                         .date(o.getOrderDate())
                         .build())
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public OrderDetailDto getUserOrderDetail(String email, Long id) throws ExistInDatabaseException {
+        final Optional<Order> byIdAndEmail = orderRepository.findByIdAndEmail(email, id);
+        if (byIdAndEmail.isEmpty()){
+            throw new ExistInDatabaseException("Order not found.");
+        }
+
+        return OrderDetailDto.builder()
+                .amount(byIdAndEmail.get().getOrderAmount())
+                .orderStatus(byIdAndEmail.get().getOrderStatus())
+                .date(byIdAndEmail.get().getOrderDate())
+                .products(
+                        byIdAndEmail.get().getOrderDetails().stream()
+                                .map(d -> new OrderProductDto(
+                                        d.getProductPrice(),
+                                        d.getProductQuantity())
+                                ).collect(Collectors.toList()))
+                .build();
     }
 
     private Double productPrice(Long productId){

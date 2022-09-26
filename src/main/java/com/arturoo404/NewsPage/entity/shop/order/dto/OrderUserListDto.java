@@ -10,7 +10,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Builder
-public class OrderUserDetailDto {
+public class OrderUserListDto {
 
     private Long id;
     private Date date;
