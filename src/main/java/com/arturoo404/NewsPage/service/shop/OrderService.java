@@ -18,4 +18,6 @@ public interface OrderService {
     OrderDetailDto getUserOrderDetail(String email, Long id) throws ExistInDatabaseException;
 
     Page<OrderUserListDto> getPageOfOrderList(Integer page, OrderStatus orderStatus);
+
+    Object updateStatus(Long orderId, OrderStatus orderStatus);
 }

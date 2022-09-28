@@ -64,4 +64,11 @@ public class OrderApiController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(orderService.getPageOfOrderList(page, orderStatus));
     }
+
+    @PatchMapping(path = "/management/change-status")
+    public ResponseEntity<?> changeOrderStatus(@RequestParam("orderId") Long orderId,
+                                               @RequestParam("status") OrderStatus orderStatus){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(orderService.updateStatus(orderId, orderStatus));
+    }
 }

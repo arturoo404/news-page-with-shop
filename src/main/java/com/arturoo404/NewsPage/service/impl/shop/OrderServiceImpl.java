@@ -173,6 +173,18 @@ public class OrderServiceImpl implements OrderService {
                         .build());
     }
 
+    //TODO Email send
+    @Override
+    public Object updateStatus(Long orderId, OrderStatus orderStatus) {
+        Optional<Order> byId = orderRepository.findById(orderId);
+        if (byId.isEmpty()){
+            throw new RuntimeException("Order not found.");
+        }
+
+        byId.get().setOrderStatus(orderStatus);
+        return orderRepository.save(byId.get());
+    }
+
     private Double productPrice(Long productId){
         Product product = productRepository.findById(productId).get();
 

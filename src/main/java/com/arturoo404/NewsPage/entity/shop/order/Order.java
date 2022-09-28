@@ -66,6 +66,7 @@ public class Order {
     )
     private User user;
 
+    @JsonIgnore
     @OneToOne(
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
