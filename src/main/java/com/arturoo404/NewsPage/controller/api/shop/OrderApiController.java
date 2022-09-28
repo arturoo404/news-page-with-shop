@@ -65,6 +65,7 @@ public class OrderApiController {
                 .body(orderService.getPageOfOrderList(page, orderStatus));
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'EMPLOY')")
     @PatchMapping(path = "/management/change-status")
     public ResponseEntity<?> changeOrderStatus(@RequestParam("orderId") Long orderId,
                                                @RequestParam("status") OrderStatus orderStatus){

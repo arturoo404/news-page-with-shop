@@ -32,13 +32,13 @@
     margin-left: 1%;
     margin-right: 1%;
     height: 80%;
-    background-color: #212529;
+    background-image: radial-gradient(circle, #161944, #161b4c, #151c54, #141e5d, #131f65, #0c2164, #052363, #002561, #002553, #002343, #001f33, #071a23);
     border-radius: 5%;
 }
 .divHeightContent{
     margin-top: 30px;
     margin-bottom: 20px;
-    height: 35%;
+    height: 300px;
 }
 
 .imgHomePage{
@@ -64,7 +64,8 @@
 }
 
 .divWeather{
-    background-color: #212529;
+    background-color: #091416;
+    border-radius: 10px;
     height: 50px;
 }
 #15257e

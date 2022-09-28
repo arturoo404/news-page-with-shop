@@ -1,6 +1,14 @@
 body{
+    background-image: linear-gradient(to right top, #1bcc5b, #00c7a4, #00bbe3, #00a8ff, #008cff, #008dff, #008fff, #0090ff, #00b0ff, #00c9f2, #00dccf, #65ebaa);
+    height: 1500px;
+    color: white;
 }
 
 a{
     text-decoration: none;
+    color: white;
+}
+
+p{
+    color: white;
 }

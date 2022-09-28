@@ -16,24 +16,29 @@
 <div>
     <div class="div20">
     </div>
-    <div class="divContent">
-        <div style="height: 10%; background-color: #212529" class="mt-4 mb-4 text-center">
-            <div style="width: 30%; display: inline-block; height: auto" class="mt-4 text-white">
-                <h6>Find weather in your city: </h6>
+    <div class="divContent" style="margin-top: 30px">
+        <div style="height: 75px; background-color: #091416; display: grid; grid-template-columns: 15% 1fr 15%; border-radius: 30px">
+            <div>
+            </div>
+            <div style="display: grid; grid-template-columns: 40% 60%; margin-top: 15px">
+                <div>
+                    <p style="color: white; font-weight: bold">Find weather in your city: </p>
+                </div>
+                <div>
+                    <input type="text" placeholder="City" id="city">
+                    <button type="submit" class="btn btn-outline-info" onclick="findWeather()"
+                            style="height: 33px; padding: 3px; width: 100px; margin-bottom: 3px">Search </button>
+                </div>
             </div>
             <div style="width: 30%; display: inline-block; height: auto" class="mt-4">
-                <label>
-                    <input type="text" placeholder="City" id="city">
-                </label>
-                <button type="submit" class="btn btn-outline-info" onclick="findWeather()">Find </button>
             </div>
         </div>
         <div>
             <hr>
-            <div class="text-center divWeather text-white">
+            <div class="text-center divWeather text-white" style="height: 90px; border-radius: 40px">
                 <h3>Current weather:</h3>
-            </div>
-            <div id="section">
+                <div id="section">
+                </div>
             </div>
             <hr>
             <div class="mt-4 text-center">

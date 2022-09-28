@@ -128,7 +128,7 @@ function generateLongTermForcast(data){
 }
 
 function generateCurrentWeather(data){
-    divGenerator('section', 'weather', 'divWeather text-white');
+    divGenerator('section', 'weather', 'main-wt text-white');
     divGenerator('weather', 'currentDate', 'divDate text-center');
     divGenerator('weather', 'currentTemp', 'divTemp text-center');
     divGenerator('weather', 'currentDes', 'divDes text-center');
