@@ -11,3 +11,5 @@ function error_h6(mainDiv, error, status){
 
     mainDiv.appendChild(h);
 }
+
+//todo repair error
