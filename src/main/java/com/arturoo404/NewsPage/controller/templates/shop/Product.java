@@ -24,4 +24,9 @@ public class Product {
         return "shop/product/add-product";
     }
 
+    @GetMapping(path = "/detail")
+    public String productDetail(@RequestParam("id") Long id){
+        return "shop/product/detail";
+    }
+
 }

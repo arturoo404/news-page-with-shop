@@ -12,4 +12,5 @@ public class ProductPageDto {
     private Double price;
     private Double discountPrice;
     private String name;
+    private Integer quantity;
 }

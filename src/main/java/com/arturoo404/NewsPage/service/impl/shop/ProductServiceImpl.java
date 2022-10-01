@@ -79,6 +79,7 @@ public class ProductServiceImpl implements ProductService {
                         .discountPrice(t.getProductPrice().getDiscountPrice())
                         .name(t.getName())
                         .price(t.getProductPrice().getPrice())
+                        .quantity(t.getAvailableProduct().getProductQuantity())
                         .build());
     }
 
@@ -111,6 +112,7 @@ public class ProductServiceImpl implements ProductService {
                         .discountPrice(t.getProductPrice().getDiscountPrice())
                         .name(t.getName())
                         .price(t.getProductPrice().getPrice())
+                        .quantity(t.getAvailableProduct().getProductQuantity())
                         .build());
     }
 
