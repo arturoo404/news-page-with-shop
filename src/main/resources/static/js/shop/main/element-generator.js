@@ -32,3 +32,9 @@ function pGenerator(name, mainObjID, classes, text){
     p.innerText = text;
     mainDiv.appendChild(p);
 }
+
+function hrGenerator(mainObjID){
+    var mainDiv = document.getElementById(mainObjID);
+    var hr = document.createElement('hr');
+    mainDiv.appendChild(hr);
+}

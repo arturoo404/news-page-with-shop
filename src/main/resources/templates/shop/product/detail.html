@@ -9,11 +9,35 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"
           integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <link rel="stylesheet" href="/css/shop/product/product-list.css">
+  <link rel="stylesheet" href="/css/shop/product/product-detail.css">
 </head>
 <body>
 <div th:replace="~{part/navbarshop :: navbar}" style="margin-bottom: 50px"></div>
-<script type="text/javascript" src="/js/shop/product/product-list-generator.js"></script>
+<div class="center-cont">
+  <div class="content">
+    <div class="content-left">
+      <p class="product-name" id="product-name">
+      </p>
+      <img class="content-img" id="product-photo">
+    </div>
+    <div class="content-right">
+      <div id="price-content">
+      </div>
+      <div class="add-cart-box">
+        <p class="ava-product" id="available-product"></p>
+        <input type="number" placeholder="Product price" class="input-info" min="0" value="0" id="price">
+        <button class="add-cart">Add to cart</button>
+        <button class="add-cart">Go to your cart</button>
+      </div>
+    </div>
+  </div>
+  <div>
+    <hr>
+    <p class="product-desc" id="description">
+    </p>
+  </div>
+</div>
+<script type="text/javascript" src="/js/shop/product/product-detail.js"></script>
 <script type="text/javascript" src="/js/shop/main/element-generator.js"></script>
 </body>
 </html>
