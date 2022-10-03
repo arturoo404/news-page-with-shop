@@ -1,10 +1,18 @@
 window.onload = function() {
-    productListGenerator();
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    var category = urlParams.get('category');
+
+    if (category === null){
+        productListGenerator();
+        return;
+    }
+
+    productCategoryListGenerator(category);
 };
 
 //todo add to cart button and pages
 function productListGenerator() {
-
     var page = 0;
 
     function getData() {
@@ -15,6 +23,22 @@ function productListGenerator() {
             success: function (data) {
               contentLoad(data);
               console.log(data);
+            }
+        });
+    }
+    getData();
+}
+
+function productCategoryListGenerator(category){
+    var page = 0;
+
+    function getData() {
+        $.ajax({
+            type: 'GET',
+            url: '/api/shop/product/list/'+ category +'?page=' + page,
+            dataType: 'json',
+            success: function (data) {
+                contentLoad(data);
             }
         });
     }

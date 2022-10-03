@@ -14,7 +14,7 @@ function productListGenerator() {
             url: '/api/shop/product/detail?id=' + id,
             dataType: 'json',
             success: function (data) {
-                createContent(data, id);;
+                createContent(data, id);
             }
         });
     }
