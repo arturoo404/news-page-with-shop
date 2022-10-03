@@ -13,6 +13,7 @@
 </head>
 <body>
 <div th:replace="~{part/navbarshop :: navbar}" style="margin-bottom: 50px"></div>
+<input type="hidden" class="form-control" name="email" id="email" th:value="${#request.remoteUser}">
 <div class="center-cont">
   <div class="content">
     <div class="content-left">
@@ -25,9 +26,15 @@
       </div>
       <div class="add-cart-box">
         <p class="ava-product" id="available-product"></p>
-        <input type="number" placeholder="Product price" class="input-info" min="0" value="0" id="price">
-        <button class="add-cart">Add to cart</button>
-        <button class="add-cart">Go to your cart</button>
+        <input type="number" class="input-info" min="0" value="0" id="quantity">
+        <button class="add-cart" onclick="addToCart()">Add to cart</button>
+        <a id="go-cart">
+          <button class="add-cart">Go to your cart</button>
+        </a>
+        <h6 id="error-mess" style="color: red">
+        </h6>
+        <h6 id="success-mess" style="color: green">
+        </h6>
       </div>
     </div>
   </div>

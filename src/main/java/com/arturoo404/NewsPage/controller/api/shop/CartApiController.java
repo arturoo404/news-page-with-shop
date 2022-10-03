@@ -21,11 +21,16 @@ public class CartApiController {
         this.cartService = cartService;
     }
 
-    //@PreAuthorize("isAuthenticated()")
+    @PreAuthorize("isAuthenticated()")
     @PostMapping(path = "/add-product")
     public ResponseEntity<?> cart(@RequestParam("email") String email,
                                   @RequestParam("productId") Long id,
                                   @RequestParam(value = "quantity", defaultValue = "1") Integer quantity){
+        if (quantity < 1){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Select number of product.");
+        }
+
         try {
             return ResponseEntity.status(HttpStatus.OK)
                     .body(cartService.addProductToCart(email, id, quantity));
