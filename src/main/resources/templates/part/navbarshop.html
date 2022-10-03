@@ -14,6 +14,7 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg" th:fragment="navbar" style="background-color: #091416;">
+    <input type="hidden" class="form-control" name="email" id="email" th:value="${#request.remoteUser}">
     <div class="container-fluid" style="background-color: #091416;">
         <a class="navbar-brand" th:href="@{/shop}">Shop</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -71,6 +72,13 @@
                 </ul>
             </li>
         </ul>
+        <ul class="navbar-nav ml-auto mb-2 mb-lg-0" style="margin-right: 30px">
+            <li class="nav-item">
+                <a class="nav-link" href="http://localhost:8080/shop/cart" style="font-size: 20px" id="cart-info">
+                </a>
+            </li>
+        </ul>
+        <script type="text/javascript" src="/js/shop/cart/cart-navbar-info.js"></script>
         <ul class="navbar-nav" style="padding-top: 5px">
             <li class="nav-item me-4" sec:authorize="hasAuthority('USER')">
             </li>
