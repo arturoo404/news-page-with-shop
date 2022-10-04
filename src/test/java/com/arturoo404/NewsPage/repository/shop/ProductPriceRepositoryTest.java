@@ -14,31 +14,38 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
-class AvailableProductRepositoryTest {
+class ProductPriceRepositoryTest {
 
     @Autowired
     private ProductRepository productRepository;
 
     @Autowired
-    private AvailableProductRepository availableProductRepository;
+    private ProductPriceRepository productPriceRepository;
 
     @Test
-    void itShouldFindAvailableProductById() {
+    void itShouldFindProductPriceByProductId() {
         //Given
         final Product save = productRepository.save(product());
 
         //When
-        final Optional<AvailableProduct> availableProductById = availableProductRepository.findAvailableProductById(save.getId());
+        final Optional<ProductPrice> productPriceByProductId = productPriceRepository.findProductPriceByProductId(save.getId());
 
         //Then
-        assertThat(availableProductById.get().isAvailableStatus()).isTrue();
-        assertThat(save.getAvailableProduct().getProductQuantity()).isEqualTo(availableProductById.get().getProductQuantity());
+        assertThat(productPriceByProductId).isPresent();
+        assertThat(productPriceByProductId.get().getPrice()).isEqualTo(save.getProductPrice().getPrice());
+        assertThat(productPriceByProductId.get().isDiscount()).isFalse();
     }
+
 
     private Product product(){
         return Product.builder()
                 .productCategory(ProductCategory.OTHER)
                 .name("product")
+                .productPrice(ProductPrice.builder()
+                        .price(100D)
+                        .discountPrice(100D)
+                        .discount(false)
+                        .build())
                 .availableProduct(AvailableProduct.builder()
                         .productQuantity(10)
                         .availableStatus(true)
