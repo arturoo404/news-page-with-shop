@@ -11,5 +11,5 @@ import java.util.Optional;
 public interface AddressRepository extends JpaRepository<Address, Long> {
 
     @Query(value = "FROM Address a WHERE a.user.email = ?1")
-    Optional<Address> findByUserEmail(String email);
+    Optional<Address> findAddressByUserEmail(String email);
 }

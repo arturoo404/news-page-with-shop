@@ -1,4 +1,4 @@
-package com.arturoo404.NewsPage.repository;
+package com.arturoo404.NewsPage.repository.article;
 
 import com.arturoo404.NewsPage.entity.news.journalist.Journalist;
 import com.arturoo404.NewsPage.repository.news.JournalistRepository;

@@ -1,4 +1,4 @@
-package com.arturoo404.NewsPage.repository;
+package com.arturoo404.NewsPage.repository.article;
 
 import com.arturoo404.NewsPage.entity.news.article.Article;
 import com.arturoo404.NewsPage.entity.news.comments.Comments;

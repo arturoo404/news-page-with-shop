@@ -46,7 +46,7 @@ public class AddressServiceImpl implements AddressService {
         User user = byEmail.get();
 
         if (user.getAddress() != null){
-            Optional<Address> a = addressRepository.findByUserEmail(addressDto.getEmail());
+            Optional<Address> a = addressRepository.findAddressByUserEmail(addressDto.getEmail());
             Address address = a.get();
             address.setCity(addressDto.getCity());
             address.setFirstName(addressDto.getFirstName());
