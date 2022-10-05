@@ -98,7 +98,8 @@ public class CartServiceImpl implements CartService {
                         .map(c -> new CartProductDetailDto(
                                 c.getQuantity(),
                                 c.getProduct().getId(),
-                                c.getProduct().getName()
+                                c.getProduct().getName(),
+                                productPrice(c.getProduct().getId())
                         ))
                         .collect(Collectors.toList())
         );

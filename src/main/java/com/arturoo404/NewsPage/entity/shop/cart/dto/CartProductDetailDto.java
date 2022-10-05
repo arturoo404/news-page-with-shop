@@ -12,4 +12,5 @@ public class CartProductDetailDto {
     private Integer quantity;
     private Long id;
     private String name;
+    private Double price;
 }

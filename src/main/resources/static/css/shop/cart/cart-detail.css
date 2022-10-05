@@ -1,0 +1,63 @@
+.center-cont{
+    margin: 80px 25%;
+}
+
+.content{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: grid;
+    grid-template-columns: 180px 1fr 100px;
+}
+
+.product-img{
+    width: 150px;
+    height: 150px;
+}
+
+.a-link:link{
+    text-decoration: none;
+}
+
+.product-name{
+    font-size: 26px;
+    font-family: Arial;
+    font-weight: bold;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 0 20px;
+    color: black;
+}
+
+.product-name:hover{
+    color: #277ddd;
+}
+
+.product-delete-section{
+    text-align: right;
+}
+
+.product-quantity{
+    font-size: 18px;
+    font-family: Arial;
+    margin: 0 0 15px;
+}
+
+.product-price{
+    font-size: 16px;
+    font-weight: bold;
+    font-family: Arial;
+    margin: 0;
+}
+
+.product-delete{
+    background-color: white;
+    height: 50px;
+    border: none;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: height 0.3s;
+}
+
+.product-delete:hover{
+    height: 60px;
+}
