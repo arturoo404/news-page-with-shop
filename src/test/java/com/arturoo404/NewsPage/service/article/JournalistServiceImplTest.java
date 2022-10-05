@@ -1,4 +1,4 @@
-package com.arturoo404.NewsPage.service.impl;
+package com.arturoo404.NewsPage.service.article;
 
 import com.arturoo404.NewsPage.entity.news.journalist.Journalist;
 import com.arturoo404.NewsPage.entity.news.journalist.dto.JournalistAddDto;

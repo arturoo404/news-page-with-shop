@@ -1,4 +1,4 @@
-package com.arturoo404.NewsPage.service.impl;
+package com.arturoo404.NewsPage.service.article;
 
 import com.arturoo404.NewsPage.converter.TagConverter;
 import com.arturoo404.NewsPage.entity.news.article.Article;

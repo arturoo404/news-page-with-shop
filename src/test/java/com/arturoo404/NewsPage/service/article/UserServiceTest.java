@@ -1,4 +1,4 @@
-package com.arturoo404.NewsPage.service.impl;
+package com.arturoo404.NewsPage.service.article;
 
 import com.arturoo404.NewsPage.entity.user.User;
 import com.arturoo404.NewsPage.entity.user.dto.UserChangePasswordDto;
@@ -9,6 +9,7 @@ import com.arturoo404.NewsPage.exception.ExistInDatabaseException;
 import com.arturoo404.NewsPage.exception.ValidException;
 import com.arturoo404.NewsPage.repository.UserRepository;
 import com.arturoo404.NewsPage.service.UserService;
+import com.arturoo404.NewsPage.service.impl.UserServiceImpl;
 import com.arturoo404.NewsPage.validation.RegistrationValid;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
