@@ -32,12 +32,13 @@ public class CartServiceImpl implements CartService {
     private final CartDetailRepository cartDetailRepository;
 
     @Autowired
-    private AvailableProductService availableProductService;
+    private final AvailableProductService availableProductService;
 
-    public CartServiceImpl(CartRepository cartRepository, ProductRepository productRepository, CartDetailRepository cartDetailRepository) {
+    public CartServiceImpl(CartRepository cartRepository, ProductRepository productRepository, CartDetailRepository cartDetailRepository, AvailableProductService availableProductService) {
         this.cartRepository = cartRepository;
         this.productRepository = productRepository;
         this.cartDetailRepository = cartDetailRepository;
+        this.availableProductService = availableProductService;
     }
 
     //TODO Remove all product from cart when promotion start
@@ -87,7 +88,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Object findCartDetail(String email) throws ExistInDatabaseException {
+    public CartDetailDto findCartDetail(String email) throws ExistInDatabaseException {
         Optional<Cart> cartOptional = cartRepository.findByUserEmail(email);
         userExist(cartOptional);
         Cart cart = cartOptional.get();
@@ -143,7 +144,7 @@ public class CartServiceImpl implements CartService {
 
     private void userExist(Optional<?> o) throws ExistInDatabaseException {
         if (o.isEmpty()){
-            throw new ExistInDatabaseException("User does not exist");
+            throw new ExistInDatabaseException("User does not exist.");
         }
     }
 

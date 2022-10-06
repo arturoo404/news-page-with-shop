@@ -77,7 +77,7 @@ class AvailableProductServiceTest {
         //Then
         assertThat(productFromDb).isNotNull();
     }
-    
+
     private Product product(){
         return Product.builder()
                 .id(1L)
