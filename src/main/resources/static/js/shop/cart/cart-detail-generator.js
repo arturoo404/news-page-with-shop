@@ -12,7 +12,6 @@ function cartDetail() {
             url: '/api/shop/cart/detail/?email=' + email,
             dataType: 'json',
             success: function (data) {
-                console.log(data);
                 contentLoad(data);
             }
         });

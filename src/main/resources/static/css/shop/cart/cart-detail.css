@@ -51,13 +51,13 @@
 
 .product-delete{
     background-color: white;
-    height: 50px;
+    font-size: 16px;
     border: none;
     margin-bottom: 10px;
     cursor: pointer;
-    transition: height 0.3s;
+    transition: font-size 0.3s;
 }
 
 .product-delete:hover{
-    height: 60px;
+    font-size: 20px;
 }

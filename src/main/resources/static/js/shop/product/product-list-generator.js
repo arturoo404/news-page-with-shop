@@ -22,7 +22,6 @@ function productListGenerator() {
             dataType: 'json',
             success: function (data) {
               contentLoad(data);
-              console.log(data);
             }
         });
     }
