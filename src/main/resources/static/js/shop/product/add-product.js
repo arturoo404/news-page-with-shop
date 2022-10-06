@@ -32,7 +32,7 @@ function addProduct() {
             url: '/api/shop/product/create',
             data: JSON.stringify(addProduct),
             error: function (xhr, status, error) {
-                error_h6(errorDiv, xhr.responseText, 'e')
+                error_h6(errorDiv, xhr.responseText, 'e');
             },
             success: function (data) {
                 uploadFile(data.id);

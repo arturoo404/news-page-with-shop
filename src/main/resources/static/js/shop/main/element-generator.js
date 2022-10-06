@@ -38,3 +38,11 @@ function hrGenerator(mainObjID){
     var hr = document.createElement('hr');
     mainDiv.appendChild(hr);
 }
+
+function buttonGenerator(mainObjID, classes, text){
+    var mainDiv = document.getElementById(mainObjID);
+    var buttonElement = document.createElement('button');
+    buttonElement.className = classes;
+    buttonElement.innerHTML = text;
+    mainDiv.appendChild(buttonElement);
+}

@@ -13,6 +13,7 @@ function cartDetail() {
             dataType: 'json',
             success: function (data) {
                 contentLoad(data);
+                console.log(data);
             }
         });
     }
@@ -28,14 +29,21 @@ function cartDetail() {
             pGenerator('productId' + i, 'contentLink' + i, 'product-name', data.product[i].name);
             divGenerator('product-right' + i, 'product' + i, '');
             divGenerator('product-delete' + i, 'product-right' + i, 'product-delete-section');
-            buttonGenerator('product-delete' + i, 'product-delete', '&#128465', data.product[i].id, data.product[i].quantity);
+            buttonGeneratorDelete('product-delete' + i, 'product-delete', '&#128465', data.product[i].id, data.product[i].quantity);
             divGenerator('product-info' + i, 'product-right' + i, '');
             pGenerator('price-info' + i, 'product-info' + i, 'product-quantity', 'Quantity: ' + data.product[i].quantity);
             pGenerator('price-info' + i, 'product-info' + i, 'product-price', data.product[i].price + '$');
         }
+        hrGenerator('load');
+        divGenerator('total', 'load', 'content');
+        divGenerator('left', 'total', '');
+        divGenerator('center', 'total', 'text-center');
+        divGenerator('right', 'total', '');
+        pGenerator('quantity-total-info', 'right', 'product-quantity', 'Quantity: ' + data.quantity);
+        pGenerator('price-total-info', 'right', 'product-price', data.amount + '$');
     }
 
-    function buttonGenerator(mainObjID, classes, text, id, quantity){
+    function buttonGeneratorDelete(mainObjID, classes, text, id, quantity){
         var mainDiv = document.getElementById(mainObjID);
         var buttonElement = document.createElement('button');
         buttonElement.className = classes;

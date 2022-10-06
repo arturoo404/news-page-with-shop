@@ -61,3 +61,23 @@
 .product-delete:hover{
     font-size: 20px;
 }
+
+.order{
+    background-color: rgb(21, 37, 126);
+    color: white;
+    height: 32px;
+    width: auto;
+    padding-right: 30px;
+    padding-left: 30px;
+    border-radius: 6px;
+    border: none;
+    font-weight: bold;
+    margin: 10px;
+    cursor: pointer;
+    transition: box-shadow 0.3s, background-color 0.3s;
+}
+
+.order:hover{
+    box-shadow: 0 7px 10px rgba(0, 0, 0, 0.2);
+    background-color: rgb(48, 78, 224);
+}

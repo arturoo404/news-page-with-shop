@@ -13,7 +13,6 @@ function cartNavbarInfo(){
             url: '/api/shop/cart/nav-info?email=' + email,
             dataType: 'json',
             success: function (data) {
-                console.log(data);
                var cart = document.getElementById('cart-info');
                cart.innerHTML = '&#128722 Cart(' + data.quantity + ') = ' + data.amount + '$';
             }, error: function (xhr, status, error) {

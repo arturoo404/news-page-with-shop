@@ -28,6 +28,16 @@ public class OrderApiController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping(path = "/make")
     public ResponseEntity<?> makeOrder(@RequestBody OrderDto orderDto){
+        if (orderDto.getFirstName().isBlank() || orderDto.getLastName().isBlank() || orderDto.getPhoneNumber() == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("One or more client information field is empty.");
+        }
+
+        if (orderDto.getCity().isBlank() || orderDto.getPostcode().isBlank() || orderDto.getHomeNumber() == null || orderDto.getStreet().isBlank()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("One or more address field is empty.");
+        }
+
         try {
             return ResponseEntity.status(HttpStatus.OK)
                     .body(orderService.makeOrder(orderDto));
