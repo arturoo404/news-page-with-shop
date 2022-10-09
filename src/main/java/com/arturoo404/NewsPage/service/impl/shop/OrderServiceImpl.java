@@ -125,7 +125,7 @@ public class OrderServiceImpl implements OrderService {
         cartService.deleteCartDetail(cart.getId());
         cartService.restartStatistic(cart.getId());
 
-        return "Successfully make an order";
+        return "Successfully make an order.";
     }
 
     @Override
