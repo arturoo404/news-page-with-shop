@@ -1,6 +1,5 @@
 package com.arturoo404.NewsPage.controller.api.shop;
 
-import com.arturoo404.NewsPage.entity.shop.cart.dto.CartNavInfoDto;
 import com.arturoo404.NewsPage.exception.ExistInDatabaseException;
 import com.arturoo404.NewsPage.service.shop.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
