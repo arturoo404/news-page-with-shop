@@ -1,5 +1,6 @@
-package com.arturoo404.NewsPage.controller.api;
+package com.arturoo404.NewsPage.controller.api.article;
 
+import com.arturoo404.NewsPage.controller.api.UserApiController;
 import com.arturoo404.NewsPage.entity.user.dto.UserChangePasswordDto;
 import com.arturoo404.NewsPage.entity.user.dto.UserChangeRoleDto;
 import com.arturoo404.NewsPage.entity.user.dto.UserRegistrationDto;

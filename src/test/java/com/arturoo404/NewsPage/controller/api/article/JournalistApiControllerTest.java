@@ -1,4 +1,4 @@
-package com.arturoo404.NewsPage.controller.api;
+package com.arturoo404.NewsPage.controller.api.article;
 
 import com.arturoo404.NewsPage.controller.api.news.JournalistApiController;
 import com.arturoo404.NewsPage.entity.news.journalist.dto.JournalistAddDto;

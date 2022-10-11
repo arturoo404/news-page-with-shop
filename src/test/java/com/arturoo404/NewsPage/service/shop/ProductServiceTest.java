@@ -182,7 +182,7 @@ class ProductServiceTest {
                 .thenReturn(page);
 
         final Page<ProductPageDto> productListByCategory = productService.getProductListByCategory(1, ProductCategory.OTHER);
-        
+
         //Then
         assertThat(productListByCategory.getTotalElements()).isEqualTo(page.getTotalElements());
     }
