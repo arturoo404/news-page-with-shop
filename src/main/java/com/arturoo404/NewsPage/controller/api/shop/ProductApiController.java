@@ -2,6 +2,7 @@ package com.arturoo404.NewsPage.controller.api.shop;
 
 import com.arturoo404.NewsPage.entity.news.photo.dto.PhotoDto;
 import com.arturoo404.NewsPage.entity.shop.product.dto.ProductCreateDto;
+import com.arturoo404.NewsPage.entity.shop.product.dto.ProductPageDto;
 import com.arturoo404.NewsPage.enums.ProductCategory;
 import com.arturoo404.NewsPage.exception.ExistInDatabaseException;
 import com.arturoo404.NewsPage.service.shop.ProductService;
@@ -20,7 +21,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-//TODO Product Test
 @Controller
 @RequestMapping( "/api/shop/product")
 public class ProductApiController {
@@ -44,12 +44,12 @@ public class ProductApiController {
             return ResponseEntity.status(HttpStatus.OK)
                     .body(productService.createProduct(p));
         } catch (ExistInDatabaseException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(e.getMessage());
         }
     }
 
-    @PatchMapping(path = "/photo/set/{id}")
+    @PostMapping(path = "/photo/set/{id}")
     @PreAuthorize("hasAnyAuthority('ADMIN', 'EMPLOY')")
     public ResponseEntity<?> productPhoto(@RequestParam("file") MultipartFile photo,
                                              @PathVariable("id") Long id) throws IOException {
@@ -63,13 +63,13 @@ public class ProductApiController {
     }
 
     @GetMapping(path = "/list")
-    public ResponseEntity<Page<?>> productPage(@RequestParam("page") Integer page){
+    public ResponseEntity<Page<ProductPageDto>> productPage(@RequestParam("page") Integer page){
         return ResponseEntity.status(HttpStatus.OK)
                 .body(productService.getProductList(page));
     }
 
     @GetMapping(path = "/list/{category}")
-    public ResponseEntity<Page<?>> productPageByCategory(@RequestParam("page") Integer page,
+    public ResponseEntity<Page<ProductPageDto>> productPageByCategory(@RequestParam("page") Integer page,
                                                          @PathVariable("category") ProductCategory productCategory){
         return ResponseEntity.status(HttpStatus.OK)
                 .body(productService.getProductListByCategory(page, productCategory));
@@ -85,7 +85,7 @@ public class ProductApiController {
     }
 
     @GetMapping(path = "/detail")
-    public ResponseEntity<?> productDetail(@RequestParam("id") Long id) {
+    public ResponseEntity<Object> productDetail(@RequestParam("id") Long id) {
         try {
             return ResponseEntity.status(HttpStatus.OK)
                     .body(productService.productDetail(id));

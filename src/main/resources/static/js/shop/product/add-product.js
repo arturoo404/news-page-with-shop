@@ -44,7 +44,7 @@ function addProduct() {
         let formData = new FormData();
         formData.append("file", product_photo.files[0]);
         let response = await fetch('/api/shop/product/photo/set/' + id, {
-            method: "PATCH",
+            method: "POST",
             body: formData
         });
         if (response.ok){
