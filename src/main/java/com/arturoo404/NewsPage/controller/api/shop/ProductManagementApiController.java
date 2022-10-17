@@ -26,7 +26,7 @@ public class ProductManagementApiController {
 
     @PreAuthorize("hasAnyAuthority('ADMIN', 'EMPLOY')")
     @PatchMapping(path = "/update-status/{id}")
-    public ResponseEntity<?> updateStatus(@PathVariable("id") Long id,
+    public ResponseEntity<Object> updateStatus(@PathVariable("id") Long id,
                                           @RequestParam("status") Boolean status){
         try {
             return ResponseEntity.status(HttpStatus.OK)
@@ -39,7 +39,7 @@ public class ProductManagementApiController {
 
     @PreAuthorize("hasAnyAuthority('ADMIN', 'EMPLOY')")
     @PatchMapping(path = "/product-quantity/{id}")
-    public ResponseEntity<?> updateQuantityOfProduct(@PathVariable("id") Long id,
+    public ResponseEntity<Object> updateQuantityOfProduct(@PathVariable("id") Long id,
                                                      @RequestParam("quantity") Integer quantity){
         try {
             return ResponseEntity.status(HttpStatus.OK)
@@ -52,7 +52,7 @@ public class ProductManagementApiController {
 
     @PreAuthorize("hasAnyAuthority('ADMIN', 'EMPLOY')")
     @PatchMapping(path = "/change-price/{id}")
-    public ResponseEntity<?> changeProductPrice(@PathVariable("id") Long id,
+    public ResponseEntity<Object> changeProductPrice(@PathVariable("id") Long id,
                                                 @RequestParam("price") Double price){
         try {
             return ResponseEntity.status(HttpStatus.OK)
@@ -65,7 +65,7 @@ public class ProductManagementApiController {
 
     @PreAuthorize("hasAnyAuthority('ADMIN', 'EMPLOY')")
     @PatchMapping(path = "/discount-price/{id}")
-    public ResponseEntity<?> changeDiscountPrice(@PathVariable("id") Long id,
+    public ResponseEntity<Object> changeDiscountPrice(@PathVariable("id") Long id,
                                                  @RequestParam("price") Double price){
         try {
             return ResponseEntity.status(HttpStatus.OK)
@@ -77,7 +77,7 @@ public class ProductManagementApiController {
     }
     @PreAuthorize("hasAnyAuthority('ADMIN', 'EMPLOY')")
     @PatchMapping(path = "/promotion-status/{id}")
-    public ResponseEntity<?> changePromotionStatus(@PathVariable("id") Long id,
+    public ResponseEntity<Object> changePromotionStatus(@PathVariable("id") Long id,
                                                    @RequestParam("status") Boolean status){
         try {
             return ResponseEntity.status(HttpStatus.OK)
