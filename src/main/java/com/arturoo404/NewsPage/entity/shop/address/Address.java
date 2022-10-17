@@ -1,6 +1,6 @@
 package com.arturoo404.NewsPage.entity.shop.address;
 
-import com.arturoo404.NewsPage.entity.user.User;
+import com.arturoo404.NewsPage.entity.user_objects.user.User;
 import lombok.*;
 
 import javax.persistence.*;

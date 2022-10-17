@@ -1,9 +1,10 @@
-package com.arturoo404.NewsPage.entity.user;
+package com.arturoo404.NewsPage.entity.user_objects.user;
 
 import com.arturoo404.NewsPage.entity.news.comments.Comments;
 import com.arturoo404.NewsPage.entity.shop.address.Address;
 import com.arturoo404.NewsPage.entity.shop.cart.Cart;
 import com.arturoo404.NewsPage.entity.shop.order.Order;
+import com.arturoo404.NewsPage.entity.user_objects.confirm_account.ConfirmAccount;
 import com.arturoo404.NewsPage.enums.UserRole;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
@@ -85,6 +86,17 @@ public class User implements UserDetails {
             referencedColumnName = "id"
     )
     private Address address;
+
+    @JsonIgnore
+    @OneToOne(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
+    @JoinColumn(
+            name = "confirm_account",
+            referencedColumnName = "id"
+    )
+    private ConfirmAccount confirmAccount;
 
     @JsonIgnore
     @OneToMany(

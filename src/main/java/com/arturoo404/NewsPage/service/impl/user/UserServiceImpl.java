@@ -1,16 +1,16 @@
-package com.arturoo404.NewsPage.service.impl;
+package com.arturoo404.NewsPage.service.impl.user;
 
 import com.arturoo404.NewsPage.entity.shop.cart.Cart;
-import com.arturoo404.NewsPage.entity.user.User;
-import com.arturoo404.NewsPage.entity.user.dto.UserChangePasswordDto;
-import com.arturoo404.NewsPage.entity.user.dto.UserChangeRoleDto;
-import com.arturoo404.NewsPage.entity.user.dto.UserRegistrationDto;
+import com.arturoo404.NewsPage.entity.user_objects.user.User;
+import com.arturoo404.NewsPage.entity.user_objects.user.dto.UserChangePasswordDto;
+import com.arturoo404.NewsPage.entity.user_objects.user.dto.UserChangeRoleDto;
+import com.arturoo404.NewsPage.entity.user_objects.user.dto.UserRegistrationDto;
 import com.arturoo404.NewsPage.enums.UserRole;
 import com.arturoo404.NewsPage.exception.ExistInDatabaseException;
 import com.arturoo404.NewsPage.exception.PermissionException;
 import com.arturoo404.NewsPage.exception.ValidException;
-import com.arturoo404.NewsPage.repository.UserRepository;
-import com.arturoo404.NewsPage.service.UserService;
+import com.arturoo404.NewsPage.repository.user.UserRepository;
+import com.arturoo404.NewsPage.service.user.UserService;
 import com.arturoo404.NewsPage.validation.PasswordValid;
 import com.arturoo404.NewsPage.validation.RegistrationValid;
 import com.arturoo404.NewsPage.validation.impl.PasswordValidImpl;

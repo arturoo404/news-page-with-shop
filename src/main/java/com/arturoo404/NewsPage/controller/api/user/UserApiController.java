@@ -1,14 +1,13 @@
-package com.arturoo404.NewsPage.controller.api;
+package com.arturoo404.NewsPage.controller.api.user;
 
-import com.arturoo404.NewsPage.entity.user.User;
-import com.arturoo404.NewsPage.entity.user.dto.UserChangePasswordDto;
-import com.arturoo404.NewsPage.entity.user.dto.UserChangeRoleDto;
-import com.arturoo404.NewsPage.entity.user.dto.UserRegistrationDto;
-import com.arturoo404.NewsPage.enums.UserRole;
+import com.arturoo404.NewsPage.entity.user_objects.user.User;
+import com.arturoo404.NewsPage.entity.user_objects.user.dto.UserChangePasswordDto;
+import com.arturoo404.NewsPage.entity.user_objects.user.dto.UserChangeRoleDto;
+import com.arturoo404.NewsPage.entity.user_objects.user.dto.UserRegistrationDto;
 import com.arturoo404.NewsPage.exception.ExistInDatabaseException;
 import com.arturoo404.NewsPage.exception.PermissionException;
 import com.arturoo404.NewsPage.exception.ValidException;
-import com.arturoo404.NewsPage.service.UserService;
+import com.arturoo404.NewsPage.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

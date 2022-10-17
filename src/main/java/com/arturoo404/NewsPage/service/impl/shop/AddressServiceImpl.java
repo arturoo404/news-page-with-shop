@@ -2,10 +2,10 @@ package com.arturoo404.NewsPage.service.impl.shop;
 
 import com.arturoo404.NewsPage.entity.shop.address.Address;
 import com.arturoo404.NewsPage.entity.shop.address.dto.AddressDto;
-import com.arturoo404.NewsPage.entity.user.User;
+import com.arturoo404.NewsPage.entity.user_objects.user.User;
 import com.arturoo404.NewsPage.exception.ExistInDatabaseException;
 import com.arturoo404.NewsPage.exception.ValidException;
-import com.arturoo404.NewsPage.repository.UserRepository;
+import com.arturoo404.NewsPage.repository.user.UserRepository;
 import com.arturoo404.NewsPage.repository.shop.AddressRepository;
 import com.arturoo404.NewsPage.service.shop.AddressService;
 import com.arturoo404.NewsPage.validation.PhoneNumberValid;

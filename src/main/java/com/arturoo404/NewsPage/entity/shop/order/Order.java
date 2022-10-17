@@ -2,7 +2,7 @@ package com.arturoo404.NewsPage.entity.shop.order;
 
 import com.arturoo404.NewsPage.entity.shop.order_adderss.OrderAddress;
 import com.arturoo404.NewsPage.entity.shop.order_detail.OrderDetail;
-import com.arturoo404.NewsPage.entity.user.User;
+import com.arturoo404.NewsPage.entity.user_objects.user.User;
 import com.arturoo404.NewsPage.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;

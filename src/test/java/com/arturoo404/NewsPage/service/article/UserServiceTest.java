@@ -1,15 +1,15 @@
 package com.arturoo404.NewsPage.service.article;
 
-import com.arturoo404.NewsPage.entity.user.User;
-import com.arturoo404.NewsPage.entity.user.dto.UserChangePasswordDto;
-import com.arturoo404.NewsPage.entity.user.dto.UserChangeRoleDto;
-import com.arturoo404.NewsPage.entity.user.dto.UserRegistrationDto;
+import com.arturoo404.NewsPage.entity.user_objects.user.User;
+import com.arturoo404.NewsPage.entity.user_objects.user.dto.UserChangePasswordDto;
+import com.arturoo404.NewsPage.entity.user_objects.user.dto.UserChangeRoleDto;
+import com.arturoo404.NewsPage.entity.user_objects.user.dto.UserRegistrationDto;
 import com.arturoo404.NewsPage.enums.UserRole;
 import com.arturoo404.NewsPage.exception.ExistInDatabaseException;
 import com.arturoo404.NewsPage.exception.ValidException;
-import com.arturoo404.NewsPage.repository.UserRepository;
-import com.arturoo404.NewsPage.service.UserService;
-import com.arturoo404.NewsPage.service.impl.UserServiceImpl;
+import com.arturoo404.NewsPage.repository.user.UserRepository;
+import com.arturoo404.NewsPage.service.user.UserService;
+import com.arturoo404.NewsPage.service.impl.user.UserServiceImpl;
 import com.arturoo404.NewsPage.validation.RegistrationValid;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

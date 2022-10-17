@@ -10,10 +10,10 @@ import com.arturoo404.NewsPage.entity.shop.order.dto.OrderUserListDto;
 import com.arturoo404.NewsPage.entity.shop.order_detail.OrderDetail;
 import com.arturoo404.NewsPage.entity.shop.price.ProductPrice;
 import com.arturoo404.NewsPage.entity.shop.product.Product;
-import com.arturoo404.NewsPage.entity.user.User;
+import com.arturoo404.NewsPage.entity.user_objects.user.User;
 import com.arturoo404.NewsPage.enums.OrderStatus;
 import com.arturoo404.NewsPage.exception.ExistInDatabaseException;
-import com.arturoo404.NewsPage.repository.UserRepository;
+import com.arturoo404.NewsPage.repository.user.UserRepository;
 import com.arturoo404.NewsPage.repository.shop.OrderRepository;
 import com.arturoo404.NewsPage.repository.shop.ProductRepository;
 import com.arturoo404.NewsPage.service.impl.shop.OrderServiceImpl;
@@ -23,7 +23,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -35,7 +34,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 

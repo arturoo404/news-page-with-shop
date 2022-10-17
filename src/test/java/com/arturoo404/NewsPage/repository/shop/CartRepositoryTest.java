@@ -1,9 +1,9 @@
 package com.arturoo404.NewsPage.repository.shop;
 
 import com.arturoo404.NewsPage.entity.shop.cart.Cart;
-import com.arturoo404.NewsPage.entity.user.User;
+import com.arturoo404.NewsPage.entity.user_objects.user.User;
 import com.arturoo404.NewsPage.enums.UserRole;
-import com.arturoo404.NewsPage.repository.UserRepository;
+import com.arturoo404.NewsPage.repository.user.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -12,7 +12,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 class CartRepositoryTest {

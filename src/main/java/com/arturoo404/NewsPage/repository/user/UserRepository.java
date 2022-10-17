@@ -1,6 +1,6 @@
-package com.arturoo404.NewsPage.repository;
+package com.arturoo404.NewsPage.repository.user;
 
-import com.arturoo404.NewsPage.entity.user.User;
+import com.arturoo404.NewsPage.entity.user_objects.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

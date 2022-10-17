@@ -2,10 +2,10 @@ package com.arturoo404.NewsPage.repository.shop;
 
 import com.arturoo404.NewsPage.entity.shop.order.Order;
 import com.arturoo404.NewsPage.entity.shop.order_adderss.OrderAddress;
-import com.arturoo404.NewsPage.entity.user.User;
+import com.arturoo404.NewsPage.entity.user_objects.user.User;
 import com.arturoo404.NewsPage.enums.OrderStatus;
 import com.arturoo404.NewsPage.enums.UserRole;
-import com.arturoo404.NewsPage.repository.UserRepository;
+import com.arturoo404.NewsPage.repository.user.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 class OrderRepositoryTest {

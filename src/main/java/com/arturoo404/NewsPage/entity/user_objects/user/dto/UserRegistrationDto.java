@@ -1,4 +1,4 @@
-package com.arturoo404.NewsPage.entity.user.dto;
+package com.arturoo404.NewsPage.entity.user_objects.user.dto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

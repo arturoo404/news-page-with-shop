@@ -1,6 +1,6 @@
 package com.arturoo404.NewsPage.config;
 
-import com.arturoo404.NewsPage.service.UserService;
+import com.arturoo404.NewsPage.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,7 +1,7 @@
 package com.arturoo404.NewsPage.entity.shop.cart;
 
 import com.arturoo404.NewsPage.entity.shop.cartDetail.CartDetail;
-import com.arturoo404.NewsPage.entity.user.User;
+import com.arturoo404.NewsPage.entity.user_objects.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 

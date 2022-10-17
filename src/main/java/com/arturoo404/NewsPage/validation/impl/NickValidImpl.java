@@ -1,8 +1,8 @@
 package com.arturoo404.NewsPage.validation.impl;
 
-import com.arturoo404.NewsPage.entity.user.User;
+import com.arturoo404.NewsPage.entity.user_objects.user.User;
 import com.arturoo404.NewsPage.exception.ValidException;
-import com.arturoo404.NewsPage.repository.UserRepository;
+import com.arturoo404.NewsPage.repository.user.UserRepository;
 import com.arturoo404.NewsPage.validation.NickValid;
 import org.springframework.stereotype.Service;
 

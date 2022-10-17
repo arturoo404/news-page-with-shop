@@ -1,10 +1,9 @@
-package com.arturoo404.NewsPage.service;
+package com.arturoo404.NewsPage.service.user;
 
-import com.arturoo404.NewsPage.entity.user.User;
-import com.arturoo404.NewsPage.entity.user.dto.UserChangePasswordDto;
-import com.arturoo404.NewsPage.entity.user.dto.UserChangeRoleDto;
-import com.arturoo404.NewsPage.entity.user.dto.UserRegistrationDto;
-import com.arturoo404.NewsPage.enums.UserRole;
+import com.arturoo404.NewsPage.entity.user_objects.user.User;
+import com.arturoo404.NewsPage.entity.user_objects.user.dto.UserChangePasswordDto;
+import com.arturoo404.NewsPage.entity.user_objects.user.dto.UserChangeRoleDto;
+import com.arturoo404.NewsPage.entity.user_objects.user.dto.UserRegistrationDto;
 import com.arturoo404.NewsPage.exception.ExistInDatabaseException;
 import com.arturoo404.NewsPage.exception.PermissionException;
 import com.arturoo404.NewsPage.exception.ValidException;

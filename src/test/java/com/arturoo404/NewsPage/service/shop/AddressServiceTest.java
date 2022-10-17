@@ -1,12 +1,9 @@
 package com.arturoo404.NewsPage.service.shop;
 
-import com.arturoo404.NewsPage.entity.shop.address.Address;
 import com.arturoo404.NewsPage.entity.shop.address.dto.AddressDto;
-import com.arturoo404.NewsPage.entity.user.User;
-import com.arturoo404.NewsPage.enums.UserRole;
 import com.arturoo404.NewsPage.exception.ExistInDatabaseException;
 import com.arturoo404.NewsPage.exception.ValidException;
-import com.arturoo404.NewsPage.repository.UserRepository;
+import com.arturoo404.NewsPage.repository.user.UserRepository;
 import com.arturoo404.NewsPage.repository.shop.AddressRepository;
 import com.arturoo404.NewsPage.service.impl.shop.AddressServiceImpl;
 import com.arturoo404.NewsPage.validation.PhoneNumberValid;
@@ -15,12 +12,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 

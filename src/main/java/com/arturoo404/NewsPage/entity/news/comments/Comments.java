@@ -1,7 +1,7 @@
 package com.arturoo404.NewsPage.entity.news.comments;
 
 import com.arturoo404.NewsPage.entity.news.article.Article;
-import com.arturoo404.NewsPage.entity.user.User;
+import com.arturoo404.NewsPage.entity.user_objects.user.User;
 import lombok.*;
 
 import javax.persistence.*;

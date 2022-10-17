@@ -1,7 +1,7 @@
 package com.arturoo404.NewsPage.validation.impl;
 
 import com.arturoo404.NewsPage.exception.ValidException;
-import com.arturoo404.NewsPage.repository.UserRepository;
+import com.arturoo404.NewsPage.repository.user.UserRepository;
 import com.arturoo404.NewsPage.validation.EmailValid;
 import org.springframework.stereotype.Service;
 

@@ -1,6 +1,6 @@
 package com.arturoo404.NewsPage.validation;
 
-import com.arturoo404.NewsPage.entity.user.dto.UserRegistrationDto;
+import com.arturoo404.NewsPage.entity.user_objects.user.dto.UserRegistrationDto;
 import com.arturoo404.NewsPage.exception.ValidException;
 
 public interface RegistrationValid {

@@ -1,4 +1,4 @@
-package com.arturoo404.NewsPage.entity.user.dto;
+package com.arturoo404.NewsPage.entity.user_objects.user.dto;
 
 import com.arturoo404.NewsPage.enums.UserRole;
 import lombok.AllArgsConstructor;
