@@ -23,7 +23,7 @@ public class ConfirmAccount {
             name = "confirm_link",
             length = 100
     )
-    private UUID confirmLink;
+    private String confirmLink;
 
     @Column(
             name = "link_status"

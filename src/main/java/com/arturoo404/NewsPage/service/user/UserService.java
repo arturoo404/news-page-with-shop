@@ -11,11 +11,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import javax.mail.MessagingException;
+
 public interface UserService extends UserDetailsService {
     @Override
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
 
-    User registerUser(UserRegistrationDto userRegistrationDto) throws ValidException;
+    User registerUser(UserRegistrationDto userRegistrationDto) throws ValidException, MessagingException;
 
     User changePassword(UserChangePasswordDto user) throws ExistInDatabaseException, ValidException;
 

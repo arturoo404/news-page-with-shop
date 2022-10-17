@@ -7,6 +7,7 @@ import com.arturoo404.NewsPage.entity.user_objects.user.dto.UserRegistrationDto;
 import com.arturoo404.NewsPage.enums.UserRole;
 import com.arturoo404.NewsPage.exception.ExistInDatabaseException;
 import com.arturoo404.NewsPage.exception.ValidException;
+import com.arturoo404.NewsPage.microservice.EmailSenderService;
 import com.arturoo404.NewsPage.repository.user.UserRepository;
 import com.arturoo404.NewsPage.service.user.UserService;
 import com.arturoo404.NewsPage.service.impl.user.UserServiceImpl;
@@ -19,6 +20,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import javax.mail.MessagingException;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -37,9 +39,12 @@ class UserServiceTest {
     @Mock
     private RegistrationValid valid;
 
+    @Mock
+    private EmailSenderService emailSenderService;
+
     @BeforeEach
     void setUp() {
-        userService = new UserServiceImpl(userRepository, valid);
+        userService = new UserServiceImpl(userRepository, valid, emailSenderService);
     }
 
     @Test
@@ -85,7 +90,7 @@ class UserServiceTest {
                 .build());
         try {
            user = userService.registerUser(userDto);
-        } catch (ValidException e) {
+        } catch (ValidException | MessagingException e) {
             assertThat(e.getMessage()).isNotBlank();
         }
 

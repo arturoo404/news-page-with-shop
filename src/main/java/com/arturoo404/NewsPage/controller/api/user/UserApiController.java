@@ -14,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
+
 @RestController()
 @RequestMapping(path = "/api/user")
 public class UserApiController {
@@ -30,7 +32,7 @@ public class UserApiController {
         User user;
         try {
             user = userService.registerUser(userRegistrationDto);
-        } catch (ValidException e) {
+        } catch (ValidException | MessagingException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(e.getMessage());
         }
