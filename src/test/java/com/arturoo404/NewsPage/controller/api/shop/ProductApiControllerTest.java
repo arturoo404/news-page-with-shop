@@ -111,7 +111,7 @@ class ProductApiControllerTest {
                 .with(csrf())).andReturn();
 
         //Then
-        assertThat(mvcResult.getResponse().getStatus()).isEqualTo(400);
+        assertThat(mvcResult.getResponse().getStatus()).isEqualTo(404);
     }
 
     @Test

@@ -40,7 +40,7 @@ class GeolocationApiControllerTest {
         doThrow(new NotFoundCityException(""))
                 .when(geolocationService).getCity(anyString(), anyString());
 
-        final MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(url + "/current")
+        final MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(url + "/city")
                         .param("lat", "1")
                         .param("lon", "0")
                 .with(csrf())).andReturn();

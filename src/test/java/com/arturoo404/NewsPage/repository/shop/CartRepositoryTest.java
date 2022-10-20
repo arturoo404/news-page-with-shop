@@ -40,7 +40,7 @@ class CartRepositoryTest {
         final User userWithCart = createUserWithCart();
 
         //When
-        cartRepository.restartCartStatistic(userWithCart.getId());
+        cartRepository.restartCartStatistic(userWithCart.getCart().getId());
         final Optional<Cart> byUserEmail = cartRepository.findByUserEmail(userWithCart.getEmail());
 
         //Then
@@ -50,7 +50,7 @@ class CartRepositoryTest {
 
     private User createUserWithCart(){
         return userRepository.save(User.builder()
-                .email("email@gmail.pl")
+                .email("email-test@gmail.pl")
                 .nick("nick")
                 .userRole(UserRole.USER)
                         .cart(Cart.builder()

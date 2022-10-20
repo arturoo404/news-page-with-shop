@@ -39,7 +39,7 @@ class CartDetailRepositoryTest {
         final List<CartDetail> cartDetails = createUserWithCart();
 
         //When
-        final Optional<CartDetail> byIdAndUserEmail = cartDetailRepository.findByIdAndUserEmail(email, 1L);
+        final Optional<CartDetail> byIdAndUserEmail = cartDetailRepository.findByIdAndUserEmail(email, cartDetails.get(0).getProduct().getId());
 
         //Then
         assertThat(byIdAndUserEmail).isPresent();
@@ -79,6 +79,7 @@ class CartDetailRepositoryTest {
         final Product productTest2 = productRepository.save(product("productTest2"));
 
         final User save = userRepository.save(User.builder()
+                        .id(1L)
                 .email(email)
                 .nick("nick")
                 .userRole(UserRole.USER)

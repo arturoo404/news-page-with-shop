@@ -19,20 +19,15 @@ class JournalistRepositoryTest {
 
     private final String journalistName = "Journalist";
 
-    @BeforeEach
-    void setUp() {
-        journalistRepository.save(Journalist.builder()
-                        .name(journalistName)
-                        .info("Test info")
-                .build());
-    }
-
     @Test
     void itShouldFindByName() {
         //Given
-
+        final Journalist test_info = journalistRepository.save(Journalist.builder()
+                .name(journalistName)
+                .info("Test info")
+                .build());
         //When
-        final Optional<Journalist> byName = journalistRepository.findByName(journalistName);
+        final Optional<Journalist> byName = journalistRepository.findByName(test_info.getName());
 
         //Then
         assertThat(byName).isPresent();
@@ -42,9 +37,12 @@ class JournalistRepositoryTest {
     @Test
     void itShouldFindJournalistById() {
         //Given
-
+        final Journalist test_info = journalistRepository.save(Journalist.builder()
+                .name(journalistName)
+                .info("Test info")
+                .build());
         //When
-        final Journalist journalistById = journalistRepository.findJournalistById((short) 2);
+        final Journalist journalistById = journalistRepository.findJournalistById(test_info.getId());
 
         //Then
         assertThat(journalistById.getName()).isNotNull();

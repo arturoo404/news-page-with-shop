@@ -42,17 +42,24 @@ class CommentsRepositoryTest {
                                 .build()))
                 .build());
 
-        commentsRepository.save(Comments.builder()
+        commentsRepository.saveAll(
+                List.of(Comments.builder()
                         .article(article)
                         .content("Test content")
                         .date(Date.from(Instant.now()))
-                .build());
+                        .build(),
+                        Comments.builder()
+                                .article(article)
+                                .content("Test content")
+                                .date(Date.from(Instant.now()))
+                                .build())
+        );
 
         //When
-         List<Comments> allCommentsByArticleIdOrderByIdDesc = commentsRepository.findAllCommentsByArticleIdOrderByIdDesc(1L);
+         List<Comments> allCommentsByArticleIdOrderByIdDesc = commentsRepository.findAllCommentsByArticleIdOrderByIdDesc(article.getId());
 
          //Then
-        assertThat(allCommentsByArticleIdOrderByIdDesc.size()).isGreaterThan(0);
+        assertThat(allCommentsByArticleIdOrderByIdDesc.size()).isNotZero();
         assertThat(allCommentsByArticleIdOrderByIdDesc.get(0).getContent()).isNotBlank();
         assertThat(allCommentsByArticleIdOrderByIdDesc.get(0).getArticle().getId()).isEqualTo(article.getId());
     }
